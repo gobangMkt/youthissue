@@ -63,33 +63,23 @@ export default function Home() {
         </section>
       ) : (
         <>
-          {/* Section 4: Featured TOP 3 */}
-          {featured.length > 0 && (
-            <section className="bg-white mt-2 px-5 pt-5 pb-5">
-              <p className="text-[13px] font-semibold text-[#8B95A1] tracking-[0.3px] mb-3">
-                오늘의 TOP 3
+          {/* Section 4: 랭킹 리스트 (TOP 3 + 나머지 통합, 토스 실시간 이슈 스타일) */}
+          <section className="bg-white mt-2 px-5 pt-4 pb-2">
+            <div className="flex items-center justify-between mb-2">
+              <p className="text-[13px] font-semibold text-[#8B95A1] tracking-[0.3px]">
+                TOP {filtered.length} 랭킹
               </p>
-              <div className="flex flex-col gap-3">
-                {featured.map((issue) => (
-                  <IssueCard key={issue.id} issue={issue} featured />
-                ))}
-              </div>
-            </section>
-          )}
-
-          {/* Section 5: Ranking List */}
-          {rest.length > 0 && (
-            <section className="bg-white mt-2 px-5 pt-5 pb-3">
-              <p className="text-[13px] font-semibold text-[#8B95A1] tracking-[0.3px] mb-2">
-                전체 랭킹
-              </p>
-              <div className="divide-y divide-[#F2F4F6]">
-                {rest.map((issue) => (
-                  <IssueCard key={issue.id} issue={issue} />
-                ))}
-              </div>
-            </section>
-          )}
+              <p className="text-[11px] text-[#B0B8C1]">언론사 보도량 기준</p>
+            </div>
+            <div className="divide-y divide-[#F2F4F6]">
+              {featured.map((issue) => (
+                <IssueCard key={issue.id} issue={issue} featured />
+              ))}
+              {rest.map((issue) => (
+                <IssueCard key={issue.id} issue={issue} />
+              ))}
+            </div>
+          </section>
         </>
       )}
     </main>

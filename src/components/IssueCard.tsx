@@ -11,29 +11,43 @@ interface Props {
 
 /**
  * 고방 디자인 시스템 적용
- * - featured: 테일 다크 배경의 강조 카드
- * - 기본: 회색 구분선 없이 심플한 리스트 아이템
+ * - featured: 컴팩트한 강조 카드 (세로 영역 최소화)
+ * - 기본: 심플한 리스트 아이템
+ * - 카테고리 뱃지는 중립 회색으로 통일
  */
 export default function IssueCard({ issue, featured = false }: Props) {
   const { text: changeText, color: changeColor } = getRankChangeDisplay(issue.rankChange);
+  const pressCount = issue.sources.length;
 
   if (featured) {
     return (
       <Link href={`/issue/${issue.id}`} className="block">
-        <div className="bg-[#1A7A85] rounded-[12px] p-5 text-white min-h-[160px] flex flex-col justify-between cursor-pointer transition-colors hover:bg-[#15656E]">
-          <div className="flex items-start justify-between">
-            <span className="text-[32px] font-bold opacity-25 leading-none">#{issue.rank}</span>
-            <span className="text-[11px] font-bold bg-white/20 text-white px-2 py-[3px] rounded-[6px]">
-              {issue.category}
+        <div className="flex items-center gap-3 py-3 px-3 -mx-3 rounded-[10px] hover:bg-[#F2F4F6] transition-colors cursor-pointer">
+          {/* 랭크 숫자 — 테일 컬러 포인트 */}
+          <div className="w-7 text-center shrink-0">
+            <span className="text-[20px] font-bold text-[#00B2C0] leading-none">
+              {issue.rank}
             </span>
           </div>
-          <div>
-            <p className="font-bold text-[16px] leading-[1.4] mb-2">{issue.title}</p>
-            <div className="flex items-center gap-2 text-[12px] text-white/70">
-              <span>언론사 {issue.pressCount}곳</span>
-              <span>·</span>
-              <span>{issue.updatedAt} 기준</span>
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-1.5 mb-1">
+              <span
+                className={`text-[11px] font-bold px-1.5 py-[2px] rounded-[6px] ${getCategoryColor(
+                  issue.category
+                )}`}
+              >
+                {issue.category}
+              </span>
+              <span className={`text-[11px] font-semibold ${changeColor}`}>
+                {changeText}
+              </span>
             </div>
+            <p className="text-[15px] font-bold text-[#191F28] leading-[1.35] line-clamp-2">
+              {issue.title}
+            </p>
+            <p className="text-[11px] text-[#8B95A1] mt-1">
+              {pressCount}개 언론사 · {issue.updatedAt.split(' ')[0]}
+            </p>
           </div>
         </div>
       </Link>
@@ -42,28 +56,27 @@ export default function IssueCard({ issue, featured = false }: Props) {
 
   return (
     <Link href={`/issue/${issue.id}`} className="block">
-      <div className="flex items-center gap-4 py-3 px-1 hover:bg-[#F2F4F6] rounded-[10px] transition-colors cursor-pointer">
-        <div className="w-8 text-center shrink-0">
-          <span className="text-[18px] font-bold text-[#191F28]">{issue.rank}</span>
-          <p className={`text-[11px] font-semibold ${changeColor}`}>{changeText}</p>
+      <div className="flex items-center gap-3 py-3 px-1 hover:bg-[#F2F4F6] rounded-[10px] transition-colors cursor-pointer">
+        <div className="w-7 text-center shrink-0">
+          <span className="text-[16px] font-bold text-[#8B95A1]">{issue.rank}</span>
+          <p className={`text-[10px] font-semibold ${changeColor}`}>{changeText}</p>
         </div>
         <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 mb-1">
-            <span className={`text-[11px] font-bold px-2 py-[2px] rounded-[6px] ${getCategoryColor(issue.category)}`}>
+          <div className="flex items-center gap-1.5 mb-0.5">
+            <span
+              className={`text-[11px] font-bold px-1.5 py-[2px] rounded-[6px] ${getCategoryColor(
+                issue.category
+              )}`}
+            >
               {issue.category}
             </span>
           </div>
-          <p className="text-[14px] font-semibold text-[#191F28] leading-snug truncate">
+          <p className="text-[14px] font-semibold text-[#191F28] leading-[1.4] truncate">
             {issue.title}
           </p>
-          <div className="flex items-center gap-1 mt-1 flex-wrap">
-            {issue.tags.slice(0, 2).map((tag) => (
-              <span key={tag} className="text-[11px] text-[#B0B8C1]">{tag}</span>
-            ))}
-          </div>
         </div>
         <div className="text-right shrink-0">
-          <p className="text-[11px] text-[#8B95A1]">{issue.pressCount}개 언론</p>
+          <p className="text-[11px] text-[#8B95A1]">{pressCount}곳</p>
         </div>
       </div>
     </Link>

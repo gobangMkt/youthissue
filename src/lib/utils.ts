@@ -1,18 +1,12 @@
 import { Category, ImpactLevel } from '@/types';
 
 /**
- * 고방 디자인 토큰 기반 카테고리 색상
- * 모든 값은 globals.css의 --color-cat-* 토큰 참조
+ * 고방 디자인 원칙: "한 가지 primary"
+ * 모든 카테고리 뱃지를 중립 회색으로 통일 (토스피드 스타일)
+ * 알록달록함 제거 — 시각적 노이즈 최소화
  */
-export function getCategoryColor(category: Category): string {
-  const map: Record<Category, string> = {
-    주거: 'bg-[#E0F8FA] text-[#1A7A85]',
-    금융: 'bg-[#E8FBF0] text-[#00A030]',
-    취업: 'bg-[#FFF4E0] text-[#B86300]',
-    복지: 'bg-[#EDE9FF] text-[#5B35C7]',
-    교육: 'bg-[#FFF0F2] text-[#D92B2B]',
-  };
-  return map[category] ?? 'bg-[#F2F4F6] text-[#4A5568]';
+export function getCategoryColor(_category: Category): string {
+  return 'bg-[#F2F4F6] text-[#4E5968]';
 }
 
 export function getImpactLabel(impact: ImpactLevel): string {

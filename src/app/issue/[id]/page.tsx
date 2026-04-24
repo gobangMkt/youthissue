@@ -4,6 +4,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Link from 'next/link';
 import { issues } from '@/data/issues';
+import SourceSheet from '@/components/SourceSheet';
 import {
   getCategoryColor,
   getImpactColor,
@@ -39,6 +40,7 @@ export default function IssuePage() {
   const router = useRouter();
   const issue = issues.find((i) => i.id === id);
   const [showCriteria, setShowCriteria] = useState(false);
+  const [showSources, setShowSources] = useState(false);
 
   if (!issue) {
     return (
@@ -76,7 +78,7 @@ export default function IssuePage() {
           >
             {issue.category}
           </span>
-          <span className="text-[12px] text-[#8B95A1]">언론사 {issue.pressCount}곳 보도</span>
+          <span className="text-[12px] text-[#8B95A1]">언론사 {issue.sources.length}곳 보도</span>
           <span className="text-[12px] text-[#B0B8C1]">·</span>
           <span className="text-[12px] text-[#8B95A1]">{issue.updatedAt} 기준</span>
         </div>
@@ -107,24 +109,16 @@ export default function IssuePage() {
             </div>
           ))}
         </div>
-        {/* 출처 — 작은 인라인 칩 (토스피드 스타일) */}
+        {/* 출처 버튼 (토스 스타일 — 누르면 바텀시트) */}
         {issue.sources.length > 0 && (
-          <p className="text-[11px] text-[#B0B8C1] mt-2.5 leading-[1.6]">
-            참고:{' '}
-            {issue.sources.map((src, i) => (
-              <span key={i}>
-                <a
-                  href={src.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[#8B95A1] hover:text-[#00B2C0] underline underline-offset-2"
-                >
-                  {src.press}
-                </a>
-                {i < issue.sources.length - 1 && <span className="mx-1">·</span>}
-              </span>
-            ))}
-          </p>
+          <button
+            onClick={() => setShowSources(true)}
+            className="mt-3 flex items-center gap-2 text-[12px] font-semibold text-[#4E5968] hover:text-[#00B2C0] bg-[#F2F4F6] hover:bg-[#E0F8FA] px-3 py-2 rounded-[8px] transition-colors"
+          >
+            <span>📰</span>
+            <span>출처 {issue.sources.length}곳 보기</span>
+            <span className="text-[#B0B8C1]">→</span>
+          </button>
         )}
       </section>
 
@@ -267,6 +261,13 @@ export default function IssuePage() {
           {issue.applyLabel}
         </a>
       </div>
+
+      {/* Source Bottom Sheet */}
+      <SourceSheet
+        open={showSources}
+        onClose={() => setShowSources(false)}
+        sources={issue.sources}
+      />
     </main>
   );
 }
