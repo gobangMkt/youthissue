@@ -56,13 +56,14 @@ export default function IssueCard({ issue, featured = false }: Props) {
 
   return (
     <Link href={`/issue/${issue.id}`} className="block">
-      <div className="flex items-center gap-3 py-3 px-1 hover:bg-[#F2F4F6] rounded-[10px] transition-colors cursor-pointer">
-        <div className="w-7 text-center shrink-0">
-          <span className="text-[16px] font-bold text-[#8B95A1]">{issue.rank}</span>
-          <p className={`text-[10px] font-semibold ${changeColor}`}>{changeText}</p>
+      <div className="flex items-start gap-3 py-3 px-1 hover:bg-[#F2F4F6] rounded-[10px] transition-colors cursor-pointer">
+        <div className="w-7 text-center shrink-0 pt-[2px]">
+          <span className="text-[18px] font-bold text-[#8B95A1] leading-none">
+            {issue.rank}
+          </span>
         </div>
         <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-1.5 mb-0.5">
+          <div className="flex items-center gap-1.5 mb-1">
             <span
               className={`text-[11px] font-bold px-1.5 py-[2px] rounded-[6px] ${getCategoryColor(
                 issue.category
@@ -70,13 +71,16 @@ export default function IssueCard({ issue, featured = false }: Props) {
             >
               {issue.category}
             </span>
+            <span className={`text-[11px] font-semibold ${changeColor}`}>
+              {changeText}
+            </span>
           </div>
-          <p className="text-[14px] font-semibold text-[#191F28] leading-[1.4] truncate">
+          <p className="text-[14px] font-semibold text-[#191F28] leading-[1.4] line-clamp-2">
             {issue.title}
           </p>
-        </div>
-        <div className="text-right shrink-0">
-          <p className="text-[11px] text-[#8B95A1]">{pressCount}곳</p>
+          <p className="text-[11px] text-[#8B95A1] mt-1">
+            {pressCount}개 언론사 · {issue.updatedAt.split(' ')[0]}
+          </p>
         </div>
       </div>
     </Link>
