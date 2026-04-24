@@ -1,14 +1,18 @@
 import { Category, ImpactLevel } from '@/types';
 
+/**
+ * 고방 디자인 토큰 기반 카테고리 색상
+ * 모든 값은 globals.css의 --color-cat-* 토큰 참조
+ */
 export function getCategoryColor(category: Category): string {
   const map: Record<Category, string> = {
-    주거: 'bg-blue-100 text-blue-700',
-    금융: 'bg-emerald-100 text-emerald-700',
-    취업: 'bg-orange-100 text-orange-700',
-    복지: 'bg-purple-100 text-purple-700',
-    교육: 'bg-rose-100 text-rose-700',
+    주거: 'bg-[#E0F8FA] text-[#1A7A85]',
+    금융: 'bg-[#E8FBF0] text-[#00A030]',
+    취업: 'bg-[#FFF4E0] text-[#B86300]',
+    복지: 'bg-[#EDE9FF] text-[#5B35C7]',
+    교육: 'bg-[#FFF0F2] text-[#D92B2B]',
   };
-  return map[category] ?? 'bg-gray-100 text-gray-700';
+  return map[category] ?? 'bg-[#F2F4F6] text-[#4A5568]';
 }
 
 export function getImpactLabel(impact: ImpactLevel): string {
@@ -22,13 +26,16 @@ export function getImpactLabel(impact: ImpactLevel): string {
   return map[impact];
 }
 
+/**
+ * 영향도 뱃지 컬러 (고방 스타일: 그린/레드 + 톤 다운)
+ */
 export function getImpactColor(impact: ImpactLevel): string {
   const map: Record<ImpactLevel, string> = {
-    very_positive: 'bg-emerald-500 text-white',
-    positive: 'bg-emerald-100 text-emerald-700',
-    neutral: 'bg-gray-100 text-gray-500',
-    negative: 'bg-red-100 text-red-600',
-    very_negative: 'bg-red-500 text-white',
+    very_positive: 'bg-[#00C73C] text-white',
+    positive: 'bg-[#E8FBF0] text-[#00A030]',
+    neutral: 'bg-[#F2F4F6] text-[#8B95A1]',
+    negative: 'bg-[#FFF0F2] text-[#D92B2B]',
+    very_negative: 'bg-[#F04452] text-white',
   };
   return map[impact];
 }
@@ -45,7 +52,7 @@ export function getImpactIcon(impact: ImpactLevel): string {
 }
 
 export function getRankChangeDisplay(change: number): { text: string; color: string } {
-  if (change > 0) return { text: `▲${change}`, color: 'text-red-500' };
-  if (change < 0) return { text: `▼${Math.abs(change)}`, color: 'text-blue-500' };
-  return { text: '―', color: 'text-gray-400' };
+  if (change > 0) return { text: `▲${change}`, color: 'text-[#D92B2B]' };
+  if (change < 0) return { text: `▼${Math.abs(change)}`, color: 'text-[#00B2C0]' };
+  return { text: '―', color: 'text-[#B0B8C1]' };
 }

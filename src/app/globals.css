@@ -1,78 +1,102 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css');
 @import "tailwindcss";
 
 /* ============================================
-   🎨 디자인 토큰 (Tailwind v4 @theme)
-   - 모든 색상·스페이싱·타이포는 여기서 관리
-   - 컴포넌트는 토큰명만 참조
+   🎨 고방(Gobang) 디자인 토큰 (Tailwind v4 @theme)
+   - 테일(#00B2C0) = 유일한 primary
+   - 회색 페이지 BG + 흰 섹션 카드 (8px 갭)
+   - Pretendard 폰트
    ============================================ */
 
 @theme {
-  /* Brand Colors */
-  --color-brand-50:  #eef2ff;
-  --color-brand-100: #e0e7ff;
-  --color-brand-500: #6366f1;
-  --color-brand-600: #4f46e5;
-  --color-brand-700: #4338ca;
+  /* Background & Surface */
+  --color-page-bg:        #F2F4F6;  /* 페이지 배경 (섹션 갭) */
+  --color-surface:        #FFFFFF;  /* 섹션 카드 */
+  --color-elevated:       #E0F8FA;  /* 공지/요약 카드 */
+  --color-selected:       #E8F9FB;  /* 선택된 카드 */
 
-  /* Semantic Surface */
-  --color-surface:       #ffffff;
-  --color-surface-sub:   #f9fafb;
-  --color-surface-raised:#f3f4f6;
-  --color-border:        #f3f4f6;
-  --color-border-sub:    #e5e7eb;
+  /* Primary — Teal (유일한 액션 컬러) */
+  --color-teal:           #00B2C0;
+  --color-teal-hover:     #009AAA;
+  --color-teal-dark:      #1A7A85;
+  --color-teal-light:     #E0F8FA;
+  --color-teal-border:    #A8E6EC;
+
+  /* Beta / AI (한정 사용) */
+  --color-beta:           #7248F2;
+  --color-beta-light:     #EDE9FF;
 
   /* Text */
-  --color-text-primary:   #111111;
-  --color-text-secondary: #6b7280;
-  --color-text-muted:     #9ca3af;
-  --color-text-disabled:  #d1d5db;
+  --color-text-primary:   #191F28;
+  --color-text-secondary: #8B95A1;
+  --color-text-body:      #4A5568;
+  --color-text-muted:     #B0B8C1;
 
-  /* Impact Colors */
-  --color-impact-vp:   #10b981; /* very_positive */
-  --color-impact-p:    #d1fae5; /* positive bg */
-  --color-impact-p-fg: #059669; /* positive text */
-  --color-impact-n:    #fef2f2; /* negative bg */
-  --color-impact-n-fg: #dc2626; /* negative text */
-  --color-impact-vn:   #ef4444; /* very_negative */
+  /* Status */
+  --color-valid:          #00C73C;
+  --color-valid-bg:       #E8FBF0;
+  --color-error:          #F04452;
+  --color-error-bg:       #FFF0F2;
+  --color-urgent:         #D92B2B;
 
-  /* Category Colors */
-  --color-cat-housing-bg:  #dbeafe;
-  --color-cat-housing-fg:  #1d4ed8;
-  --color-cat-finance-bg:  #d1fae5;
-  --color-cat-finance-fg:  #065f46;
-  --color-cat-job-bg:      #ffedd5;
-  --color-cat-job-fg:      #9a3412;
-  --color-cat-welfare-bg:  #ede9fe;
-  --color-cat-welfare-fg:  #6b21a8;
-  --color-cat-edu-bg:      #ffe4e6;
-  --color-cat-edu-fg:      #9f1239;
+  /* Border */
+  --color-border:         #E5E8EB;
+  --color-border-teal:    #A8E6EC;
+  --color-border-focus:   #00B2C0;
+  --color-border-header:  #F2F4F6;
 
-  /* Spacing Scale */
-  --spacing-page: 1rem;          /* 좌우 패딩 */
-  --spacing-section: 1.5rem;     /* 섹션 간격 */
+  /* Button States */
+  --color-disabled-bg:    #E5E8EB;
+  --color-disabled-text:  #B0B8C1;
+  --color-cancel-bg:      #F2F4F6;
+  --color-cancel-text:    #4E5968;
+
+  /* Impact Colors (페르소나 영향도 — 테일/레드/그린 조합) */
+  --color-impact-vp:      #00C73C;
+  --color-impact-p:       #E8FBF0;
+  --color-impact-p-fg:    #00A030;
+  --color-impact-n:       #FFF0F2;
+  --color-impact-n-fg:    #D92B2B;
+  --color-impact-vn:      #F04452;
+
+  /* Category Colors (톤 다운) */
+  --color-cat-housing-bg:  #E0F8FA;
+  --color-cat-housing-fg:  #1A7A85;
+  --color-cat-finance-bg:  #E8FBF0;
+  --color-cat-finance-fg:  #00A030;
+  --color-cat-job-bg:      #FFF4E0;
+  --color-cat-job-fg:      #B86300;
+  --color-cat-welfare-bg:  #EDE9FF;
+  --color-cat-welfare-fg:  #5B35C7;
+  --color-cat-edu-bg:      #FFF0F2;
+  --color-cat-edu-fg:      #D92B2B;
 
   /* Radius */
-  --radius-card:   1rem;
-  --radius-badge:  9999px;
-  --radius-input:  0.75rem;
+  --radius-input:    0.625rem;  /* 10px */
+  --radius-button:   0.625rem;  /* 10px */
+  --radius-card:     0.75rem;   /* 12px */
+  --radius-modal:    1.25rem;   /* 20px */
+  --radius-badge:    0.375rem;  /* 6px */
+  --radius-chip:     9999px;    /* 원형 뱃지 */
 
-  /* Shadow */
-  --shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.07), 0 1px 2px -1px rgb(0 0 0 / 0.04);
-  --shadow-cta:  0 4px 14px 0 rgb(79 70 229 / 0.25);
+  /* Spacing */
+  --spacing-section-gap: 0.5rem;   /* 8px — 섹션 간 회색 갭 */
+  --spacing-section-pad: 1.25rem;  /* 20px — 섹션 내부 패딩 */
 
   /* Font */
-  --font-sans: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-sans: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 /* ============================================
    Base Styles
    ============================================ */
 
-body {
-  background: var(--color-surface);
+html, body {
+  background: var(--color-page-bg);
   color: var(--color-text-primary);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* 스크롤바 숨기기 */
@@ -90,4 +114,13 @@ body {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* slideUp animation (바텀시트) */
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+.animate-slide-up {
+  animation: slideUp 0.2s ease;
 }

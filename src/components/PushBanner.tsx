@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const messages = [
   '어제 발표된 청약 조건 보셨나요? 거주 지역이라 혜택 가능성이 있어요! 👀',
@@ -10,17 +10,23 @@ const messages = [
 
 export default function PushBanner() {
   const [visible, setVisible] = useState(true);
-  const msg = messages[Math.floor(Math.random() * messages.length)];
+  const [msg, setMsg] = useState(messages[0]);
+
+  // 클라이언트에서만 랜덤 선택 (hydration mismatch 방지)
+  useEffect(() => {
+    setMsg(messages[Math.floor(Math.random() * messages.length)]);
+  }, []);
 
   if (!visible) return null;
 
   return (
-    <div className="mx-4 mb-4 bg-indigo-50 border border-indigo-100 rounded-2xl p-4 flex items-start gap-3">
+    <div className="bg-[#E0F8FA] border-[1.5px] border-[#A8E6EC] rounded-[10px] px-4 py-[14px] flex items-start gap-3">
       <span className="text-xl shrink-0">🔔</span>
-      <p className="text-sm text-indigo-800 leading-relaxed flex-1">{msg}</p>
+      <p className="text-[14px] text-[#4A5568] leading-[1.6] flex-1">{msg}</p>
       <button
         onClick={() => setVisible(false)}
-        className="text-indigo-300 hover:text-indigo-500 shrink-0 text-lg leading-none"
+        className="text-[#8B95A1] hover:text-[#191F28] shrink-0 text-lg leading-none"
+        aria-label="알림 닫기"
       >
         ×
       </button>

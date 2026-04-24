@@ -7,17 +7,21 @@ export default function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
-      <div className="max-w-md mx-auto px-4 h-14 flex items-center justify-between">
+    <header className="sticky top-0 z-50 bg-white border-b border-[#F2F4F6]">
+      <div className="max-w-[480px] mx-auto px-5 h-14 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
-          <span className="text-xl font-black text-indigo-600 tracking-tight">청년이슈 픽</span>
-          <span className="text-xs bg-indigo-50 text-indigo-500 px-1.5 py-0.5 rounded font-medium">PICK</span>
+          <span className="text-[20px] font-bold text-[#00B2C0] tracking-tight">청년이슈 픽</span>
+          <span className="text-[11px] font-bold bg-[#EDE9FF] text-[#7248F2] px-1.5 py-0.5 rounded-[6px]">
+            BETA
+          </span>
         </Link>
         <nav className="flex items-center gap-1">
           <Link
             href="/"
-            className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
-              pathname === '/' ? 'bg-indigo-50 text-indigo-600' : 'text-gray-500 hover:text-gray-700'
+            className={`px-3 py-1.5 rounded-[10px] text-[14px] font-semibold transition-colors ${
+              pathname === '/'
+                ? 'bg-[#E0F8FA] text-[#00B2C0]'
+                : 'text-[#8B95A1] hover:text-[#191F28]'
             }`}
           >
             홈

@@ -4,7 +4,12 @@ import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Link from 'next/link';
 import { issues } from '@/data/issues';
-import { getCategoryColor, getImpactColor, getImpactIcon, getImpactLabel } from '@/lib/utils';
+import {
+  getCategoryColor,
+  getImpactColor,
+  getImpactIcon,
+  getImpactLabel,
+} from '@/lib/utils';
 
 // 영향도 판단 기준 (4대 축)
 const CRITERIA_INFO = [
@@ -15,13 +20,20 @@ const CRITERIA_INFO = [
 ];
 
 const PERSONAS_DESC: Record<string, string> = {
-  '1인 가구':   '독신 청년 세입자 · 소득 하위권 중심',
-  '신혼부부':   '혼인 7년 이내 · 자녀 유무 포함',
+  '1인 가구': '독신 청년 세입자 · 소득 하위권 중심',
+  '신혼부부': '혼인 7년 이내 · 자녀 유무 포함',
   '취업준비생': '무소득·구직급여 수급 중인 청년',
-  '대학생':     '재학 중·아르바이트 수준 소득',
-  '직장인':     '중위소득 100~140% 재직 청년',
+  '대학생': '재학 중·아르바이트 수준 소득',
+  '직장인': '중위소득 100~140% 재직 청년',
 };
 
+/**
+ * 고방 디자인 시스템 적용:
+ * - 회색 페이지 배경 + 흰색 섹션 카드 (8px 갭)
+ * - 테일 primary (#00B2C0)
+ * - 출처는 본문 내 작은 인라인 칩으로 축소 (토스피드 스타일)
+ * - Bottom Fixed CTA: 10px radius 테일 버튼
+ */
 export default function IssuePage() {
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
@@ -30,197 +42,229 @@ export default function IssuePage() {
 
   if (!issue) {
     return (
-      <div className="max-w-md mx-auto px-4 py-20 text-center text-gray-400">
-        이슈를 찾을 수 없습니다.
-        <br />
-        <Link href="/" className="text-indigo-500 underline mt-4 inline-block">홈으로</Link>
-      </div>
+      <main className="max-w-[480px] mx-auto min-h-screen">
+        <section className="bg-white px-5 py-20 text-center text-[#8B95A1] text-[14px]">
+          이슈를 찾을 수 없습니다.
+          <br />
+          <Link href="/" className="text-[#00B2C0] font-semibold mt-4 inline-block">
+            홈으로
+          </Link>
+        </section>
+      </main>
     );
   }
 
   return (
-    <main className="max-w-md mx-auto bg-white min-h-screen pb-28">
-      {/* 상단 네비 */}
-      <div className="sticky top-14 z-40 bg-white border-b border-gray-100 px-4 h-12 flex items-center">
-        <button onClick={() => router.back()} className="text-gray-500 hover:text-gray-800 text-sm flex items-center gap-1">
+    <main className="max-w-[480px] mx-auto min-h-screen pb-[110px]">
+      {/* Section 0: 상단 뒤로가기 */}
+      <div className="sticky top-14 z-40 bg-white border-b border-[#F2F4F6] px-5 h-12 flex items-center">
+        <button
+          onClick={() => router.back()}
+          className="text-[#4E5968] hover:text-[#191F28] text-[14px] font-semibold flex items-center gap-1"
+        >
           ← 뒤로
         </button>
       </div>
 
-      <div className="px-4 pt-5">
-        {/* 헤더 */}
-        <div className="mb-5">
-          <div className="flex items-center gap-2 mb-2 flex-wrap">
-            <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${getCategoryColor(issue.category)}`}>
-              {issue.category}
-            </span>
-            <span className="text-xs text-gray-400">언론사 {issue.pressCount}곳 보도 중</span>
-            <span className="text-xs text-gray-300">·</span>
-            <span className="text-xs text-gray-400">{issue.updatedAt} 기준</span>
-          </div>
-          <h1 className="text-xl font-black text-gray-900 leading-snug">{issue.title}</h1>
+      {/* Section 1: 헤더 (제목/카테고리/태그) */}
+      <section className="bg-white px-5 pt-5 pb-5">
+        <div className="flex items-center gap-2 mb-2 flex-wrap">
+          <span
+            className={`text-[11px] font-bold px-2 py-[2px] rounded-[6px] ${getCategoryColor(
+              issue.category
+            )}`}
+          >
+            {issue.category}
+          </span>
+          <span className="text-[12px] text-[#8B95A1]">언론사 {issue.pressCount}곳 보도</span>
+          <span className="text-[12px] text-[#B0B8C1]">·</span>
+          <span className="text-[12px] text-[#8B95A1]">{issue.updatedAt} 기준</span>
+        </div>
+        <h1 className="text-[20px] font-bold text-[#191F28] leading-[1.35]">{issue.title}</h1>
+        {issue.tags.length > 0 && (
           <div className="flex flex-wrap gap-1 mt-2">
             {issue.tags.map((tag) => (
-              <span key={tag} className="text-xs text-gray-400">{tag}</span>
+              <span key={tag} className="text-[12px] text-[#8B95A1]">
+                {tag}
+              </span>
             ))}
           </div>
+        )}
+      </section>
+
+      {/* Section 2: 3줄 요약 */}
+      <section className="bg-white mt-2 px-5 pt-5 pb-5">
+        <p className="text-[13px] font-semibold text-[#8B95A1] tracking-[0.3px] mb-3">
+          어떤 일이 일어났나요?
+        </p>
+        <div className="bg-[#E0F8FA] border-[1.5px] border-[#A8E6EC] rounded-[10px] p-4 space-y-2.5">
+          {issue.summary.map((line, i) => (
+            <div key={i} className="flex gap-2.5">
+              <span className="text-[#00B2C0] font-bold text-[14px] shrink-0 mt-0.5">
+                {i + 1}
+              </span>
+              <p className="text-[14px] text-[#4A5568] leading-[1.6]">{line}</p>
+            </div>
+          ))}
+        </div>
+        {/* 출처 — 작은 인라인 칩 (토스피드 스타일) */}
+        {issue.sources.length > 0 && (
+          <p className="text-[11px] text-[#B0B8C1] mt-2.5 leading-[1.6]">
+            참고:{' '}
+            {issue.sources.map((src, i) => (
+              <span key={i}>
+                <a
+                  href={src.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#8B95A1] hover:text-[#00B2C0] underline underline-offset-2"
+                >
+                  {src.press}
+                </a>
+                {i < issue.sources.length - 1 && <span className="mx-1">·</span>}
+              </span>
+            ))}
+          </p>
+        )}
+      </section>
+
+      {/* Section 3: 영향도 대시보드 */}
+      <section className="bg-white mt-2 px-5 pt-5 pb-5">
+        <div className="flex items-center justify-between mb-3">
+          <p className="text-[13px] font-semibold text-[#8B95A1] tracking-[0.3px]">
+            나에게도 좋을까요?
+          </p>
+          <button
+            onClick={() => setShowCriteria((v) => !v)}
+            className="text-[12px] text-[#00B2C0] hover:text-[#009AAA] font-semibold"
+          >
+            {showCriteria ? '기준 닫기 ▲' : '판단 기준 ▼'}
+          </button>
         </div>
 
-        {/* 1. 3줄 요약 */}
-        <section className="mb-6">
-          <p className="text-sm font-black text-gray-800 mb-3">어떤 일이 일어났나요?</p>
-          <div className="bg-gray-50 rounded-2xl p-4 space-y-2.5">
-            {issue.summary.map((line, i) => (
-              <div key={i} className="flex gap-2.5">
-                <span className="text-indigo-400 font-black text-sm shrink-0 mt-0.5">{i + 1}</span>
-                <p className="text-sm text-gray-700 leading-relaxed">{line}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* 2. 영향도 대시보드 */}
-        <section className="mb-6">
-          <div className="flex items-center justify-between mb-3">
-            <p className="text-sm font-black text-gray-800">나에게도 좋을까요?</p>
-            <button
-              onClick={() => setShowCriteria((v) => !v)}
-              className="text-xs text-indigo-500 hover:text-indigo-700 font-medium flex items-center gap-1"
-            >
-              {showCriteria ? '기준 닫기 ▲' : '판단 기준 보기 ▼'}
-            </button>
-          </div>
-
-          {/* 기준 공개 패널 */}
-          {showCriteria && (
-            <div className="mb-3 bg-indigo-50 border border-indigo-100 rounded-2xl p-4">
-              <p className="text-xs font-bold text-indigo-700 mb-2">📐 AI 영향도 판단 기준 (4대 축)</p>
-              <div className="space-y-1.5 mb-3">
-                {CRITERIA_INFO.map((c) => (
-                  <div key={c.label} className="flex items-start gap-2">
-                    <span className="text-xs font-semibold text-indigo-600 shrink-0 w-20">{c.label}</span>
-                    <span className="text-xs text-indigo-800">{c.value}</span>
-                  </div>
-                ))}
-              </div>
-              <p className="text-xs font-bold text-indigo-700 mb-1.5">👥 분석 대상 페르소나</p>
-              <div className="space-y-1">
-                {Object.entries(PERSONAS_DESC).map(([persona, desc]) => (
-                  <div key={persona} className="flex items-start gap-2">
-                    <span className="text-xs font-semibold text-indigo-600 shrink-0 w-20">{persona}</span>
-                    <span className="text-xs text-indigo-800">{desc}</span>
-                  </div>
-                ))}
-              </div>
-              <p className="text-xs text-indigo-500 mt-2.5">
-                GPT-4o가 기사 본문에서 소득·자산 수치를 추출하여 각 페르소나와 대조 후 유불리를 추론합니다.
-              </p>
-            </div>
-          )}
-
-          <div className="space-y-2.5">
-            {issue.personaImpacts.map((pi) => (
-              <div key={pi.persona} className="flex items-start gap-3 bg-gray-50 rounded-xl p-3">
-                <span className="text-lg shrink-0">{getImpactIcon(pi.impact)}</span>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-0.5 flex-wrap">
-                    <span className="text-xs font-bold text-gray-800">{pi.persona}</span>
-                    <span className={`text-xs font-semibold px-1.5 py-0.5 rounded-full ${getImpactColor(pi.impact)}`}>
-                      {getImpactLabel(pi.impact)}
-                    </span>
-                  </div>
-                  <p className="text-xs text-gray-500 leading-relaxed">{pi.reason}</p>
+        {/* 기준 공개 패널 */}
+        {showCriteria && (
+          <div className="mb-3 bg-[#E0F8FA] border-[1.5px] border-[#A8E6EC] rounded-[10px] p-4">
+            <p className="text-[13px] font-bold text-[#1A7A85] mb-2">
+              📐 영향도 판단 기준 (4대 축)
+            </p>
+            <div className="space-y-1.5 mb-3">
+              {CRITERIA_INFO.map((c) => (
+                <div key={c.label} className="flex items-start gap-2">
+                  <span className="text-[12px] font-semibold text-[#1A7A85] shrink-0 w-[72px]">
+                    {c.label}
+                  </span>
+                  <span className="text-[12px] text-[#4A5568]">{c.value}</span>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+            <p className="text-[13px] font-bold text-[#1A7A85] mb-1.5">👥 분석 대상 페르소나</p>
+            <div className="space-y-1">
+              {Object.entries(PERSONAS_DESC).map(([persona, desc]) => (
+                <div key={persona} className="flex items-start gap-2">
+                  <span className="text-[12px] font-semibold text-[#1A7A85] shrink-0 w-[72px]">
+                    {persona}
+                  </span>
+                  <span className="text-[12px] text-[#4A5568]">{desc}</span>
+                </div>
+              ))}
+            </div>
+            <p className="text-[11px] text-[#8B95A1] mt-2.5 leading-[1.6]">
+              기사 본문에서 소득·자산 수치를 추출하여 각 페르소나와 대조 후 유불리를 추론합니다.
+            </p>
           </div>
-        </section>
+        )}
 
-        {/* 3. 체크포인트 */}
-        <section className="mb-6">
-          <p className="text-sm font-black text-gray-800 mb-3">체크할 포인트</p>
-          <div className="bg-gray-50 rounded-2xl overflow-hidden">
+        <div className="space-y-2">
+          {issue.personaImpacts.map((pi) => (
+            <div
+              key={pi.persona}
+              className="flex items-start gap-3 bg-[#F2F4F6] rounded-[10px] p-3"
+            >
+              <span className="text-[18px] shrink-0">{getImpactIcon(pi.impact)}</span>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-1 flex-wrap">
+                  <span className="text-[13px] font-bold text-[#191F28]">{pi.persona}</span>
+                  <span
+                    className={`text-[11px] font-bold px-2 py-[2px] rounded-[6px] ${getImpactColor(
+                      pi.impact
+                    )}`}
+                  >
+                    {getImpactLabel(pi.impact)}
+                  </span>
+                </div>
+                <p className="text-[12px] text-[#4A5568] leading-[1.6]">{pi.reason}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Section 4: 체크포인트 */}
+      {issue.checkpoints.length > 0 && (
+        <section className="bg-white mt-2 px-5 pt-5 pb-5">
+          <p className="text-[13px] font-semibold text-[#8B95A1] tracking-[0.3px] mb-3">
+            체크할 포인트
+          </p>
+          <div className="border-[1.5px] border-[#E5E8EB] rounded-[10px] overflow-hidden">
             {issue.checkpoints.map((cp, i) => (
               <div
                 key={i}
                 className={`flex items-center justify-between px-4 py-3 ${
-                  i !== issue.checkpoints.length - 1 ? 'border-b border-gray-100' : ''
+                  i !== issue.checkpoints.length - 1 ? 'border-b border-[#F2F4F6]' : ''
                 }`}
               >
-                <span className="text-xs text-gray-500 font-medium">{cp.label}</span>
-                <span className="text-xs font-bold text-gray-800 text-right ml-4 max-w-[55%]">{cp.value}</span>
+                <span className="text-[13px] text-[#8B95A1] font-medium">{cp.label}</span>
+                <span className="text-[13px] font-bold text-[#191F28] text-right ml-4 max-w-[55%]">
+                  {cp.value}
+                </span>
               </div>
             ))}
           </div>
         </section>
+      )}
 
-        {/* 4. 연관 혜택 */}
-        {issue.relatedBenefits.length > 0 && (
-          <section className="mb-6">
-            <p className="text-sm font-black text-gray-800 mb-3">연관된 혜택도 확인하세요</p>
-            <div className="flex flex-col gap-2">
-              {issue.relatedBenefits.map((benefit) => (
-                <a
-                  key={benefit.id}
-                  href={benefit.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-between bg-gray-50 hover:bg-gray-100 rounded-xl px-4 py-3 transition-colors"
-                >
-                  <div className="flex items-center gap-2">
-                    <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${getCategoryColor(benefit.category)}`}>
-                      {benefit.category}
-                    </span>
-                    <span className="text-sm font-semibold text-gray-800">{benefit.title}</span>
-                  </div>
-                  <span className="text-gray-400 text-sm">→</span>
-                </a>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* 5. 출처 확인 */}
-        <section className="mb-8">
-          <p className="text-sm font-black text-gray-800 mb-3">출처 확인</p>
-          <div className="space-y-2.5">
-            {issue.sources.map((src, i) => (
+      {/* Section 5: 연관 혜택 */}
+      {issue.relatedBenefits.length > 0 && (
+        <section className="bg-white mt-2 px-5 pt-5 pb-5">
+          <p className="text-[13px] font-semibold text-[#8B95A1] tracking-[0.3px] mb-3">
+            연관된 혜택도 확인하세요
+          </p>
+          <div className="flex flex-col gap-2">
+            {issue.relatedBenefits.map((benefit) => (
               <a
-                key={i}
-                href={src.url}
+                key={benefit.id}
+                href={benefit.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-start gap-2.5 bg-gray-50 hover:bg-gray-100 rounded-xl px-3 py-2.5 transition-colors group"
+                className="flex items-center justify-between border-[1.5px] border-[#E5E8EB] hover:border-[#00B2C0] rounded-[10px] px-4 py-3 transition-colors"
               >
-                <span className="text-base shrink-0 mt-0.5">📰</span>
-                <div className="min-w-0">
-                  <span className="text-xs font-semibold text-indigo-500 group-hover:text-indigo-700 block">
-                    {src.press}
+                <div className="flex items-center gap-2">
+                  <span
+                    className={`text-[11px] font-bold px-2 py-[2px] rounded-[6px] ${getCategoryColor(
+                      benefit.category
+                    )}`}
+                  >
+                    {benefit.category}
                   </span>
-                  <span className="text-xs text-gray-600 group-hover:text-gray-900 leading-snug line-clamp-2">
-                    {src.title}
-                  </span>
+                  <span className="text-[14px] font-semibold text-[#191F28]">{benefit.title}</span>
                 </div>
-                <span className="text-gray-300 text-xs shrink-0 mt-0.5 group-hover:text-indigo-400">↗</span>
+                <span className="text-[#8B95A1] text-[14px]">→</span>
               </a>
             ))}
           </div>
-          <p className="text-xs text-gray-400 mt-2 px-1">
-            📌 출처 클릭 시 네이버 뉴스 검색으로 이동합니다.
-          </p>
         </section>
-      </div>
+      )}
 
-      {/* 하단 CTA */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 px-4 py-4 max-w-md mx-auto">
+      {/* Bottom CTA (고방 표준: 10px radius, 테일, 하단 고정) */}
+      <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[480px] bg-white border-t border-[#F2F4F6] px-5 pt-3 pb-4">
         <a
           href={issue.applyUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="block w-full bg-indigo-600 hover:bg-indigo-700 text-white text-center font-bold py-4 rounded-2xl text-sm transition-colors"
-          style={{ boxShadow: 'var(--shadow-cta)' }}
+          className="block w-full bg-[#00B2C0] hover:bg-[#009AAA] text-white text-center font-bold py-[15px] rounded-[10px] text-[16px] transition-colors"
         >
-          {issue.applyLabel} →
+          {issue.applyLabel}
         </a>
       </div>
     </main>
