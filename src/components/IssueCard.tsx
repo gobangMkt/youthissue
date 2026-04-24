@@ -22,10 +22,10 @@ export default function IssueCard({ issue, featured = false }: Props) {
   if (featured) {
     return (
       <Link href={`/issue/${issue.id}`} className="block">
-        <div className="flex items-center gap-3 py-3 px-3 -mx-3 rounded-[10px] hover:bg-[#F2F4F6] transition-colors cursor-pointer">
-          {/* 랭크 숫자 — 테일 컬러 포인트 */}
+        <div className="flex items-center gap-3 py-4 px-3 -mx-3 rounded-[10px] bg-[#F5FCFD] hover:bg-[#EAF9FB] transition-colors cursor-pointer">
+          {/* 랭크 숫자 — 테일 컬러 강조 */}
           <div className="w-7 text-center shrink-0">
-            <span className="text-[20px] font-bold text-[#00B2C0] leading-none">
+            <span className="text-[22px] font-black text-[#00B2C0] leading-none">
               {issue.rank}
             </span>
           </div>
@@ -45,8 +45,8 @@ export default function IssueCard({ issue, featured = false }: Props) {
             <p className="text-[15px] font-bold text-[#191F28] leading-[1.35] line-clamp-2">
               {issue.title}
             </p>
-            <p className="text-[11px] text-[#8B95A1] mt-1">
-              {pressCount}개 언론사 · {issue.updatedAt.split(' ')[0]}
+            <p className="text-[11px] text-[#1A7A85] font-semibold mt-1">
+              언론사 {pressCount}곳 보도
             </p>
           </div>
         </div>
@@ -79,7 +79,7 @@ export default function IssueCard({ issue, featured = false }: Props) {
             {issue.title}
           </p>
           <p className="text-[11px] text-[#8B95A1] mt-1">
-            {pressCount}개 언론사 · {issue.updatedAt.split(' ')[0]}
+            언론사 {pressCount}곳 보도
           </p>
         </div>
       </div>

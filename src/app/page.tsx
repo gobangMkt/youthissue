@@ -158,14 +158,22 @@ export default function Home() {
               </div>
             )}
 
-            <div className="divide-y divide-[#F2F4F6]">
-              {featured.map((issue) => (
-                <IssueCard key={issue.id} issue={issue} featured />
-              ))}
-              {rest.map((issue) => (
-                <IssueCard key={issue.id} issue={issue} />
-              ))}
-            </div>
+            {/* TOP 3: 테일 tint 배경으로 강조 */}
+            {featured.length > 0 && (
+              <div className="flex flex-col gap-2 mb-3">
+                {featured.map((issue) => (
+                  <IssueCard key={issue.id} issue={issue} featured />
+                ))}
+              </div>
+            )}
+            {/* 4위~: 기본 리스트 */}
+            {rest.length > 0 && (
+              <div className="divide-y divide-[#F2F4F6]">
+                {rest.map((issue) => (
+                  <IssueCard key={issue.id} issue={issue} />
+                ))}
+              </div>
+            )}
           </section>
         </>
       )}
