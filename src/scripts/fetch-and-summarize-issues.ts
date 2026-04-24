@@ -43,34 +43,37 @@ async function main() {
       )
     );
 
-    const successSummaries = summaries
-      .map((result, idx) => {
-        if (result.status === 'fulfilled') {
-          return { article: articles[idx], summary: result.value };
-        } else {
-          console.warn(`⚠️  기사 요약 실패: ${articles[idx].title}`);
-          return null;
-        }
-      })
-      .filter((item) => item !== null) as Array<{
-      article: (typeof articles)[0];
-      summary: (typeof summaries)[0] & { value: any };
-    }>;
+    const successSummaries: Array<{
+      article: (typeof articles)[number];
+      summary: Awaited<ReturnType<typeof summarizeArticle>>;
+    }> = [];
+
+    summaries.forEach((result, idx) => {
+      if (result.status === 'fulfilled') {
+        successSummaries.push({ article: articles[idx], summary: result.value });
+      } else {
+        console.warn(`⚠️  기사 요약 실패: ${articles[idx].title}`);
+      }
+    });
 
     console.log(`✅ ${successSummaries.length}개의 기사 요약을 생성했습니다.\n`);
+
+    if (successSummaries.length === 0) {
+      console.error('❌ 모든 기사 요약이 실패했습니다. Gemini API 키/모델을 확인하세요.');
+      process.exit(1);
+    }
 
     // 3. Issue 객체 배열 생성
     console.log('[Step 3/4] Issue 객체 생성 중...');
     const issues = successSummaries.map((item, idx) => {
-      const article = item.article;
-      const summary = item.summary.value;
+      const { article, summary } = item;
 
       return generateIssueObject(`${idx + 1}`, idx + 1, {
         title: article.title,
         category: detectCategory(article.title),
-        summary: summary.summary || ['요약 생성 실패', '', ''],
-        checkpoints: summary.checkpoints || [],
-        personaImpacts: summary.personaImpacts || [],
+        summary: summary.summary.length > 0 ? summary.summary : ['요약 생성 실패'],
+        checkpoints: summary.checkpoints,
+        personaImpacts: summary.personaImpacts,
         sources: [
           {
             title: article.title,
@@ -78,8 +81,8 @@ async function main() {
             url: article.url,
           },
         ],
-        tags: summary.tags || [],
-        pressCount: Math.max(1, Math.floor(Math.random() * 30) + 5),
+        tags: summary.tags,
+        pressCount: 1,
       });
     });
 

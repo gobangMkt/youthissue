@@ -1,406 +1,850 @@
 import { Issue } from '@/types';
 
-// 네이버 뉴스 검색 URL 생성 헬퍼
-const nn = (q: string) =>
-  `https://search.naver.com/search.naver?where=news&query=${encodeURIComponent(q)}`;
-
 export const issues: Issue[] = [
   {
-    id: '1',
-    rank: 1,
-    rankChange: 3,
-    title: '신생아 특례대출 소득 기준 완화',
-    category: '금융',
-    tags: ['#대출', '#신혼부부', '#소득기준'],
-    pressCount: 28,
-    updatedAt: '2026-04-23 00:00',
-    summary: [
-      '국토부가 신생아 특례대출의 부부 합산 소득 기준을 기존 1.3억 원에서 2억 원으로 상향한다고 발표했습니다.',
-      '변경된 기준은 5월 1일부터 적용되며, 기존 신청자도 소득 요건 재심사를 통해 혜택을 받을 수 있습니다.',
-      '금리는 연 1.6%~3.3% 수준으로 유지되며, 최대 5억 원까지 대출이 가능합니다.',
+    "id": "1",
+    "rank": 1,
+    "rankChange": 0,
+    "title": "윤병태 예비후보, 청년기업·공예인·청년농업인 정책 간담회 개최",
+    "category": "복지",
+    "tags": [],
+    "pressCount": 1,
+    "updatedAt": "2026-04-24 16:45",
+    "summary": [
+      "기사에 명시되지 않음",
+      "기사에 명시되지 않음",
+      "기사에 명시되지 않음"
     ],
-    checkpoints: [
-      { label: '대상', value: '2023년 1월 이후 출생아 부모' },
-      { label: '소득 기준', value: '부부 합산 연 2억 원 이하 (신규)' },
-      { label: '자산 기준', value: '순자산 4.69억 원 이하' },
-      { label: '대출 한도', value: '최대 5억 원' },
-      { label: '금리', value: '연 1.6% ~ 3.3%' },
-      { label: '적용 시작', value: '2026년 5월 1일' },
+    "checkpoints": [],
+    "personaImpacts": [
+      {
+        "persona": "1인 가구",
+        "impact": "neutral",
+        "reason": "기사 내용이 제공되지 않아 정책의 구체적인 영향도를 판단할 수 없음."
+      },
+      {
+        "persona": "신혼부부",
+        "impact": "neutral",
+        "reason": "기사 내용이 제공되지 않아 정책의 구체적인 영향도를 판단할 수 없음."
+      },
+      {
+        "persona": "취업준비생",
+        "impact": "neutral",
+        "reason": "기사 내용이 제공되지 않아 정책의 구체적인 영향도를 판단할 수 없음."
+      },
+      {
+        "persona": "대학생",
+        "impact": "neutral",
+        "reason": "기사 내용이 제공되지 않아 정책의 구체적인 영향도를 판단할 수 없음."
+      },
+      {
+        "persona": "직장인",
+        "impact": "neutral",
+        "reason": "기사 내용이 제공되지 않아 정책의 구체적인 영향도를 판단할 수 없음."
+      }
     ],
-    personaImpacts: [
-      { persona: '신혼부부', impact: 'very_positive', reason: '소득 기준이 1.3억→2억으로 확대되어 맞벌이 신혼부부 대다수가 혜택권에 진입합니다.' },
-      { persona: '1인 가구', impact: 'neutral', reason: '신생아 출생을 조건으로 하므로 해당사항 없습니다.' },
-      { persona: '취업준비생', impact: 'neutral', reason: '현재 단계에서는 직접적인 영향이 없습니다.' },
-      { persona: '직장인', impact: 'positive', reason: '출산 계획이 있는 직장인이라면 소득 기준 완화로 대출 접근성이 높아집니다.' },
-      { persona: '대학생', impact: 'neutral', reason: '해당 연령대에서는 직접적인 영향이 적습니다.' },
+    "relatedBenefits": [],
+    "sources": [
+      {
+        "title": "윤병태 예비후보, 청년기업·공예인·청년농업인 정책 간담회 개최",
+        "press": "대출든든.com",
+        "url": "https://news.google.com/rss/articles/CBMiR0FVX3lxTFB1WWRkRnZMOVdpZll4bURUdER1WnVnMnNXM2JuNmVYazZ2MlNIZkVMbzhDUFFTZ0tQS0pwbm13Rkl0TmhSNXRB?oc=5"
+      }
     ],
-    relatedBenefits: [
-      { id: 'r1', title: '디딤돌 대출', category: '금융', url: 'https://apply.lh.or.kr' },
-      { id: 'r2', title: '버팀목 전세자금 대출', category: '금융', url: 'https://apply.lh.or.kr' },
-      { id: 'r3', title: '신혼부부 행복주택', category: '주거', url: 'https://apply.lh.or.kr' },
-    ],
-    sources: [
-      { title: '국토부, 신생아 특례대출 소득기준 대폭 완화', press: '연합뉴스', url: nn('신생아 특례대출 소득기준 완화 연합뉴스') },
-      { title: '5월부터 신생아 특례대출 2억까지 받는다', press: '한국경제', url: nn('신생아 특례대출 2억 한국경제') },
-      { title: '신생아 특례대출 완화…맞벌이 부부도 혜택', press: 'MBC', url: nn('신생아 특례대출 완화 맞벌이 MBC') },
-    ],
-    applyUrl: 'https://nhuf.molit.go.kr',
-    applyLabel: '국토부 주택도시기금 신청',
+    "applyUrl": "https://news.google.com/rss/articles/CBMiR0FVX3lxTFB1WWRkRnZMOVdpZll4bURUdER1WnVnMnNXM2JuNmVYazZ2MlNIZkVMbzhDUFFTZ0tQS0pwbm13Rkl0TmhSNXRB?oc=5",
+    "applyLabel": "윤병태 예비후보, 청년기업·공예인·청... 자세히 보기 →"
   },
   {
-    id: '2',
-    rank: 2,
-    rankChange: 1,
-    title: '청년 월세 한시 특별지원 3차 모집',
-    category: '주거',
-    tags: ['#월세지원', '#청년', '#저소득'],
-    pressCount: 21,
-    updatedAt: '2026-04-23 00:00',
-    summary: [
-      '국토부가 청년 월세 한시 특별지원 3차 모집을 5월 2일부터 시작한다고 공고했습니다.',
-      '월 최대 20만 원씩 12개월, 최대 240만 원을 현금으로 지원하며 중위소득 60% 이하 청년이 대상입니다.',
-      '기존 1·2차 수혜자는 재신청 불가하며, 복지로 또는 주민센터를 통해 신청할 수 있습니다.',
+    "id": "2",
+    "rank": 2,
+    "rankChange": 0,
+    "title": "동양칼럼/ 청년 정책의 패러다임 전환: 현금 대신 '역량 바우처'를",
+    "category": "복지",
+    "tags": [],
+    "pressCount": 1,
+    "updatedAt": "2026-04-24 16:45",
+    "summary": [
+      "청년 정책의 패러다임 전환을 제안하는 칼럼입니다.",
+      "현금 지원 방식에서 역량 바우처 도입으로의 전환을 강조합니다.",
+      "청년의 역량 강화를 통한 자립 지원에 초점을 맞추는 정책 방향을 제시합니다."
     ],
-    checkpoints: [
-      { label: '나이', value: '만 19세 ~ 34세' },
-      { label: '소득 기준', value: '본인 소득 기준 중위소득 60% 이하' },
-      { label: '지원 금액', value: '월 최대 20만 원 × 12개월' },
-      { label: '신청 기간', value: '2026년 5월 2일 ~ 5월 31일' },
-      { label: '주거 형태', value: '보증금 5천만 원 & 월세 60만 원 이하 임차' },
-      { label: '신청 방법', value: '복지로(bokjiro.go.kr) 또는 주민센터' },
+    "checkpoints": [],
+    "personaImpacts": [
+      {
+        "persona": "1인 가구",
+        "impact": "neutral",
+        "reason": "기사 내용은 현금 지원 대신 역량 바우처로의 전환을 제안하며, 1인 가구의 생활비 지원에 대한 직접적인 영향은 명시되지 않았습니다."
+      },
+      {
+        "persona": "신혼부부",
+        "impact": "neutral",
+        "reason": "기사 내용은 청년 정책의 전반적인 방향 전환을 다루며, 신혼부부의 특정 지원과 관련된 내용은 언급되지 않았습니다."
+      },
+      {
+        "persona": "취업준비생",
+        "impact": "positive",
+        "reason": "현금 대신 역량 바우처는 취업 준비생의 직무 역량 강화 및 취업 경쟁력 향상에 긍정적인 영향을 미칠 수 있습니다."
+      },
+      {
+        "persona": "대학생",
+        "impact": "positive",
+        "reason": "역량 바우처는 대학생들이 학업 외 추가적인 역량을 개발하거나 취업 준비를 하는 데 도움이 될 수 있습니다."
+      },
+      {
+        "persona": "직장인",
+        "impact": "neutral",
+        "reason": "기사는 청년 정책의 패러다임 전환을 다루지만, 직장인의 경력 개발 지원에 대한 구체적인 언급은 없습니다."
+      }
     ],
-    personaImpacts: [
-      { persona: '1인 가구', impact: 'very_positive', reason: '저소득 1인 청년 가구가 핵심 대상으로, 월 20만 원 현금 지원으로 주거비 부담이 크게 줄어듭니다.' },
-      { persona: '취업준비생', impact: 'very_positive', reason: '소득이 낮은 취준생이라면 소득 기준 충족 가능성이 높습니다.' },
-      { persona: '대학생', impact: 'positive', reason: '자취 대학생 중 소득 기준 충족자라면 혜택을 받을 수 있습니다.' },
-      { persona: '직장인', impact: 'neutral', reason: '소득이 기준 중위소득 60%를 초과하면 대상에서 제외됩니다.' },
-      { persona: '신혼부부', impact: 'negative', reason: '가구 소득 기준 적용 시 부부 합산으로 탈락 가능성이 있습니다.' },
+    "relatedBenefits": [],
+    "sources": [
+      {
+        "title": "동양칼럼/ 청년 정책의 패러다임 전환: 현금 대신 '역량 바우처'를",
+        "press": "동양일보",
+        "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1RNE83VkhudUs4dGNqOVBfamhHUWVqZ01DZ0N1TWd4VW5zLW91aW1JMF9HV1RtcEZQOTFUZzZ4cDFKem5oRGp2U1F5UkRGaURnZlhQY1B0VFhZYjdMSXdNRTJOT2R4Ykdwcmc?oc=5"
+      }
     ],
-    relatedBenefits: [
-      { id: 'r4', title: '청년 전용 보증보험 지원', category: '주거', url: '#' },
-      { id: 'r5', title: '행복주택 청년형', category: '주거', url: 'https://apply.lh.or.kr' },
-      { id: 'r6', title: '청년 주거급여 분리지급', category: '복지', url: 'https://www.bokjiro.go.kr' },
-    ],
-    sources: [
-      { title: '청년 월세 특별지원 3차 5월 모집 시작', press: '뉴스1', url: nn('청년 월세 특별지원 3차 모집 뉴스1') },
-      { title: '월 20만 원 월세 지원…청년 3차 모집 공고', press: '조선일보', url: nn('청년 월세 지원 3차 모집 공고 조선일보') },
-    ],
-    applyUrl: 'https://www.bokjiro.go.kr',
-    applyLabel: '복지로 신청하기',
+    "applyUrl": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1RNE83VkhudUs4dGNqOVBfamhHUWVqZ01DZ0N1TWd4VW5zLW91aW1JMF9HV1RtcEZQOTFUZzZ4cDFKem5oRGp2U1F5UkRGaURnZlhQY1B0VFhZYjdMSXdNRTJOT2R4Ykdwcmc?oc=5",
+    "applyLabel": "동양칼럼/ 청년 정책의 패러다임 전환... 자세히 보기 →"
   },
   {
-    id: '3',
-    rank: 3,
-    rankChange: -1,
-    title: '행복주택 자동차 가액 기준 4,500만 원으로 상향',
-    category: '주거',
-    tags: ['#행복주택', '#자동차', '#입주자격'],
-    pressCount: 17,
-    updatedAt: '2026-04-23 00:00',
-    summary: [
-      'LH가 행복주택 입주 자격 중 자동차 가액 기준을 기존 3,700만 원에서 4,500만 원으로 상향 조정했습니다.',
-      '이번 조치로 차량 보유 때문에 탈락했던 청년·신혼부부 다수가 신규 입주 자격을 얻게 됐습니다.',
-      '개정 기준은 2026년 6월 공고분부터 적용되며, 기존 거주자는 갱신 심사 시 새 기준이 적용됩니다.',
+    "id": "3",
+    "rank": 3,
+    "rankChange": 0,
+    "title": "구미시, 청년 마스터북 발간...\"청년 정책, 이 책 한 권에 다 담았다\"",
+    "category": "복지",
+    "tags": [],
+    "pressCount": 1,
+    "updatedAt": "2026-04-24 16:45",
+    "summary": [
+      "구미시가 청년 마스터북을 발간했습니다.",
+      "이 마스터북은 구미시의 모든 청년 정책을 한 권에 담아 제공합니다.",
+      "청년들이 필요한 정책 정보를 종합적으로 파악할 수 있도록 돕는 목적입니다."
     ],
-    checkpoints: [
-      { label: '기존 기준', value: '자동차 가액 3,700만 원 이하' },
-      { label: '변경 기준', value: '자동차 가액 4,500만 원 이하' },
-      { label: '적용 시점', value: '2026년 6월 공고분부터' },
-      { label: '총자산 기준', value: '2.5억 원 ~ 3.45억 원 이하 (유형별 상이)' },
-      { label: '소득 기준', value: '기준 중위소득 100% 이하 (청년형)' },
+    "checkpoints": [],
+    "personaImpacts": [
+      {
+        "persona": "1인 가구",
+        "impact": "positive",
+        "reason": "청년 마스터북이 구미시의 모든 청년 정책을 담고 있어 1인 가구 청년에게 필요한 정책 정보를 쉽게 찾아볼 수 있게 합니다."
+      },
+      {
+        "persona": "신혼부부",
+        "impact": "positive",
+        "reason": "청년 마스터북이 구미시의 모든 청년 정책을 담고 있어 신혼부부 청년에게 필요한 정책 정보를 쉽게 찾아볼 수 있게 합니다."
+      },
+      {
+        "persona": "취업준비생",
+        "impact": "positive",
+        "reason": "청년 마스터북이 구미시의 모든 청년 정책을 담고 있어 취업준비생 청년에게 필요한 정책 정보를 쉽게 찾아볼 수 있게 합니다."
+      },
+      {
+        "persona": "대학생",
+        "impact": "positive",
+        "reason": "청년 마스터북이 구미시의 모든 청년 정책을 담고 있어 대학생 청년에게 필요한 정책 정보를 쉽게 찾아볼 수 있게 합니다."
+      },
+      {
+        "persona": "직장인",
+        "impact": "positive",
+        "reason": "청년 마스터북이 구미시의 모든 청년 정책을 담고 있어 직장인 청년에게 필요한 정책 정보를 쉽게 찾아볼 수 있게 합니다."
+      }
     ],
-    personaImpacts: [
-      { persona: '1인 가구', impact: 'positive', reason: '차량 보유로 기존에 탈락했던 청년 1인 가구의 진입 장벽이 낮아집니다.' },
-      { persona: '신혼부부', impact: 'positive', reason: '신혼부부형 행복주택 신청 시 자동차 기준 완화 직접 수혜 대상입니다.' },
-      { persona: '취업준비생', impact: 'neutral', reason: '무소득 취준생은 소득 기준 충족이 우선 과제입니다.' },
-      { persona: '직장인', impact: 'positive', reason: '국산 중형차 보유 직장인이라면 탈락 요인이 하나 제거됩니다.' },
-      { persona: '대학생', impact: 'neutral', reason: '대학생 대부분 차량 미보유로 기준 변경 영향이 제한적입니다.' },
+    "relatedBenefits": [],
+    "sources": [
+      {
+        "title": "구미시, 청년 마스터북 발간...\"청년 정책, 이 책 한 권에 다 담았다\"",
+        "press": "구미뉴스",
+        "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE8yS0dCdzNONDlTM0pyblNHOEM1eF9xZk4xSHJGcEVNWTViNkp3M2dfRjczOEFjdDdOVWtuVGtzTVlEajZIZ0xmZU9nTXBhbU1wUWs5bEkyaTRPN3c0V0ZJTW1saVJONERzaFRUeWxVVld0ME14?oc=5"
+      }
     ],
-    relatedBenefits: [
-      { id: 'r7', title: '청년안심주택 (서울)', category: '주거', url: 'https://housing.seoul.go.kr' },
-      { id: 'r8', title: '신혼희망타운', category: '주거', url: 'https://apply.lh.or.kr' },
-    ],
-    sources: [
-      { title: 'LH 행복주택 자동차 가액 기준 완화 발표', press: '한국경제', url: nn('LH 행복주택 자동차 가액 기준 완화 한국경제') },
-      { title: '행복주택 차량 기준 4500만 원으로 올라', press: '경향신문', url: nn('행복주택 차량 기준 4500만원 경향신문') },
-      { title: '청년·신혼 행복주택 입주 문턱 낮아진다', press: 'KBS', url: nn('청년 신혼 행복주택 입주 문턱 KBS') },
-    ],
-    applyUrl: 'https://apply.lh.or.kr',
-    applyLabel: 'LH 청약플러스 신청',
+    "applyUrl": "https://news.google.com/rss/articles/CBMidEFVX3lxTE8yS0dCdzNONDlTM0pyblNHOEM1eF9xZk4xSHJGcEVNWTViNkp3M2dfRjczOEFjdDdOVWtuVGtzTVlEajZIZ0xmZU9nTXBhbU1wUWs5bEkyaTRPN3c0V0ZJTW1saVJONERzaFRUeWxVVld0ME14?oc=5",
+    "applyLabel": "구미시, 청년 마스터북 발간...\"청... 자세히 보기 →"
   },
   {
-    id: '4',
-    rank: 4,
-    rankChange: 0,
-    title: '청년도약계좌 기여금 지급 기준 개편',
-    category: '금융',
-    tags: ['#청년도약계좌', '#저축', '#기여금'],
-    pressCount: 14,
-    updatedAt: '2026-04-23 00:00',
-    summary: [
-      '금융위원회가 청년도약계좌의 정부 기여금 지급 기준을 개편하여 중위소득 100~120% 구간 청년도 기여금을 받을 수 있게 됐습니다.',
-      '월 납입한도는 기존 70만 원에서 80만 원으로 확대되며, 만기 시 최대 5,000만 원 수령이 가능해집니다.',
-      '신규 가입은 5월 한 달간 운영 은행 앱을 통해 비대면으로 신청할 수 있습니다.',
+    "id": "4",
+    "rank": 4,
+    "rankChange": 0,
+    "title": "광진구, 일자리‧주거‧복지 등 한눈에 …‘2026 청년정책 안내서’ 발간",
+    "category": "주거",
+    "tags": [],
+    "pressCount": 1,
+    "updatedAt": "2026-04-24 16:45",
+    "summary": [
+      "광진구는 일자리, 주거, 복지 등 다양한 분야의 청년 정책을 담은 안내서를 발간했습니다.",
+      "이 안내서는 '2026 청년정책 안내서'라는 이름으로 청년들이 정책을 한눈에 파악할 수 있도록 돕습니다.",
+      "이번 발간을 통해 광진구 청년들은 필요한 정책 정보를 쉽게 찾아볼 수 있을 것으로 기대됩니다."
     ],
-    checkpoints: [
-      { label: '나이', value: '만 19세 ~ 34세' },
-      { label: '소득 기준', value: '기준 중위소득 120% 이하 (개편 후)' },
-      { label: '월 납입 한도', value: '최대 80만 원 (개편 후)' },
-      { label: '만기', value: '5년' },
-      { label: '기여금', value: '소득구간별 월 최대 2.4만 원' },
-      { label: '신청 기간', value: '2026년 5월 한 달간' },
+    "checkpoints": [],
+    "personaImpacts": [
+      {
+        "persona": "1인 가구",
+        "impact": "positive",
+        "reason": "안내서가 주거 정책을 포함하고 있어 1인 가구 청년에게 도움이 될 수 있습니다."
+      },
+      {
+        "persona": "신혼부부",
+        "impact": "positive",
+        "reason": "안내서가 주거 정책을 포함하고 있어 신혼부부 청년에게 도움이 될 수 있습니다."
+      },
+      {
+        "persona": "취업준비생",
+        "impact": "positive",
+        "reason": "안내서가 일자리 정책을 포함하고 있어 취업준비생에게 도움이 될 수 있습니다."
+      },
+      {
+        "persona": "대학생",
+        "impact": "positive",
+        "reason": "안내서가 일자리, 주거, 복지 등 다양한 청년 정책을 다루고 있어 대학생에게 유용할 수 있습니다."
+      },
+      {
+        "persona": "직장인",
+        "impact": "positive",
+        "reason": "안내서가 주거, 복지 등 청년 정책을 포함하고 있어 직장인 청년에게 도움이 될 수 있습니다."
+      }
     ],
-    personaImpacts: [
-      { persona: '직장인', impact: 'very_positive', reason: '중위소득 100~120% 직장인도 정부 기여금 대상에 포함되어 실질 수익률이 크게 높아집니다.' },
-      { persona: '취업준비생', impact: 'neutral', reason: '소득이 없으면 가입 자체가 어렵습니다.' },
-      { persona: '대학생', impact: 'neutral', reason: '아르바이트 수입이 있다면 가입 검토 가능합니다.' },
-      { persona: '신혼부부', impact: 'positive', reason: '부부 각각 가입하면 만기 시 최대 1억 원 수령 가능합니다.' },
-      { persona: '1인 가구', impact: 'positive', reason: '소득 기준 충족 1인 청년에게 강제 저축+정부 기여 효과가 있습니다.' },
+    "relatedBenefits": [],
+    "sources": [
+      {
+        "title": "광진구, 일자리‧주거‧복지 등 한눈에 …‘2026 청년정책 안내서’ 발간",
+        "press": "v.daum.net",
+        "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE9oWWM1UDV0aGk2Qkc0QXQwZ1ZjeUxpSDlYODY0UXg4ZVpOOXlpU2hBQ3NGaWxEeFY3eXc2M2tEdHpSb3pXY2FFODdJX0MzYjg?oc=5"
+      }
     ],
-    relatedBenefits: [
-      { id: 'r9', title: '청년희망적금', category: '금융', url: '#' },
-      { id: 'r10', title: '청년 내일저축계좌', category: '복지', url: 'https://www.bokjiro.go.kr' },
-    ],
-    sources: [
-      { title: '청년도약계좌 기여금 기준 완화 확정', press: '매일경제', url: nn('청년도약계좌 기여금 기준 완화 매일경제') },
-      { title: '월 80만 원 넣으면 5000만 원…청년도약계좌 개편', press: '한겨레', url: nn('청년도약계좌 월80만원 5000만원 한겨레') },
-    ],
-    applyUrl: 'https://www.kinfa.or.kr',
-    applyLabel: '서민금융진흥원 신청',
+    "applyUrl": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE9oWWM1UDV0aGk2Qkc0QXQwZ1ZjeUxpSDlYODY0UXg4ZVpOOXlpU2hBQ3NGaWxEeFY3eXc2M2tEdHpSb3pXY2FFODdJX0MzYjg?oc=5",
+    "applyLabel": "광진구, 일자리‧주거‧복지 등 한눈에... 자세히 보기 →"
   },
   {
-    id: '5',
-    rank: 5,
-    rankChange: 2,
-    title: '서울시 청년 취업사관학교 2기 모집',
-    category: '취업',
-    tags: ['#취업', '#IT교육', '#서울'],
-    pressCount: 11,
-    updatedAt: '2026-04-23 00:00',
-    summary: [
-      '서울시가 청년 취업사관학교 2기 교육생을 5월 10일부터 모집하며, 1인당 최대 500만 원 교육비를 지원합니다.',
-      'AI·클라우드·사이버보안 등 6개 과정으로 운영되며 수료 후 취업 연계까지 지원합니다.',
-      '서울 거주 만 39세 이하 미취업 청년이면 누구나 신청 가능하며, 경쟁률에 따라 서류 및 면접 전형을 거칩니다.',
+    "id": "5",
+    "rank": 5,
+    "rankChange": 0,
+    "title": "강화군, “청년이 머물러야 지역이 산다”… 단계별 청년 정책으로 해법 찾는다",
+    "category": "복지",
+    "tags": [],
+    "pressCount": 1,
+    "updatedAt": "2026-04-24 16:45",
+    "summary": [
+      "강화군은 청년 정책을 통해 지역 활성화를 목표로 하고 있습니다.",
+      "청년이 지역에 머무는 것이 지역을 살리는 길이라고 강조하고 있습니다.",
+      "이를 위해 단계별 청년 정책을 해법으로 제시하고 있습니다."
     ],
-    checkpoints: [
-      { label: '대상', value: '서울 거주 만 19~39세 미취업 청년' },
-      { label: '지원 금액', value: '교육비 최대 500만 원 전액 지원' },
-      { label: '과정', value: 'AI·클라우드·사이버보안 등 6개' },
-      { label: '기간', value: '6개월 (풀타임)' },
-      { label: '신청 기간', value: '2026년 5월 10일 ~ 5월 25일' },
-      { label: '신청 방법', value: '서울일자리포털(job.seoul.go.kr)' },
+    "checkpoints": [],
+    "personaImpacts": [
+      {
+        "persona": "1인 가구",
+        "impact": "neutral",
+        "reason": "기사 제목에 정책의 구체적인 내용이 명시되지 않아 1인 가구에 미치는 영향도를 판단하기 어렵습니다."
+      },
+      {
+        "persona": "신혼부부",
+        "impact": "neutral",
+        "reason": "기사 제목에 정책의 구체적인 내용이 명시되지 않아 신혼부부에 미치는 영향도를 판단하기 어렵습니다."
+      },
+      {
+        "persona": "취업준비생",
+        "impact": "neutral",
+        "reason": "기사 제목에 정책의 구체적인 내용이 명시되지 않아 취업준비생에 미치는 영향도를 판단하기 어렵습니다."
+      },
+      {
+        "persona": "대학생",
+        "impact": "neutral",
+        "reason": "기사 제목에 정책의 구체적인 내용이 명시되지 않아 대학생에 미치는 영향도를 판단하기 어렵습니다."
+      },
+      {
+        "persona": "직장인",
+        "impact": "neutral",
+        "reason": "기사 제목에 정책의 구체적인 내용이 명시되지 않아 직장인에 미치는 영향도를 판단하기 어렵습니다."
+      }
     ],
-    personaImpacts: [
-      { persona: '취업준비생', impact: 'very_positive', reason: '교육비 전액 지원 + 취업 연계까지 제공하는 핵심 수혜 대상입니다.' },
-      { persona: '대학생', impact: 'positive', reason: '졸업 예정자라면 방학을 활용해 수강 가능합니다.' },
-      { persona: '1인 가구', impact: 'positive', reason: '서울 거주 미취업 청년이라면 소득 기준 없이 신청 가능합니다.' },
-      { persona: '직장인', impact: 'negative', reason: '재직자는 미취업 요건에서 제외됩니다.' },
-      { persona: '신혼부부', impact: 'neutral', reason: '배우자 한 명이 미취업 상태라면 신청 검토 가능합니다.' },
+    "relatedBenefits": [],
+    "sources": [
+      {
+        "title": "강화군, “청년이 머물러야 지역이 산다”… 단계별 청년 정책으로 해법 찾는다",
+        "press": "인천교육일보",
+        "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE5tWVR1N1BEX3dLcUJHbm1oU1ZqaFBDZG95UXZ2RnBCRTNEekljUjNCa3Z3cS1sNGJnQVF4SUpQbUVvUFNENFFuYllKNUhwaWlPUFF3dWYteTJ3SFNKQWlBNERJcGttNzlK?oc=5"
+      }
     ],
-    relatedBenefits: [
-      { id: 'r11', title: '국민취업지원제도 I유형', category: '취업', url: 'https://www.kua.go.kr' },
-      { id: 'r12', title: '청년 디지털 일자리 사업', category: '취업', url: '#' },
-    ],
-    sources: [
-      { title: '서울 청년취업사관학교 2기 모집 공고', press: '서울경제', url: nn('서울 청년취업사관학교 2기 모집 서울경제') },
-      { title: '500만 원 교육비 지원 서울 취업사관학교', press: '뉴시스', url: nn('서울 청년취업사관학교 500만원 교육비 뉴시스') },
-    ],
-    applyUrl: 'https://job.seoul.go.kr',
-    applyLabel: '서울일자리포털 신청',
+    "applyUrl": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE5tWVR1N1BEX3dLcUJHbm1oU1ZqaFBDZG95UXZ2RnBCRTNEekljUjNCa3Z3cS1sNGJnQVF4SUpQbUVvUFNENFFuYllKNUhwaWlPUFF3dWYteTJ3SFNKQWlBNERJcGttNzlK?oc=5",
+    "applyLabel": "강화군, “청년이 머물러야 지역이 산... 자세히 보기 →"
   },
   {
-    id: '6',
-    rank: 6,
-    rankChange: -2,
-    title: '청년 국민연금 실업크레딧 지원 확대',
-    category: '복지',
-    tags: ['#국민연금', '#실업크레딧', '#청년'],
-    pressCount: 9,
-    updatedAt: '2026-04-23 00:00',
-    summary: [
-      '보건복지부가 청년 실직자를 위한 국민연금 실업크레딧 지원 기간을 최대 12개월에서 18개월로 연장합니다.',
-      '구직급여 수급 중인 18~34세 청년은 연금보험료의 75%를 국가가 대신 납부해 노후 연금 수령액을 보전할 수 있습니다.',
-      '고용센터 또는 국민연금공단 지사를 통해 신청 가능하며 7월부터 시행됩니다.',
+    "id": "6",
+    "rank": 6,
+    "rankChange": 0,
+    "title": "[6.3지방선거]민주당 제주도당, 비례대표 2조 토론회…“복지·에너지·자치·청년정책” 경쟁",
+    "category": "복지",
+    "tags": [],
+    "pressCount": 1,
+    "updatedAt": "2026-04-24 16:45",
+    "summary": [
+      "민주당 제주도당이 6.3 지방선거를 앞두고 비례대표 2조 토론회를 개최했습니다.",
+      "토론회에서는 복지, 에너지, 자치, 청년정책 등 다양한 정책 분야가 주요 의제로 다뤄졌습니다.",
+      "특히 청년정책이 후보들 간 경쟁의 대상이 되어 논의되었습니다."
     ],
-    checkpoints: [
-      { label: '대상', value: '만 18~34세 구직급여 수급자' },
-      { label: '지원 내용', value: '연금보험료 75% 국가 부담' },
-      { label: '지원 기간', value: '최대 18개월 (기존 12개월 → 확대)' },
-      { label: '시행일', value: '2026년 7월 1일' },
-      { label: '신청처', value: '고용센터 또는 국민연금공단 지사' },
+    "checkpoints": [],
+    "personaImpacts": [
+      {
+        "persona": "1인 가구",
+        "impact": "neutral",
+        "reason": "기사에 1인 가구에 대한 직접적인 정책 언급이 없어 영향도를 판단하기 어렵습니다."
+      },
+      {
+        "persona": "신혼부부",
+        "impact": "neutral",
+        "reason": "기사에 신혼부부에 대한 직접적인 정책 언급이 없어 영향도를 판단하기 어렵습니다."
+      },
+      {
+        "persona": "취업준비생",
+        "impact": "positive",
+        "reason": "토론회에서 청년정책이 주요 의제로 논의되어 취업준비생에게 긍정적인 영향을 미칠 정책이 나올 가능성이 있습니다."
+      },
+      {
+        "persona": "대학생",
+        "impact": "positive",
+        "reason": "토론회에서 청년정책이 주요 의제로 논의되어 대학생에게 긍정적인 영향을 미칠 정책이 나올 가능성이 있습니다."
+      },
+      {
+        "persona": "직장인",
+        "impact": "neutral",
+        "reason": "기사에 직장인에 대한 직접적인 정책 언급이 없어 영향도를 판단하기 어렵습니다."
+      }
     ],
-    personaImpacts: [
-      { persona: '취업준비생', impact: 'very_positive', reason: '구직급여 수급 중인 취준생이라면 연금 공백 없이 노후를 대비할 수 있습니다.' },
-      { persona: '1인 가구', impact: 'positive', reason: '실직 상태 1인 청년에게 연금 보전 혜택이 직접 적용됩니다.' },
-      { persona: '직장인', impact: 'neutral', reason: '재직 중에는 해당사항 없으나 향후 실직 시 준비할 내용입니다.' },
-      { persona: '대학생', impact: 'neutral', reason: '구직급여 수급 요건을 충족하기 어렵습니다.' },
-      { persona: '신혼부부', impact: 'neutral', reason: '배우자 실직 시 해당 가능합니다.' },
+    "relatedBenefits": [],
+    "sources": [
+      {
+        "title": "[6.3지방선거]민주당 제주도당, 비례대표 2조 토론회…“복지·에너지·자치·청년정책” 경쟁",
+        "press": "뉴스N제주",
+        "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE82QzVYQURQcDJzLVBXVWxwZURxOGdmRktna0x0Qy01Mm5HOHVYdFlWOG5SUVF5NXNtZ0lTNjZfR3ZfQ08tS0FoSGxkYUVwTmRDTUR3c295cEVDSEUydmlvdERzNHpXaUxId1NHLQ?oc=5"
+      }
     ],
-    relatedBenefits: [
-      { id: 'r13', title: '청년 구직활동지원금', category: '복지', url: '#' },
-      { id: 'r14', title: '국민취업지원제도 II유형', category: '취업', url: 'https://www.kua.go.kr' },
-    ],
-    sources: [
-      { title: '청년 실업크레딧 18개월로 확대', press: '복지타임스', url: nn('청년 실업크레딧 18개월 확대 복지타임스') },
-      { title: '청년 실직자 연금 지원 강화', press: '연합뉴스', url: nn('청년 실직자 연금 지원 강화 연합뉴스') },
-    ],
-    applyUrl: 'https://www.nps.or.kr',
-    applyLabel: '국민연금공단 신청',
+    "applyUrl": "https://news.google.com/rss/articles/CBMibEFVX3lxTE82QzVYQURQcDJzLVBXVWxwZURxOGdmRktna0x0Qy01Mm5HOHVYdFlWOG5SUVF5NXNtZ0lTNjZfR3ZfQ08tS0FoSGxkYUVwTmRDTUR3c295cEVDSEUydmlvdERzNHpXaUxId1NHLQ?oc=5",
+    "applyLabel": "[6.3지방선거]민주당 제주도당, 비... 자세히 보기 →"
   },
   {
-    id: '7',
-    rank: 7,
-    rankChange: 1,
-    title: '대학생 든든학자금 금리 0.5%p 인하',
-    category: '교육',
-    tags: ['#학자금대출', '#금리인하', '#대학생'],
-    pressCount: 8,
-    updatedAt: '2026-04-23 00:00',
-    summary: [
-      '한국장학재단이 든든학자금(취업 후 상환) 대출 금리를 현행 연 1.7%에서 1.2%로 0.5%p 인하합니다.',
-      '2026년 2학기 등록금부터 적용되며, 기존 대출자도 변경된 금리로 자동 전환됩니다.',
-      '소득 분위 제한 없이 모든 대학생이 이용 가능하며 취업 후 일정 소득 초과 시 상환이 시작됩니다.',
+    "id": "7",
+    "rank": 7,
+    "rankChange": 0,
+    "title": "구미시, 청년 정책 한 눈에…마스터북 발간",
+    "category": "복지",
+    "tags": [],
+    "pressCount": 1,
+    "updatedAt": "2026-04-24 16:45",
+    "summary": [
+      "구미시가 청년 정책을 한눈에 볼 수 있도록 정리했습니다.",
+      "이를 위해 '청년 정책 마스터북'을 발간했습니다.",
+      "마스터북은 구미시의 다양한 청년 정책을 쉽게 파악하도록 돕습니다."
     ],
-    checkpoints: [
-      { label: '대상', value: '전국 대학(원)생 (소득분위 무관)' },
-      { label: '기존 금리', value: '연 1.7%' },
-      { label: '변경 금리', value: '연 1.2%' },
-      { label: '적용 시점', value: '2026년 2학기 등록금부터' },
-      { label: '상환 기준', value: '취업 후 연 소득 2,177만 원 초과 시' },
+    "checkpoints": [],
+    "personaImpacts": [
+      {
+        "persona": "1인 가구",
+        "impact": "neutral",
+        "reason": "기사에 특정 정책 내용이나 대상이 명시되지 않아 직접적인 영향도를 판단하기 어려움."
+      },
+      {
+        "persona": "신혼부부",
+        "impact": "neutral",
+        "reason": "기사에 특정 정책 내용이나 대상이 명시되지 않아 직접적인 영향도를 판단하기 어려움."
+      },
+      {
+        "persona": "취업준비생",
+        "impact": "neutral",
+        "reason": "기사에 특정 정책 내용이나 대상이 명시되지 않아 직접적인 영향도를 판단하기 어려움."
+      },
+      {
+        "persona": "대학생",
+        "impact": "neutral",
+        "reason": "기사에 특정 정책 내용이나 대상이 명시되지 않아 직접적인 영향도를 판단하기 어려움."
+      },
+      {
+        "persona": "직장인",
+        "impact": "neutral",
+        "reason": "기사에 특정 정책 내용이나 대상이 명시되지 않아 직접적인 영향도를 판단하기 어려움."
+      }
     ],
-    personaImpacts: [
-      { persona: '대학생', impact: 'very_positive', reason: '학자금 이자 부담이 줄고, 기존 대출자도 자동으로 낮은 금리가 적용됩니다.' },
-      { persona: '취업준비생', impact: 'positive', reason: '취업 전까지 상환 유예, 이자 부담 경감 효과가 있습니다.' },
-      { persona: '1인 가구', impact: 'neutral', reason: '이미 졸업한 청년에게는 새로운 영향이 없습니다.' },
-      { persona: '직장인', impact: 'neutral', reason: '기존 든든학자금 대출 잔액이 있다면 금리 인하 혜택이 있습니다.' },
-      { persona: '신혼부부', impact: 'neutral', reason: '재학 중인 배우자가 있다면 혜택이 있습니다.' },
+    "relatedBenefits": [],
+    "sources": [
+      {
+        "title": "구미시, 청년 정책 한 눈에…마스터북 발간",
+        "press": "뉴시스",
+        "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE1ZejJ6VVZXVDR4VG40cGgyY2M5MGFXdWdPR2pGY0s0M3k5aFl1cGlNVThoeDZnRzhDZVVlSW1OTFJ3STdCTFItNE82UDlJak5fa0xVbGh5aEllTDFlcWVZUtIBeEFVX3lxTFBqZDFFZ2hXSmZHN0dJVVhlOU1hQ0swQmxKMEJJWlpmemRNZllVN0Z4cUFrNnNBdU9kWk5kd2NDaHhJeUxJSW4zZWdZaWljUnk1MnZaQThJUmxCbzVyZzUxTmpZdENwRVQ3YlR6Xy02clFVeTBMcTV5Sg?oc=5"
+      }
     ],
-    relatedBenefits: [
-      { id: 'r15', title: '국가장학금 I·II유형', category: '교육', url: 'https://www.kosaf.go.kr' },
-      { id: 'r16', title: '청년 학자금 이자 지원', category: '교육', url: '#' },
-    ],
-    sources: [
-      { title: '든든학자금 금리 1.2%로 낮춘다', press: '교육부', url: nn('든든학자금 금리 1.2% 인하 교육부') },
-      { title: '학자금 대출 이자 인하…대학생 부담 완화', press: '중앙일보', url: nn('학자금 대출 이자 인하 대학생 중앙일보') },
-    ],
-    applyUrl: 'https://www.kosaf.go.kr',
-    applyLabel: '한국장학재단 신청',
+    "applyUrl": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE1ZejJ6VVZXVDR4VG40cGgyY2M5MGFXdWdPR2pGY0s0M3k5aFl1cGlNVThoeDZnRzhDZVVlSW1OTFJ3STdCTFItNE82UDlJak5fa0xVbGh5aEllTDFlcWVZUtIBeEFVX3lxTFBqZDFFZ2hXSmZHN0dJVVhlOU1hQ0swQmxKMEJJWlpmemRNZllVN0Z4cUFrNnNBdU9kWk5kd2NDaHhJeUxJSW4zZWdZaWljUnk1MnZaQThJUmxCbzVyZzUxTmpZdENwRVQ3YlR6Xy02clFVeTBMcTV5Sg?oc=5",
+    "applyLabel": "구미시, 청년 정책 한 눈에…마스터북... 자세히 보기 →"
   },
   {
-    id: '8',
-    rank: 8,
-    rankChange: -3,
-    title: '청년 내일채움공제 플러스 신규 신청',
-    category: '취업',
-    tags: ['#내일채움공제', '#중소기업', '#자산형성'],
-    pressCount: 7,
-    updatedAt: '2026-04-23 00:00',
-    summary: [
-      '고용노동부가 청년 내일채움공제 플러스를 신규 출시하며 5월 한 달간 중소기업 청년 근로자를 모집합니다.',
-      '2년간 청년 본인 400만 원, 기업 400만 원, 정부 1,200만 원을 적립하여 만기 시 2,000만 원을 수령할 수 있습니다.',
-      '중소·중견기업 정규직 근로자 중 5년 미만 재직자라면 신청 가능하며 청약플러스 앱으로 간편 신청이 가능합니다.',
+    "id": "8",
+    "rank": 8,
+    "rankChange": 0,
+    "title": "광진구, 일자리‧주거‧복지 등 한눈에 …‘2026 청년정책 안내서’ 발간",
+    "category": "주거",
+    "tags": [],
+    "pressCount": 1,
+    "updatedAt": "2026-04-24 16:45",
+    "summary": [
+      "광진구가 청년들을 위한 '2026 청년정책 안내서'를 발간했습니다.",
+      "이 안내서는 일자리, 주거, 복지 등 다양한 청년 정책 정보를 담고 있습니다.",
+      "청년들이 필요한 정책 정보를 한눈에 파악할 수 있도록 돕는 것이 목적입니다."
     ],
-    checkpoints: [
-      { label: '대상', value: '중소·중견기업 정규직 5년 미만 재직 청년' },
-      { label: '나이', value: '만 15~34세' },
-      { label: '적립 구조', value: '청년 400 + 기업 400 + 정부 1,200만 원' },
-      { label: '만기 수령', value: '2,000만 원 (2년 후)' },
-      { label: '신청 기간', value: '2026년 5월 1일 ~ 5월 31일' },
+    "checkpoints": [],
+    "personaImpacts": [
+      {
+        "persona": "1인 가구",
+        "impact": "positive",
+        "reason": "일자리, 주거, 복지 정책을 담은 안내서가 발간되어 1인 가구 청년들이 관련 정보를 쉽게 얻을 수 있습니다."
+      },
+      {
+        "persona": "신혼부부",
+        "impact": "positive",
+        "reason": "주거 및 복지 정책을 포함하는 안내서가 발간되어 신혼부부에게 유용한 정책 정보를 제공할 수 있습니다."
+      },
+      {
+        "persona": "취업준비생",
+        "impact": "positive",
+        "reason": "일자리 정책을 포함하는 안내서가 발간되어 취업준비생들이 관련 정보를 한눈에 찾아볼 수 있습니다."
+      },
+      {
+        "persona": "대학생",
+        "impact": "positive",
+        "reason": "일자리, 주거, 복지 등 청년 전반을 위한 정책 안내서 발간으로 대학생들도 필요한 정보를 얻을 수 있습니다."
+      },
+      {
+        "persona": "직장인",
+        "impact": "positive",
+        "reason": "주거 및 복지 정책을 포함하는 안내서가 발간되어 직장인 청년들이 관련 정보를 확인할 수 있습니다."
+      }
     ],
-    personaImpacts: [
-      { persona: '직장인', impact: 'very_positive', reason: '중소·중견기업 재직 청년 직장인이라면 2년 만에 2,000만 원 목돈 마련이 가능합니다.' },
-      { persona: '취업준비생', impact: 'neutral', reason: '취업 후 바로 신청 가능하므로 미리 알아두면 유용합니다.' },
-      { persona: '신혼부부', impact: 'positive', reason: '신혼 초기 목돈 마련에 효과적입니다.' },
-      { persona: '대학생', impact: 'neutral', reason: '졸업 후 중소기업 취업 시 즉시 활용 가능합니다.' },
-      { persona: '1인 가구', impact: 'positive', reason: '안정적인 자산 형성을 위한 좋은 수단입니다.' },
+    "relatedBenefits": [],
+    "sources": [
+      {
+        "title": "광진구, 일자리‧주거‧복지 등 한눈에 …‘2026 청년정책 안내서’ 발간",
+        "press": "헤럴드경제",
+        "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE1CQ2xZWnFSTVF5bzZib1JqQ0lLZEtrMmZHOHJMVG9BRmxQZEdsTHNEMC02YjNMNVVhWU1sSW5zY0dPRDdId1hFcldfbk05NjdtaWxhMXlB?oc=5"
+      }
     ],
-    relatedBenefits: [
-      { id: 'r17', title: '청년도약계좌', category: '금융', url: '#' },
-      { id: 'r18', title: '청년 고용장려금', category: '취업', url: '#' },
-    ],
-    sources: [
-      { title: '청년 내일채움공제 플러스 5월 신청', press: '고용노동부', url: nn('청년 내일채움공제 플러스 신청 고용노동부') },
-      { title: '2년 후 2000만 원…내일채움공제 플러스 출시', press: '파이낸셜뉴스', url: nn('내일채움공제 플러스 2000만원 파이낸셜뉴스') },
-    ],
-    applyUrl: 'https://www.work.go.kr',
-    applyLabel: '워크넷 신청',
+    "applyUrl": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE1CQ2xZWnFSTVF5bzZib1JqQ0lLZEtrMmZHOHJMVG9BRmxQZEdsTHNEMC02YjNMNVVhWU1sSW5zY0dPRDdId1hFcldfbk05NjdtaWxhMXlB?oc=5",
+    "applyLabel": "광진구, 일자리‧주거‧복지 등 한눈에... 자세히 보기 →"
   },
   {
-    id: '9',
-    rank: 9,
-    rankChange: 0,
-    title: '기준 중위소득 6.42% 인상 고시',
-    category: '복지',
-    tags: ['#중위소득', '#복지기준', '#인상'],
-    pressCount: 6,
-    updatedAt: '2026-04-23 00:00',
-    summary: [
-      '보건복지부가 2027년 기준 중위소득을 6.42% 인상하여 4인 가구 기준 월 609만 원으로 확정 고시했습니다.',
-      '이에 따라 청년 주거·복지 각종 정책의 소득 기준이 연동되어 내년부터 혜택 대상이 확대됩니다.',
-      '청년 월세 지원, 국민기초생활보장 등 소득 연동 정책 수혜자가 약 12만 명 증가할 전망입니다.',
+    "id": "9",
+    "rank": 9,
+    "rankChange": 0,
+    "title": "전경원 “청년 떠나지 않는 수성”⋯주거·일자리·교육 묶은 ‘정착 패키지’ 제시",
+    "category": "주거",
+    "tags": [
+      "#교육"
     ],
-    checkpoints: [
-      { label: '2027년 기준 중위소득 (4인)', value: '월 609만 원 (6.42% 인상)' },
-      { label: '1인 가구 중위소득', value: '월 239만 원' },
-      { label: '2인 가구 중위소득', value: '월 397만 원' },
-      { label: '적용 시점', value: '2027년 1월 1일부터' },
-      { label: '영향 정책', value: '청년 월세 지원, 행복주택, 국기법 등 전 복지 정책' },
+    "pressCount": 1,
+    "updatedAt": "2026-04-24 16:45",
+    "summary": [
+      "전경원 후보는 청년들이 지역을 떠나지 않도록 하는 '청년 떠나지 않는 수성'을 비전으로 제시했다.",
+      "이를 위해 주거, 일자리, 교육 분야를 통합 지원하는 '정착 패키지'를 제안했다.",
+      "이 정책은 청년들의 안정적인 지역 정착을 목표로 한다."
     ],
-    personaImpacts: [
-      { persona: '1인 가구', impact: 'positive', reason: '1인 기준 중위소득 인상으로 각종 청년 복지 정책 소득 기준도 함께 올라 내년부터 새로운 혜택이 생깁니다.' },
-      { persona: '취업준비생', impact: 'positive', reason: '소득이 낮은 취준생 입장에서 더 넓은 혜택 범위가 적용됩니다.' },
-      { persona: '신혼부부', impact: 'positive', reason: '2인 가구 기준 인상으로 신혼부부 대상 정책 수혜 가능성이 높아집니다.' },
-      { persona: '대학생', impact: 'positive', reason: '학자금·장학금 소득 기준 완화 효과가 있습니다.' },
-      { persona: '직장인', impact: 'neutral', reason: '소득이 높은 직장인은 기준 인상이 직접 영향을 미치지 않습니다.' },
+    "checkpoints": [],
+    "personaImpacts": [
+      {
+        "persona": "1인 가구",
+        "impact": "positive",
+        "reason": "청년 정착 패키지는 주거, 일자리, 교육 지원을 포함하여 1인 가구 청년의 지역 정착에 긍정적인 영향을 줄 수 있다."
+      },
+      {
+        "persona": "신혼부부",
+        "impact": "positive",
+        "reason": "주거, 일자리, 교육을 묶은 정착 패키지는 신혼부부의 안정적인 지역 정착에 도움이 될 것으로 예상된다."
+      },
+      {
+        "persona": "취업준비생",
+        "impact": "positive",
+        "reason": "정착 패키지에 일자리 지원이 포함되어 있어 취업준비생에게 긍정적인 영향을 미칠 수 있다."
+      },
+      {
+        "persona": "대학생",
+        "impact": "positive",
+        "reason": "정착 패키지에 교육 지원이 포함되어 있으며, 졸업 후 주거 및 일자리 연계 가능성으로 대학생에게 긍정적 영향을 줄 수 있다."
+      },
+      {
+        "persona": "직장인",
+        "impact": "positive",
+        "reason": "정착 패키지의 주거 및 교육 지원은 기존 직장인들의 지역 내 안정적인 생활에 긍정적인 영향을 줄 수 있다."
+      }
     ],
-    relatedBenefits: [
-      { id: 'r19', title: '청년 주거급여', category: '복지', url: '#' },
-      { id: 'r20', title: '청년 특별구직지원금', category: '취업', url: '#' },
+    "relatedBenefits": [],
+    "sources": [
+      {
+        "title": "전경원 “청년 떠나지 않는 수성”⋯주거·일자리·교육 묶은 ‘정착 패키지’ 제시",
+        "press": "경북매일",
+        "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5lN1hrc3BQSWwwaE9FTGpyQW91OXJ1Y0FmVU1STnBzRmYxeTFfSzVkVDB0R2k4RjAxWmRXazQ1NWJwNTBJdHhfdFQ4UFNKM3Ytd1NhRU1KTkhaUQ?oc=5"
+      }
     ],
-    sources: [
-      { title: '2027년 기준 중위소득 6.42% 인상 확정', press: '보건복지부', url: nn('2027 기준 중위소득 6.42% 인상 확정 보건복지부') },
-      { title: '내년 중위소득 올라 복지 혜택 대상 확대', press: '한국일보', url: nn('중위소득 인상 복지 혜택 대상 확대 한국일보') },
-    ],
-    applyUrl: 'https://www.bokjiro.go.kr',
-    applyLabel: '복지로에서 자격 확인',
+    "applyUrl": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5lN1hrc3BQSWwwaE9FTGpyQW91OXJ1Y0FmVU1STnBzRmYxeTFfSzVkVDB0R2k4RjAxWmRXazQ1NWJwNTBJdHhfdFQ4UFNKM3Ytd1NhRU1KTkhaUQ?oc=5",
+    "applyLabel": "전경원 “청년 떠나지 않는 수성”⋯주... 자세히 보기 →"
   },
   {
-    id: '10',
-    rank: 10,
-    rankChange: 4,
-    title: '청년 창업 도약패키지 4기 모집 시작',
-    category: '취업',
-    tags: ['#창업', '#지원금', '#스타트업'],
-    pressCount: 5,
-    updatedAt: '2026-04-23 00:00',
-    summary: [
-      '중소벤처기업부가 청년 창업 도약패키지 4기 참여 기업을 5월 15일부터 모집합니다.',
-      '선정된 팀에는 최대 1억 원의 사업화 자금과 함께 멘토링·공간·네트워킹을 통합 지원합니다.',
-      '만 39세 이하 대표자가 포함된 7년 이내 창업 기업이면 업종 제한 없이 지원 가능합니다.',
+    "id": "10",
+    "rank": 10,
+    "rankChange": 0,
+    "title": "강화군, \"단계별 청년 정책\" 추진... 정착기반 조성",
+    "category": "복지",
+    "tags": [],
+    "pressCount": 1,
+    "updatedAt": "2026-04-24 16:45",
+    "summary": [
+      "강화군이 청년들을 위한 정책을 추진합니다.",
+      "이 정책은 '단계별'로 진행될 예정입니다.",
+      "정책의 주요 목표는 청년들의 '정착기반 조성'입니다."
     ],
-    checkpoints: [
-      { label: '대상', value: '만 39세 이하 대표자 포함, 창업 7년 이내 기업' },
-      { label: '지원 금액', value: '사업화 자금 최대 1억 원' },
-      { label: '추가 지원', value: '멘토링·창업 공간·IR 연계' },
-      { label: '신청 기간', value: '2026년 5월 15일 ~ 6월 5일' },
-      { label: '신청 방법', value: 'K-startup(k-startup.go.kr)' },
+    "checkpoints": [],
+    "personaImpacts": [
+      {
+        "persona": "1인 가구",
+        "impact": "neutral",
+        "reason": "기사 제목만으로는 1인 가구에 대한 구체적인 정책 내용이나 영향도를 파악하기 어렵습니다."
+      },
+      {
+        "persona": "신혼부부",
+        "impact": "neutral",
+        "reason": "기사 제목만으로는 신혼부부에 대한 구체적인 정책 내용이나 영향도를 파악하기 어렵습니다."
+      },
+      {
+        "persona": "취업준비생",
+        "impact": "neutral",
+        "reason": "기사 제목만으로는 취업준비생에 대한 구체적인 정책 내용이나 영향도를 파악하기 어렵습니다."
+      },
+      {
+        "persona": "대학생",
+        "impact": "neutral",
+        "reason": "기사 제목에 대학생을 위한 구체적인 정책 내용이 명시되어 있지 않습니다."
+      },
+      {
+        "persona": "직장인",
+        "impact": "positive",
+        "reason": "강화군이 청년의 정착기반 조성을 위한 단계별 정책을 추진하므로, 지역에 정착하려는 직장인 청년에게 긍정적인 영향을 줄 수 있습니다."
+      }
     ],
-    personaImpacts: [
-      { persona: '취업준비생', impact: 'positive', reason: '취업 대신 창업을 고려하는 청년이라면 핵심 지원 프로그램입니다.' },
-      { persona: '직장인', impact: 'positive', reason: '부업·사이드프로젝트를 창업으로 전환 준비 중인 직장인에게 적합합니다.' },
-      { persona: '대학생', impact: 'positive', reason: '재학 중 창업 팀에게도 지원이 가능합니다.' },
-      { persona: '1인 가구', impact: 'neutral', reason: '창업 계획이 있다면 적극 활용할 수 있습니다.' },
-      { persona: '신혼부부', impact: 'neutral', reason: '부부 창업팀이라면 함께 신청 가능합니다.' },
+    "relatedBenefits": [],
+    "sources": [
+      {
+        "title": "강화군, \"단계별 청년 정책\" 추진... 정착기반 조성",
+        "press": "gukjenews.com",
+        "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE5ETWpIMS1ZbEJ3MG5GWW9EMVgzR1liTmRaWmhiVTVlTGdiUnpIbmdULUhTQkgyN0pzRHNwaGpRRno1NWNQeDV4SzRyZGsyWWgycWtZY1l0SnJpYjdNeUxBZXlFSFFiZk5OLUNKSWZR?oc=5"
+      }
     ],
-    relatedBenefits: [
-      { id: 'r21', title: '초기창업패키지', category: '취업', url: '#' },
-      { id: 'r22', title: '청년 창업 전용 보증 지원', category: '금융', url: '#' },
-    ],
-    sources: [
-      { title: '청년 창업 도약패키지 4기 5월 모집', press: '중기부', url: nn('청년 창업 도약패키지 4기 모집 중기부') },
-      { title: '최대 1억 지원 청년 도약패키지 4기 시작', press: '벤처스퀘어', url: nn('청년 도약패키지 4기 1억 벤처스퀘어') },
-    ],
-    applyUrl: 'https://www.k-startup.go.kr',
-    applyLabel: 'K-Startup 신청',
+    "applyUrl": "https://news.google.com/rss/articles/CBMibkFVX3lxTE5ETWpIMS1ZbEJ3MG5GWW9EMVgzR1liTmRaWmhiVTVlTGdiUnpIbmdULUhTQkgyN0pzRHNwaGpRRno1NWNQeDV4SzRyZGsyWWgycWtZY1l0SnJpYjdNeUxBZXlFSFFiZk5OLUNKSWZR?oc=5",
+    "applyLabel": "강화군, \"단계별 청년 정책\" 추진.... 자세히 보기 →"
   },
+  {
+    "id": "11",
+    "rank": 11,
+    "rankChange": 0,
+    "title": "부산 사하구 제2선거구 경선 계기로 교육·청년 정책 논의 확대",
+    "category": "교육",
+    "tags": [
+      "#교육"
+    ],
+    "pressCount": 1,
+    "updatedAt": "2026-04-24 16:45",
+    "summary": [
+      "부산 사하구 제2선거구에서",
+      "경선을 계기로",
+      "교육 및 청년 정책 논의가 확대되고 있습니다."
+    ],
+    "checkpoints": [],
+    "personaImpacts": [
+      {
+        "persona": "1인 가구",
+        "impact": "neutral",
+        "reason": "기사 내용은 부산 사하구의 교육·청년 정책 논의 확대에 대한 것으로, 1인 가구에 대한 구체적인 정책이나 영향은 명시되지 않았습니다."
+      },
+      {
+        "persona": "신혼부부",
+        "impact": "neutral",
+        "reason": "기사 내용은 부산 사하구의 교육·청년 정책 논의 확대에 대한 것으로, 신혼부부에 대한 구체적인 정책이나 영향은 명시되지 않았습니다."
+      },
+      {
+        "persona": "취업준비생",
+        "impact": "neutral",
+        "reason": "기사 내용은 부산 사하구의 교육·청년 정책 논의 확대에 대한 것으로, 취업준비생에 대한 구체적인 정책이나 영향은 명시되지 않았습니다."
+      },
+      {
+        "persona": "대학생",
+        "impact": "neutral",
+        "reason": "기사 내용은 부산 사하구의 교육·청년 정책 논의 확대에 대한 것으로, 대학생에 대한 구체적인 정책이나 영향은 명시되지 않았습니다."
+      },
+      {
+        "persona": "직장인",
+        "impact": "neutral",
+        "reason": "기사 내용은 부산 사하구의 교육·청년 정책 논의 확대에 대한 것으로, 직장인에 대한 구체적인 정책이나 영향은 명시되지 않았습니다."
+      }
+    ],
+    "relatedBenefits": [],
+    "sources": [
+      {
+        "title": "부산 사하구 제2선거구 경선 계기로 교육·청년 정책 논의 확대",
+        "press": "교육연합신문",
+        "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTFB4SlVPUzBmbzZNYXFJekpSVDU2WnRuN1hRZ1lQckdPRE5lMUlpWHhLVlUtV3Rud25uaU5ITVRuVGhoRFg5aWNieGxmeXROQlNYXzhJdm5IUFoyU25N?oc=5"
+      }
+    ],
+    "applyUrl": "https://news.google.com/rss/articles/CBMiXEFVX3lxTFB4SlVPUzBmbzZNYXFJekpSVDU2WnRuN1hRZ1lQckdPRE5lMUlpWHhLVlUtV3Rud25uaU5ITVRuVGhoRFg5aWNieGxmeXROQlNYXzhJdm5IUFoyU25N?oc=5",
+    "applyLabel": "부산 사하구 제2선거구 경선 계기로 ... 자세히 보기 →"
+  },
+  {
+    "id": "12",
+    "rank": 12,
+    "rankChange": 0,
+    "title": "월세 지원에 이사비까지…청년 자취생 주거비 줄이는 법 [혜택의 정석]",
+    "category": "주거",
+    "tags": [
+      "#혜택"
+    ],
+    "pressCount": 1,
+    "updatedAt": "2026-04-24 16:45",
+    "summary": [
+      "청년 자취생의 주거비 부담을 줄이는 다양한 방법을 다룹니다.",
+      "월세 지원과 이사비 지원 등 청년들을 위한 구체적인 혜택을 소개합니다.",
+      "청년들이 주거비를 절약하여 경제적 어려움을 덜 수 있도록 돕는 정책을 안내합니다."
+    ],
+    "checkpoints": [
+      {
+        "label": "지원 대상",
+        "value": "청년 자취생"
+      },
+      {
+        "label": "지원 내용",
+        "value": "월세 지원, 이사비 지원"
+      },
+      {
+        "label": "지원 금액",
+        "value": "기사에 명시되지 않음"
+      },
+      {
+        "label": "신청 기간",
+        "value": "기사에 명시되지 않음"
+      }
+    ],
+    "personaImpacts": [
+      {
+        "persona": "1인 가구",
+        "impact": "very_positive",
+        "reason": "기사는 '청년 자취생'을 직접적인 대상으로 하여 월세 및 이사비 지원을 다루므로, 1인 가구에 매우 긍정적인 영향을 미칩니다."
+      },
+      {
+        "persona": "신혼부부",
+        "impact": "neutral",
+        "reason": "기사는 '청년 자취생'의 주거비 지원에 초점을 맞추고 있으며, 신혼부부에 대한 직접적인 언급이나 특화된 혜택은 명시되지 않았습니다."
+      },
+      {
+        "persona": "취업준비생",
+        "impact": "positive",
+        "reason": "취업준비생 중 많은 수가 청년 자취생에 해당할 수 있으며, 주거비 부담 경감은 이들의 경제적 어려움을 덜어주는 데 도움이 됩니다."
+      },
+      {
+        "persona": "대학생",
+        "impact": "positive",
+        "reason": "대학생 중 자취를 하는 청년들이 많으므로, 월세 및 이사비 지원은 이들의 주거비 부담을 줄여 학업에 집중할 수 있도록 긍정적인 영향을 줄 수 있습니다."
+      },
+      {
+        "persona": "직장인",
+        "impact": "positive",
+        "reason": "청년 직장인 중 자취를 하는 경우가 많으며, 기사에서 다루는 월세 및 이사비 지원은 이들의 주거비 부담을 덜어주는 데 긍정적인 영향을 미칩니다."
+      }
+    ],
+    "relatedBenefits": [],
+    "sources": [
+      {
+        "title": "월세 지원에 이사비까지…청년 자취생 주거비 줄이는 법 [혜택의 정석]",
+        "press": "v.daum.net",
+        "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE93OVZQV1RCZW9vT04xWFR1cHY0X0xzZUNiR2RLemNueGFfbXJ3Y2tYUXh3Q054R1dHcTJjSnlaTGF6bTAtVUJaUi1SWEhPblk?oc=5"
+      }
+    ],
+    "applyUrl": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE93OVZQV1RCZW9vT04xWFR1cHY0X0xzZUNiR2RLemNueGFfbXJ3Y2tYUXh3Q054R1dHcTJjSnlaTGF6bTAtVUJaUi1SWEhPblk?oc=5",
+    "applyLabel": "월세 지원에 이사비까지…청년 자취생 ... 자세히 보기 →"
+  },
+  {
+    "id": "13",
+    "rank": 13,
+    "rankChange": 0,
+    "title": "경남도, 청년친화기업 20곳 추가 모집…복지지원금 등 혜택 제공",
+    "category": "주거",
+    "tags": [
+      "#혜택"
+    ],
+    "pressCount": 1,
+    "updatedAt": "2026-04-24 16:45",
+    "summary": [
+      "경남도가 청년친화기업 20곳을 추가로 모집합니다.",
+      "선정된 기업에는 복지지원금 등 다양한 혜택이 제공됩니다.",
+      "이는 청년들이 일하기 좋은 환경을 조성하기 위한 정책의 일환입니다."
+    ],
+    "checkpoints": [
+      {
+        "label": "모집 대상",
+        "value": "청년친화기업"
+      },
+      {
+        "label": "모집 규모",
+        "value": "20곳"
+      },
+      {
+        "label": "제공 혜택",
+        "value": "복지지원금 등"
+      }
+    ],
+    "personaImpacts": [
+      {
+        "persona": "1인 가구",
+        "impact": "neutral",
+        "reason": "기사는 청년친화기업 모집 및 혜택 제공에 관한 내용으로, 1인 가구에 직접적인 영향은 기사에 명시되지 않았습니다."
+      },
+      {
+        "persona": "신혼부부",
+        "impact": "neutral",
+        "reason": "기사는 청년친화기업 모집 및 혜택 제공에 관한 내용으로, 신혼부부에 직접적인 영향은 기사에 명시되지 않았습니다."
+      },
+      {
+        "persona": "취업준비생",
+        "impact": "positive",
+        "reason": "청년친화기업이 늘어나면 청년들이 일하기 좋은 환경의 기업이 증가하여 취업 선택지가 넓어질 수 있습니다."
+      },
+      {
+        "persona": "대학생",
+        "impact": "neutral",
+        "reason": "기사는 청년친화기업 모집 및 혜택 제공에 관한 내용으로, 대학생에 직접적인 영향은 기사에 명시되지 않았습니다."
+      },
+      {
+        "persona": "직장인",
+        "impact": "positive",
+        "reason": "청년친화기업으로 선정된 기업의 직장인들은 복지지원금 등 다양한 혜택을 받을 수 있어 긍정적인 영향을 미칠 수 있습니다."
+      }
+    ],
+    "relatedBenefits": [],
+    "sources": [
+      {
+        "title": "경남도, 청년친화기업 20곳 추가 모집…복지지원금 등 혜택 제공",
+        "press": "웹이코노미",
+        "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE5iTElfZlhpM1U3QzZqX1NkNmxZS2t6TktnbzQ4SjhiQ0E4SmpCcW04LS0tSkZLQXIxc1Vza09LWnpzVjVjbWYteC1TOUlsWXdsZ1FpVG1iaDFWMml0UVU4Rlo3WEl3em9MTUVjMWZ5THBfQQ?oc=5"
+      }
+    ],
+    "applyUrl": "https://news.google.com/rss/articles/CBMickFVX3lxTE5iTElfZlhpM1U3QzZqX1NkNmxZS2t6TktnbzQ4SjhiQ0E4SmpCcW04LS0tSkZLQXIxc1Vza09LWnpzVjVjbWYteC1TOUlsWXdsZ1FpVG1iaDFWMml0UVU4Rlo3WEl3em9MTUVjMWZ5THBfQQ?oc=5",
+    "applyLabel": "경남도, 청년친화기업 20곳 추가 모... 자세히 보기 →"
+  },
+  {
+    "id": "14",
+    "rank": 14,
+    "rankChange": 0,
+    "title": "신협, 전주 청년주택 '청춘별채' 금융지원…주거비 부담 완화",
+    "category": "주거",
+    "tags": [
+      "#주택"
+    ],
+    "pressCount": 1,
+    "updatedAt": "2026-04-24 16:45",
+    "summary": [
+      "신협이 전주 청년주택 '청춘별채'에 금융 지원을 제공한다.",
+      "이 지원은 청년들의 주거비 부담을 완화하는 데 목적이 있다.",
+      "'청춘별채'는 전주 지역 청년들을 위한 주택이다."
+    ],
+    "checkpoints": [],
+    "personaImpacts": [
+      {
+        "persona": "1인 가구",
+        "impact": "positive",
+        "reason": "청년주택 '청춘별채'에 대한 금융 지원은 1인 가구 청년의 주거비 부담 완화에 기여할 수 있다."
+      },
+      {
+        "persona": "신혼부부",
+        "impact": "neutral",
+        "reason": "기사 내용에 신혼부부가 청년주택 '청춘별채'의 금융지원 대상에 포함되는지 명시되어 있지 않다."
+      },
+      {
+        "persona": "취업준비생",
+        "impact": "positive",
+        "reason": "청년주택 '청춘별채'에 대한 금융 지원은 취업준비생의 주거비 부담을 완화하는 데 도움이 될 수 있다."
+      },
+      {
+        "persona": "대학생",
+        "impact": "positive",
+        "reason": "청년주택 '청춘별채'에 대한 금융 지원은 대학생의 주거비 부담을 완화하는 데 기여할 수 있다."
+      },
+      {
+        "persona": "직장인",
+        "impact": "positive",
+        "reason": "청년주택 '청춘별채'에 대한 금융 지원은 청년 직장인의 주거비 부담을 완화하는 데 긍정적인 영향을 줄 수 있다."
+      }
+    ],
+    "relatedBenefits": [],
+    "sources": [
+      {
+        "title": "신협, 전주 청년주택 '청춘별채' 금융지원…주거비 부담 완화",
+        "press": "fetv.co.kr",
+        "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE1zYll4YVJXWjJ0cVVQOFBZR2JpQ3JxRGtUUFo0S3d1ZjBVR3pzYUpGcnFOUjgwS2RwcTg0cUw3NWtUcWVZOVl5SHVQTmdLVVA1WW5MUlVIM181WjhpNFJGUE5aNFMtQTdZ?oc=5"
+      }
+    ],
+    "applyUrl": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE1zYll4YVJXWjJ0cVVQOFBZR2JpQ3JxRGtUUFo0S3d1ZjBVR3pzYUpGcnFOUjgwS2RwcTg0cUw3NWtUcWVZOVl5SHVQTmdLVVA1WW5MUlVIM181WjhpNFJGUE5aNFMtQTdZ?oc=5",
+    "applyLabel": "신협, 전주 청년주택 '청춘별채' 금... 자세히 보기 →"
+  },
+  {
+    "id": "15",
+    "rank": 15,
+    "rankChange": 0,
+    "title": "강동대로변 높이 100m로 대폭 완화⋯구로 궁동엔 '청년주택' 192가구",
+    "category": "주거",
+    "tags": [
+      "#주택"
+    ],
+    "pressCount": 1,
+    "updatedAt": "2026-04-24 16:45",
+    "summary": [
+      "강동대로변 건축물 높이가 100m로 대폭 완화됩니다.",
+      "구로 궁동에 청년주택이 건설됩니다.",
+      "해당 청년주택은 192가구 규모입니다."
+    ],
+    "checkpoints": [
+      {
+        "label": "강동대로변 건축물 높이 제한",
+        "value": "100m"
+      },
+      {
+        "label": "구로 궁동 청년주택 공급 가구수",
+        "value": "192가구"
+      }
+    ],
+    "personaImpacts": [
+      {
+        "persona": "1인 가구",
+        "impact": "positive",
+        "reason": "구로 궁동에 청년주택 192가구가 공급되어 주거 기회가 확대됩니다."
+      },
+      {
+        "persona": "신혼부부",
+        "impact": "positive",
+        "reason": "구로 궁동에 청년주택 192가구가 공급되어 주거 기회가 확대됩니다."
+      },
+      {
+        "persona": "취업준비생",
+        "impact": "positive",
+        "reason": "구로 궁동에 청년주택 192가구가 공급되어 주거 기회가 확대됩니다."
+      },
+      {
+        "persona": "대학생",
+        "impact": "positive",
+        "reason": "구로 궁동에 청년주택 192가구가 공급되어 주거 기회가 확대됩니다."
+      },
+      {
+        "persona": "직장인",
+        "impact": "positive",
+        "reason": "구로 궁동에 청년주택 192가구가 공급되어 주거 기회가 확대됩니다."
+      }
+    ],
+    "relatedBenefits": [],
+    "sources": [
+      {
+        "title": "강동대로변 높이 100m로 대폭 완화⋯구로 궁동엔 '청년주택' 192가구",
+        "press": "이투데이",
+        "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTFBjX1h3U0JoWTVtVVc4QXVBOTFEVUc1Z0dZVk5LcjcybW9NRlEtSkY1cVBEblNYUE9ESmJLYkR2UXdZOUVVdzlUSmZyZnRmYk9qX05pRg?oc=5"
+      }
+    ],
+    "applyUrl": "https://news.google.com/rss/articles/CBMiVEFVX3lxTFBjX1h3U0JoWTVtVVc4QXVBOTFEVUc1Z0dZVk5LcjcybW9NRlEtSkY1cVBEblNYUE9ESmJLYkR2UXdZOUVVdzlUSmZyZnRmYk9qX05pRg?oc=5",
+    "applyLabel": "강동대로변 높이 100m로 대폭 완화... 자세히 보기 →"
+  }
 ];

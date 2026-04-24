@@ -32,7 +32,14 @@ const IMPACT_LEVELS: ImpactLevel[] = [
 
 async function callGeminiAPI(prompt: string): Promise<string> {
   try {
-    const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+    // gemini-2.5-flash: 2026년 기준 무료 티어에서 가장 안정적인 최신 모델
+    const model = genAI.getGenerativeModel({
+      model: 'gemini-2.5-flash',
+      generationConfig: {
+        temperature: 0.3, // 낮은 온도로 일관성 있는 요약
+        responseMimeType: 'application/json',
+      },
+    });
     const result = await model.generateContent(prompt);
     const response = result.response;
     return response.text();
@@ -88,70 +95,37 @@ export async function summarizeArticle(
 ): Promise<SummaryResult> {
   console.log(`[Summarizer] Summarizing: "${title}"`);
 
-  const prompt = `당신은 청년 정책 분석 전문가입니다. 다음 기사를 분석해주세요.
+  const prompt = `당신은 청년 정책 분석 전문가입니다. 아래 기사를 읽고, 기사 내용만을 근거로 JSON을 생성하세요.
+절대 기사에 없는 수치나 조건을 만들어내지 마세요. 모르면 "기사에 명시되지 않음"이라고 쓰세요.
 
-기사 제목: ${title}
+[기사 제목]
+${title}
 
-기사 내용:
+[기사 내용]
 ${content || '(내용을 가져올 수 없음)'}
 
-다음을 JSON 형식으로 반환해주세요:
+[출력 요구사항]
+반드시 아래 JSON 스키마 구조로 출력하되, 모든 값은 기사 내용에서 근거를 찾아 작성하세요.
 
-\`\`\`json
 {
-  "summary": [
-    "첫 번째 줄 요약",
-    "두 번째 줄 요약",
-    "세 번째 줄 요약"
-  ],
-  "checkpoints": [
-    {
-      "label": "나이 기준",
-      "value": "만 19세 ~ 39세"
-    },
-    {
-      "label": "소득 기준",
-      "value": "기준 중위소득 100%"
-    },
-    {
-      "label": "자산 기준",
-      "value": "총자산 3억 이하"
-    }
-  ],
+  "summary": [문자열 3개 — 기사 핵심을 3줄로],
+  "checkpoints": [{"label": 항목명, "value": 기사에 명시된 구체적 수치/조건}, ...최대 5개],
   "personaImpacts": [
-    {
-      "persona": "1인 가구",
-      "impact": "positive",
-      "reason": "월세 부담이 줄어들 수 있음"
-    },
-    {
-      "persona": "신혼부부",
-      "impact": "very_positive",
-      "reason": "신혼부부 지원이 주요 대상"
-    },
-    {
-      "persona": "취업준비생",
-      "impact": "neutral",
-      "reason": "소득이 없어 대상이 아닐 수 있음"
-    },
-    {
-      "persona": "대학생",
-      "impact": "negative",
-      "reason": "독립하지 않은 경우 대상 제외"
-    },
-    {
-      "persona": "직장인",
-      "impact": "positive",
-      "reason": "중위소득 범위 내라면 지원 가능"
-    }
+    {"persona": "1인 가구", "impact": 영향도, "reason": 기사 근거 기반 1문장},
+    {"persona": "신혼부부", "impact": 영향도, "reason": 기사 근거 기반 1문장},
+    {"persona": "취업준비생", "impact": 영향도, "reason": 기사 근거 기반 1문장},
+    {"persona": "대학생", "impact": 영향도, "reason": 기사 근거 기반 1문장},
+    {"persona": "직장인", "impact": 영향도, "reason": 기사 근거 기반 1문장}
   ]
 }
-\`\`\`
 
-주의사항:
-- summary는 반드시 정확히 3개 문자열 배열
-- impact는 다음 중 하나: very_positive, positive, neutral, negative, very_negative
-- persona는 정확히: 1인 가구, 신혼부부, 취업준비생, 대학생, 직장인`;
+[제약]
+- impact 값은 반드시 이 중 하나: "very_positive" | "positive" | "neutral" | "negative" | "very_negative"
+- persona는 정확히 위 5개, 오타 금지
+- checkpoints는 기사에서 실제로 언급된 조건만 (지원금액, 신청기간, 대상나이, 소득기준, 자산기준, 신청방법 등)
+- 기사가 단순 행사/간담회/인터뷰라 구체 조건이 없으면 checkpoints는 빈 배열 []
+- 페르소나 영향도는 기사 내용상 연관성이 낮으면 neutral로 판정
+- 추측·상상·일반론 금지. 오직 이 기사에 있는 내용만.`;
 
   try {
     const response = await callGeminiAPI(prompt);
