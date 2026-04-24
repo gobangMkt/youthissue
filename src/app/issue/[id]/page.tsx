@@ -66,18 +66,9 @@ export default function IssuePage() {
           </div>
         </div>
 
-        {/* 1. AI 3줄 요약 */}
+        {/* 1. 3줄 요약 */}
         <section className="mb-6">
-          <div className="flex items-center gap-2 mb-3">
-            <span className="text-sm font-black text-gray-800">어떤 일이 일어났나요?</span>
-            {/* LLM 정보 배지 */}
-            <span
-              className="text-xs bg-violet-50 text-violet-600 border border-violet-100 px-1.5 py-0.5 rounded font-medium cursor-default"
-              title="GPT-4o API를 통해 뉴스 클러스터를 분석하고 3줄 요약 및 체크포인트를 생성합니다."
-            >
-              GPT-4o
-            </span>
-          </div>
+          <p className="text-sm font-black text-gray-800 mb-3">어떤 일이 일어났나요?</p>
           <div className="bg-gray-50 rounded-2xl p-4 space-y-2.5">
             {issue.summary.map((line, i) => (
               <div key={i} className="flex gap-2.5">
@@ -86,16 +77,6 @@ export default function IssuePage() {
               </div>
             ))}
           </div>
-          {/* LLM 상세 설명 */}
-          <div className="mt-2 px-1 flex items-start gap-1.5">
-            <span className="text-xs text-gray-400 leading-relaxed">
-              🤖 <strong className="text-gray-500">GPT-4o</strong>가 수집된 언론 기사를 분석해 요약합니다.
-              RAG(검색 증강 생성)로 공공 API 공고 원문을 참조해 수치 왜곡을 방지합니다.
-            </span>
-          </div>
-          <p className="text-xs text-red-400 mt-1.5 px-1">
-            ⚠️ AI 분석은 실제 공고와 다를 수 있으니 반드시 원문을 확인하세요.
-          </p>
         </section>
 
         {/* 2. 영향도 대시보드 */}
