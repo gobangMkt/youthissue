@@ -8,13 +8,13 @@ import { Category } from '@/types';
 
 const CATEGORIES: (Category | '전체')[] = ['전체', '주거', '금융', '취업', '복지', '교육'];
 
-const RANKING_CRITERIA = `📐 선정 기준
-• 지난 7일간 국내 언론사가 보도한 청년 정책 관련 기사를 모두 수집
-• 제목 유사도로 같은 이슈끼리 그룹핑
-• 보도한 언론사 수가 많은 이슈를 상위로 정렬
-• 한 이슈에 여러 언론사 = 사회적 관심도 높음
-
-매주 월요일 00:00 자동 갱신`;
+const RANKING_CRITERIA_LINES = [
+  '지난 7일 동안 나온 청년 정책 기사를 전부 모았어요.',
+  '같은 내용을 다룬 기사끼리 하나의 이슈로 묶었어요.',
+  '그리고 더 많은 언론사가 다룬 이슈일수록 위로 올려요.',
+  '',
+  '즉, 여기 TOP에 올라온 이슈는 이번 주 가장 많이 회자된 청년 이슈라고 보시면 돼요.',
+];
 
 /**
  * 고방 디자인 시스템:
@@ -74,35 +74,38 @@ export default function Home() {
         <>
           {/* Section 4: 랭킹 리스트 (언론사 보도량 기준) */}
           <section className="bg-white mt-2 px-5 pt-4 pb-2">
-            <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center justify-between mb-3">
               <p className="text-[13px] font-semibold text-[#8B95A1] tracking-[0.3px]">
                 TOP {filtered.length} 랭킹
               </p>
               <button
                 onClick={() => setShowCriteria((v) => !v)}
-                className="text-[11px] text-[#4E5968] hover:text-[#00B2C0] font-semibold flex items-center gap-1"
-                aria-label="선정 기준 설명"
+                className="text-[12px] text-[#00B2C0] hover:text-[#009AAA] font-semibold"
               >
-                <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-[#F2F4F6] text-[#8B95A1] text-[10px] font-bold">
-                  ?
-                </span>
-                <span>언론사 보도량 기준</span>
+                {showCriteria ? '닫기 ▲' : 'TOP은 어떻게 정해지나요? ▼'}
               </button>
             </div>
 
-            {/* 선정 기준 툴팁/패널 */}
+            {/* 선정 기준 패널 — 토스 톤 */}
             {showCriteria && (
-              <div className="mb-3 bg-[#E0F8FA] border-[1.5px] border-[#A8E6EC] rounded-[10px] p-4 relative">
-                <button
-                  onClick={() => setShowCriteria(false)}
-                  className="absolute top-2 right-3 text-[#8B95A1] hover:text-[#191F28] text-[18px] leading-none"
-                  aria-label="닫기"
-                >
-                  ×
-                </button>
-                <pre className="text-[12px] text-[#1A7A85] leading-[1.7] whitespace-pre-wrap font-sans">
-                  {RANKING_CRITERIA}
-                </pre>
+              <div className="mb-3 bg-[#E0F8FA] border-[1.5px] border-[#A8E6EC] rounded-[10px] p-4">
+                <p className="text-[13px] font-bold text-[#1A7A85] mb-2">
+                  TOP은 이렇게 정해져요
+                </p>
+                <div className="space-y-1.5">
+                  {RANKING_CRITERIA_LINES.map((line, i) =>
+                    line === '' ? (
+                      <div key={i} className="h-1" />
+                    ) : (
+                      <p key={i} className="text-[13px] text-[#1A7A85] leading-[1.6]">
+                        {line}
+                      </p>
+                    )
+                  )}
+                </div>
+                <p className="text-[11px] text-[#8B95A1] mt-3 pt-3 border-t border-[#A8E6EC]">
+                  매주 월요일 오전에 새로 갱신돼요.
+                </p>
               </div>
             )}
 

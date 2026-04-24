@@ -95,37 +95,51 @@ export async function summarizeArticle(
 ): Promise<SummaryResult> {
   console.log(`[Summarizer] Summarizing: "${title}"`);
 
-  const prompt = `당신은 청년 정책 분석 전문가입니다. 아래 기사를 읽고, 기사 내용만을 근거로 JSON을 생성하세요.
-절대 기사에 없는 수치나 조건을 만들어내지 마세요. 모르면 "기사에 명시되지 않음"이라고 쓰세요.
+  const prompt = `당신은 청년에게 정책 뉴스를 친근하게 전달하는 에디터입니다.
+토스(Toss) 서비스의 보이스앤톤을 따르세요: 친근한 존댓말("~해요", "~이에요"), 공감 유도, 격식 없이 쉬운 설명, 불필요한 이모지·전문용어 금지.
 
 [기사 제목]
 ${title}
 
-[기사 내용]
-${content || '(내용을 가져올 수 없음)'}
+[기사 내용 — 여러 언론사 교차]
+${content || '(내용 없음)'}
 
-[출력 요구사항]
-반드시 아래 JSON 스키마 구조로 출력하되, 모든 값은 기사 내용에서 근거를 찾아 작성하세요.
+[JSON 출력 규칙]
 
 {
-  "summary": [문자열 3개 — 기사 핵심을 3줄로],
-  "checkpoints": [{"label": 항목명, "value": 기사에 명시된 구체적 수치/조건}, ...최대 5개],
+  "summary": [문자열 3개],
+  // 토스 톤의 존댓말 대화체로 핵심 3줄.
+  // 좋은 예: "경기도가 청년 월세 지원금을 두 배로 올려달라고 정부에 건의했어요."
+  //        "지금 월 20만 원인데, 40만 원까지 올리자는 거예요."
+  //        "소득 기준과 대상 연령도 넓히자고 함께 제안했어요."
+  // 나쁜 예: "경기도는 ~ 건의하였다.", "~해야 한다.", "~임."
+
+  "checkpoints": [{"label": "...", "value": "..."}],
+  // 기사에 명시적으로 나온 구체적 수치/조건만. 예: 지원금액, 신청기간, 대상 나이, 소득기준, 대출한도 등.
+  // 구체 정보가 없으면 checkpoints는 빈 배열 [] 로 둘 것. 절대 "기사에 명시되지 않음" 같은 문구 쓰지 말 것.
+  // 좋은 예: {"label": "월세 지원액", "value": "월 20만 원 → 40만 원 상향 건의"}
+  // 나쁜 예: {"label": "소득 기준", "value": "기사에 명시되지 않음"}
+
   "personaImpacts": [
-    {"persona": "1인 가구", "impact": 영향도, "reason": 기사 근거 기반 1문장},
-    {"persona": "신혼부부", "impact": 영향도, "reason": 기사 근거 기반 1문장},
-    {"persona": "취업준비생", "impact": 영향도, "reason": 기사 근거 기반 1문장},
-    {"persona": "대학생", "impact": 영향도, "reason": 기사 근거 기반 1문장},
-    {"persona": "직장인", "impact": 영향도, "reason": 기사 근거 기반 1문장}
+    {"persona": "1인 가구", "impact": "...", "reason": "..."},
+    {"persona": "신혼부부", "impact": "...", "reason": "..."},
+    {"persona": "취업준비생", "impact": "...", "reason": "..."},
+    {"persona": "대학생", "impact": "...", "reason": "..."},
+    {"persona": "직장인", "impact": "...", "reason": "..."}
   ]
+  // impact: "very_positive" | "positive" | "neutral" | "negative" | "very_negative" 중 하나.
+  // reason: 토스 톤 한 문장.
+  //   좋은 예: "혼자 살며 월세 부담이 크다면, 매달 몇 십만 원이 아껴질 수 있어요."
+  //   좋은 예: "이 정책은 신혼부부와는 직접 연관이 없어요." (impact=neutral)
+  //   나쁜 예: "기사 내용이 제공되지 않아 판단할 수 없음."
 }
 
-[제약]
-- impact 값은 반드시 이 중 하나: "very_positive" | "positive" | "neutral" | "negative" | "very_negative"
-- persona는 정확히 위 5개, 오타 금지
-- checkpoints는 기사에서 실제로 언급된 조건만 (지원금액, 신청기간, 대상나이, 소득기준, 자산기준, 신청방법 등)
-- 기사가 단순 행사/간담회/인터뷰라 구체 조건이 없으면 checkpoints는 빈 배열 []
-- 페르소나 영향도는 기사 내용상 연관성이 낮으면 neutral로 판정
-- 추측·상상·일반론 금지. 오직 이 기사에 있는 내용만.`;
+[반드시 지킬 것]
+1. 토스 톤: 친근한 존댓말, 문장 짧게, 전문용어는 풀어서 설명.
+2. "기사에 명시되지 않음" / "내용이 제공되지 않음" / "판단할 수 없음" 같은 회피 문구 절대 금지.
+   → 정보가 없으면 checkpoints는 빈 배열, personaImpacts reason은 "~와는 직접 연관이 없어요" 같은 담백한 한 줄로.
+3. 과장·추측·일반론 금지. 오직 기사 속 사실만.
+4. 이모지 쓰지 말 것.`;
 
   try {
     const response = await callGeminiAPI(prompt);
