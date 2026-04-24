@@ -1,21 +1,32 @@
 'use client';
 
 import { useParams, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { issues } from '@/data/issues';
 import { getCategoryColor, getImpactColor, getImpactIcon, getImpactLabel } from '@/lib/utils';
-import { toggleSaved, isSaved } from '@/lib/store';
+
+// 영향도 판단 기준 (4대 축)
+const CRITERIA_INFO = [
+  { label: '🎂 나이', value: '만 19세 ~ 39세 (정책별 상이)' },
+  { label: '💰 소득', value: '기준 중위소득 대비 % (60·80·100·120·140%)' },
+  { label: '🏠 자산', value: '총자산 및 자동차 가액 기준 (2.5억~3.45억)' },
+  { label: '💍 혼인', value: '미혼 / 예비신혼 / 신혼(7년 이내) / 자녀 유무' },
+];
+
+const PERSONAS_DESC: Record<string, string> = {
+  '1인 가구':   '독신 청년 세입자 · 소득 하위권 중심',
+  '신혼부부':   '혼인 7년 이내 · 자녀 유무 포함',
+  '취업준비생': '무소득·구직급여 수급 중인 청년',
+  '대학생':     '재학 중·아르바이트 수준 소득',
+  '직장인':     '중위소득 100~140% 재직 청년',
+};
 
 export default function IssuePage() {
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
   const issue = issues.find((i) => i.id === id);
-  const [saved, setSaved] = useState(false);
-
-  useEffect(() => {
-    if (id) setSaved(isSaved(id));
-  }, [id]);
+  const [showCriteria, setShowCriteria] = useState(false);
 
   if (!issue) {
     return (
@@ -27,34 +38,19 @@ export default function IssuePage() {
     );
   }
 
-  const handleSave = () => {
-    const next = toggleSaved(issue.id);
-    setSaved(next);
-  };
-
   return (
     <main className="max-w-md mx-auto bg-white min-h-screen pb-28">
       {/* 상단 네비 */}
-      <div className="sticky top-14 z-40 bg-white border-b border-gray-100 px-4 h-12 flex items-center justify-between">
+      <div className="sticky top-14 z-40 bg-white border-b border-gray-100 px-4 h-12 flex items-center">
         <button onClick={() => router.back()} className="text-gray-500 hover:text-gray-800 text-sm flex items-center gap-1">
           ← 뒤로
-        </button>
-        <button
-          onClick={handleSave}
-          className={`text-sm font-semibold flex items-center gap-1 px-3 py-1.5 rounded-full transition-all ${
-            saved
-              ? 'bg-indigo-50 text-indigo-600'
-              : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
-          }`}
-        >
-          {saved ? '🔖 저장됨' : '+ 내 혜택함 저장'}
         </button>
       </div>
 
       <div className="px-4 pt-5">
         {/* 헤더 */}
         <div className="mb-5">
-          <div className="flex items-center gap-2 mb-2">
+          <div className="flex items-center gap-2 mb-2 flex-wrap">
             <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${getCategoryColor(issue.category)}`}>
               {issue.category}
             </span>
@@ -74,7 +70,13 @@ export default function IssuePage() {
         <section className="mb-6">
           <div className="flex items-center gap-2 mb-3">
             <span className="text-sm font-black text-gray-800">어떤 일이 일어났나요?</span>
-            <span className="text-xs bg-indigo-50 text-indigo-500 px-1.5 py-0.5 rounded font-medium">AI 요약</span>
+            {/* LLM 정보 배지 */}
+            <span
+              className="text-xs bg-violet-50 text-violet-600 border border-violet-100 px-1.5 py-0.5 rounded font-medium cursor-default"
+              title="GPT-4o API를 통해 뉴스 클러스터를 분석하고 3줄 요약 및 체크포인트를 생성합니다."
+            >
+              GPT-4o
+            </span>
           </div>
           <div className="bg-gray-50 rounded-2xl p-4 space-y-2.5">
             {issue.summary.map((line, i) => (
@@ -84,20 +86,63 @@ export default function IssuePage() {
               </div>
             ))}
           </div>
-          <p className="text-xs text-gray-400 mt-2 px-1">
+          {/* LLM 상세 설명 */}
+          <div className="mt-2 px-1 flex items-start gap-1.5">
+            <span className="text-xs text-gray-400 leading-relaxed">
+              🤖 <strong className="text-gray-500">GPT-4o</strong>가 수집된 언론 기사를 분석해 요약합니다.
+              RAG(검색 증강 생성)로 공공 API 공고 원문을 참조해 수치 왜곡을 방지합니다.
+            </span>
+          </div>
+          <p className="text-xs text-red-400 mt-1.5 px-1">
             ⚠️ AI 분석은 실제 공고와 다를 수 있으니 반드시 원문을 확인하세요.
           </p>
         </section>
 
         {/* 2. 영향도 대시보드 */}
         <section className="mb-6">
-          <p className="text-sm font-black text-gray-800 mb-3">나에게도 좋을까요?</p>
+          <div className="flex items-center justify-between mb-3">
+            <p className="text-sm font-black text-gray-800">나에게도 좋을까요?</p>
+            <button
+              onClick={() => setShowCriteria((v) => !v)}
+              className="text-xs text-indigo-500 hover:text-indigo-700 font-medium flex items-center gap-1"
+            >
+              {showCriteria ? '기준 닫기 ▲' : '판단 기준 보기 ▼'}
+            </button>
+          </div>
+
+          {/* 기준 공개 패널 */}
+          {showCriteria && (
+            <div className="mb-3 bg-indigo-50 border border-indigo-100 rounded-2xl p-4">
+              <p className="text-xs font-bold text-indigo-700 mb-2">📐 AI 영향도 판단 기준 (4대 축)</p>
+              <div className="space-y-1.5 mb-3">
+                {CRITERIA_INFO.map((c) => (
+                  <div key={c.label} className="flex items-start gap-2">
+                    <span className="text-xs font-semibold text-indigo-600 shrink-0 w-20">{c.label}</span>
+                    <span className="text-xs text-indigo-800">{c.value}</span>
+                  </div>
+                ))}
+              </div>
+              <p className="text-xs font-bold text-indigo-700 mb-1.5">👥 분석 대상 페르소나</p>
+              <div className="space-y-1">
+                {Object.entries(PERSONAS_DESC).map(([persona, desc]) => (
+                  <div key={persona} className="flex items-start gap-2">
+                    <span className="text-xs font-semibold text-indigo-600 shrink-0 w-20">{persona}</span>
+                    <span className="text-xs text-indigo-800">{desc}</span>
+                  </div>
+                ))}
+              </div>
+              <p className="text-xs text-indigo-500 mt-2.5">
+                GPT-4o가 기사 본문에서 소득·자산 수치를 추출하여 각 페르소나와 대조 후 유불리를 추론합니다.
+              </p>
+            </div>
+          )}
+
           <div className="space-y-2.5">
             {issue.personaImpacts.map((pi) => (
               <div key={pi.persona} className="flex items-start gap-3 bg-gray-50 rounded-xl p-3">
                 <span className="text-lg shrink-0">{getImpactIcon(pi.impact)}</span>
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-0.5">
+                  <div className="flex items-center gap-2 mb-0.5 flex-wrap">
                     <span className="text-xs font-bold text-gray-800">{pi.persona}</span>
                     <span className={`text-xs font-semibold px-1.5 py-0.5 rounded-full ${getImpactColor(pi.impact)}`}>
                       {getImpactLabel(pi.impact)}
@@ -154,24 +199,34 @@ export default function IssuePage() {
           </section>
         )}
 
-        {/* 5. 출처 */}
+        {/* 5. 출처 확인 */}
         <section className="mb-8">
           <p className="text-sm font-black text-gray-800 mb-3">출처 확인</p>
-          <div className="space-y-2">
+          <div className="space-y-2.5">
             {issue.sources.map((src, i) => (
               <a
                 key={i}
                 href={src.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-xs text-gray-500 hover:text-indigo-500 transition-colors"
+                className="flex items-start gap-2.5 bg-gray-50 hover:bg-gray-100 rounded-xl px-3 py-2.5 transition-colors group"
               >
-                <span className="text-gray-300">📰</span>
-                <span className="font-medium text-gray-400">[{src.press}]</span>
-                <span className="underline underline-offset-2">{src.title}</span>
+                <span className="text-base shrink-0 mt-0.5">📰</span>
+                <div className="min-w-0">
+                  <span className="text-xs font-semibold text-indigo-500 group-hover:text-indigo-700 block">
+                    {src.press}
+                  </span>
+                  <span className="text-xs text-gray-600 group-hover:text-gray-900 leading-snug line-clamp-2">
+                    {src.title}
+                  </span>
+                </div>
+                <span className="text-gray-300 text-xs shrink-0 mt-0.5 group-hover:text-indigo-400">↗</span>
               </a>
             ))}
           </div>
+          <p className="text-xs text-gray-400 mt-2 px-1">
+            📌 출처 클릭 시 네이버 뉴스 검색으로 이동합니다.
+          </p>
         </section>
       </div>
 
@@ -181,7 +236,8 @@ export default function IssuePage() {
           href={issue.applyUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="block w-full bg-indigo-600 hover:bg-indigo-700 text-white text-center font-bold py-4 rounded-2xl text-sm transition-colors shadow-lg shadow-indigo-200"
+          className="block w-full bg-indigo-600 hover:bg-indigo-700 text-white text-center font-bold py-4 rounded-2xl text-sm transition-colors"
+          style={{ boxShadow: 'var(--shadow-cta)' }}
         >
           {issue.applyLabel} →
         </a>

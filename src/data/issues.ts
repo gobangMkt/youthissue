@@ -1,5 +1,9 @@
 import { Issue } from '@/types';
 
+// 네이버 뉴스 검색 URL 생성 헬퍼
+const nn = (q: string) =>
+  `https://search.naver.com/search.naver?where=news&query=${encodeURIComponent(q)}`;
+
 export const issues: Issue[] = [
   {
     id: '1',
@@ -36,9 +40,9 @@ export const issues: Issue[] = [
       { id: 'r3', title: '신혼부부 행복주택', category: '주거', url: 'https://apply.lh.or.kr' },
     ],
     sources: [
-      { title: '국토부, 신생아 특례대출 소득기준 대폭 완화', press: '연합뉴스', url: '#' },
-      { title: '5월부터 신생아 특례대출 2억까지 받는다', press: '한국경제', url: '#' },
-      { title: '신생아 특례대출 완화…맞벌이 부부도 혜택', press: 'MBC', url: '#' },
+      { title: '국토부, 신생아 특례대출 소득기준 대폭 완화', press: '연합뉴스', url: nn('신생아 특례대출 소득기준 완화 연합뉴스') },
+      { title: '5월부터 신생아 특례대출 2억까지 받는다', press: '한국경제', url: nn('신생아 특례대출 2억 한국경제') },
+      { title: '신생아 특례대출 완화…맞벌이 부부도 혜택', press: 'MBC', url: nn('신생아 특례대출 완화 맞벌이 MBC') },
     ],
     applyUrl: 'https://nhuf.molit.go.kr',
     applyLabel: '국토부 주택도시기금 신청',
@@ -78,8 +82,8 @@ export const issues: Issue[] = [
       { id: 'r6', title: '청년 주거급여 분리지급', category: '복지', url: 'https://www.bokjiro.go.kr' },
     ],
     sources: [
-      { title: '청년 월세 특별지원 3차 5월 모집 시작', press: '뉴스1', url: '#' },
-      { title: '월 20만 원 월세 지원…청년 3차 모집 공고', press: '조선일보', url: '#' },
+      { title: '청년 월세 특별지원 3차 5월 모집 시작', press: '뉴스1', url: nn('청년 월세 특별지원 3차 모집 뉴스1') },
+      { title: '월 20만 원 월세 지원…청년 3차 모집 공고', press: '조선일보', url: nn('청년 월세 지원 3차 모집 공고 조선일보') },
     ],
     applyUrl: 'https://www.bokjiro.go.kr',
     applyLabel: '복지로 신청하기',
@@ -117,9 +121,9 @@ export const issues: Issue[] = [
       { id: 'r8', title: '신혼희망타운', category: '주거', url: 'https://apply.lh.or.kr' },
     ],
     sources: [
-      { title: 'LH 행복주택 자동차 가액 기준 완화 발표', press: '한국경제', url: '#' },
-      { title: '행복주택 차량 기준 4500만 원으로 올라', press: '경향신문', url: '#' },
-      { title: '청년·신혼 행복주택 입주 문턱 낮아진다', press: 'KBS', url: '#' },
+      { title: 'LH 행복주택 자동차 가액 기준 완화 발표', press: '한국경제', url: nn('LH 행복주택 자동차 가액 기준 완화 한국경제') },
+      { title: '행복주택 차량 기준 4500만 원으로 올라', press: '경향신문', url: nn('행복주택 차량 기준 4500만원 경향신문') },
+      { title: '청년·신혼 행복주택 입주 문턱 낮아진다', press: 'KBS', url: nn('청년 신혼 행복주택 입주 문턱 KBS') },
     ],
     applyUrl: 'https://apply.lh.or.kr',
     applyLabel: 'LH 청약플러스 신청',
@@ -158,8 +162,8 @@ export const issues: Issue[] = [
       { id: 'r10', title: '청년 내일저축계좌', category: '복지', url: 'https://www.bokjiro.go.kr' },
     ],
     sources: [
-      { title: '청년도약계좌 기여금 기준 완화 확정', press: '매일경제', url: '#' },
-      { title: '월 80만 원 넣으면 5000만 원…청년도약계좌 개편', press: '한겨레', url: '#' },
+      { title: '청년도약계좌 기여금 기준 완화 확정', press: '매일경제', url: nn('청년도약계좌 기여금 기준 완화 매일경제') },
+      { title: '월 80만 원 넣으면 5000만 원…청년도약계좌 개편', press: '한겨레', url: nn('청년도약계좌 월80만원 5000만원 한겨레') },
     ],
     applyUrl: 'https://www.kinfa.or.kr',
     applyLabel: '서민금융진흥원 신청',
@@ -198,8 +202,8 @@ export const issues: Issue[] = [
       { id: 'r12', title: '청년 디지털 일자리 사업', category: '취업', url: '#' },
     ],
     sources: [
-      { title: '서울 청년취업사관학교 2기 모집 공고', press: '서울경제', url: '#' },
-      { title: '500만 원 교육비 지원 서울 취업사관학교', press: '뉴시스', url: '#' },
+      { title: '서울 청년취업사관학교 2기 모집 공고', press: '서울경제', url: nn('서울 청년취업사관학교 2기 모집 서울경제') },
+      { title: '500만 원 교육비 지원 서울 취업사관학교', press: '뉴시스', url: nn('서울 청년취업사관학교 500만원 교육비 뉴시스') },
     ],
     applyUrl: 'https://job.seoul.go.kr',
     applyLabel: '서울일자리포털 신청',
@@ -237,8 +241,8 @@ export const issues: Issue[] = [
       { id: 'r14', title: '국민취업지원제도 II유형', category: '취업', url: 'https://www.kua.go.kr' },
     ],
     sources: [
-      { title: '청년 실업크레딧 18개월로 확대', press: '복지타임스', url: '#' },
-      { title: '청년 실직자 연금 지원 강화', press: '연합뉴스', url: '#' },
+      { title: '청년 실업크레딧 18개월로 확대', press: '복지타임스', url: nn('청년 실업크레딧 18개월 확대 복지타임스') },
+      { title: '청년 실직자 연금 지원 강화', press: '연합뉴스', url: nn('청년 실직자 연금 지원 강화 연합뉴스') },
     ],
     applyUrl: 'https://www.nps.or.kr',
     applyLabel: '국민연금공단 신청',
@@ -276,8 +280,8 @@ export const issues: Issue[] = [
       { id: 'r16', title: '청년 학자금 이자 지원', category: '교육', url: '#' },
     ],
     sources: [
-      { title: '든든학자금 금리 1.2%로 낮춘다', press: '교육부', url: '#' },
-      { title: '학자금 대출 이자 인하…대학생 부담 완화', press: '중앙일보', url: '#' },
+      { title: '든든학자금 금리 1.2%로 낮춘다', press: '교육부', url: nn('든든학자금 금리 1.2% 인하 교육부') },
+      { title: '학자금 대출 이자 인하…대학생 부담 완화', press: '중앙일보', url: nn('학자금 대출 이자 인하 대학생 중앙일보') },
     ],
     applyUrl: 'https://www.kosaf.go.kr',
     applyLabel: '한국장학재단 신청',
@@ -315,8 +319,8 @@ export const issues: Issue[] = [
       { id: 'r18', title: '청년 고용장려금', category: '취업', url: '#' },
     ],
     sources: [
-      { title: '청년 내일채움공제 플러스 5월 신청', press: '고용노동부', url: '#' },
-      { title: '2년 후 2000만 원…내일채움공제 플러스 출시', press: '파이낸셜뉴스', url: '#' },
+      { title: '청년 내일채움공제 플러스 5월 신청', press: '고용노동부', url: nn('청년 내일채움공제 플러스 신청 고용노동부') },
+      { title: '2년 후 2000만 원…내일채움공제 플러스 출시', press: '파이낸셜뉴스', url: nn('내일채움공제 플러스 2000만원 파이낸셜뉴스') },
     ],
     applyUrl: 'https://www.work.go.kr',
     applyLabel: '워크넷 신청',
@@ -354,8 +358,8 @@ export const issues: Issue[] = [
       { id: 'r20', title: '청년 특별구직지원금', category: '취업', url: '#' },
     ],
     sources: [
-      { title: '2027년 기준 중위소득 6.42% 인상 확정', press: '보건복지부', url: '#' },
-      { title: '내년 중위소득 올라 복지 혜택 대상 확대', press: '한국일보', url: '#' },
+      { title: '2027년 기준 중위소득 6.42% 인상 확정', press: '보건복지부', url: nn('2027 기준 중위소득 6.42% 인상 확정 보건복지부') },
+      { title: '내년 중위소득 올라 복지 혜택 대상 확대', press: '한국일보', url: nn('중위소득 인상 복지 혜택 대상 확대 한국일보') },
     ],
     applyUrl: 'https://www.bokjiro.go.kr',
     applyLabel: '복지로에서 자격 확인',
@@ -393,8 +397,8 @@ export const issues: Issue[] = [
       { id: 'r22', title: '청년 창업 전용 보증 지원', category: '금융', url: '#' },
     ],
     sources: [
-      { title: '청년 창업 도약패키지 4기 5월 모집', press: '중기부', url: '#' },
-      { title: '최대 1억 지원 청년 도약패키지 4기 시작', press: '벤처스퀘어', url: '#' },
+      { title: '청년 창업 도약패키지 4기 5월 모집', press: '중기부', url: nn('청년 창업 도약패키지 4기 모집 중기부') },
+      { title: '최대 1억 지원 청년 도약패키지 4기 시작', press: '벤처스퀘어', url: nn('청년 도약패키지 4기 1억 벤처스퀘어') },
     ],
     applyUrl: 'https://www.k-startup.go.kr',
     applyLabel: 'K-Startup 신청',

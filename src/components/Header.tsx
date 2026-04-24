@@ -22,14 +22,6 @@ export default function Header() {
           >
             홈
           </Link>
-          <Link
-            href="/saved"
-            className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
-              pathname === '/saved' ? 'bg-indigo-50 text-indigo-600' : 'text-gray-500 hover:text-gray-700'
-            }`}
-          >
-            내 혜택함
-          </Link>
         </nav>
       </div>
     </header>
