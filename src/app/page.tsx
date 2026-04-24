@@ -29,6 +29,7 @@ export default function Home() {
   const [activeCategory, setActiveCategory] = useState<Category | '전체'>('전체');
   const [sortMode, setSortMode] = useState<SortMode>('press');
   const [showGradeInfo, setShowGradeInfo] = useState(false);
+  const [showMore, setShowMore] = useState(false);
 
   // 카테고리 필터 + 정렬
   const filtered = useMemo(() => {
@@ -50,7 +51,8 @@ export default function Home() {
   // 정렬 후 rank 재매김하기 위해 index 사용
   const reRanked = filtered.map((issue, idx) => ({ ...issue, rank: idx + 1 }));
   const featured = reRanked.slice(0, 3);
-  const rest = reRanked.slice(3);
+  const visibleRest = reRanked.slice(3, 5);
+  const hiddenRest = reRanked.slice(5);
 
   return (
     <main className="max-w-[480px] mx-auto min-h-screen pb-8">
@@ -74,7 +76,7 @@ export default function Home() {
           {CATEGORIES.map((cat) => (
             <button
               key={cat}
-              onClick={() => setActiveCategory(cat)}
+              onClick={() => { setActiveCategory(cat); setShowMore(false); }}
               className={`shrink-0 px-4 py-2 rounded-[10px] text-[13px] font-semibold transition-colors ${
                 activeCategory === cat
                   ? 'bg-[#00B2C0] text-white'
@@ -104,7 +106,7 @@ export default function Home() {
             {/* 정렬 탭 */}
             <div className="flex gap-1 bg-[#F2F4F6] rounded-[10px] p-1 mb-3">
               <button
-                onClick={() => setSortMode('press')}
+                onClick={() => { setSortMode('press'); setShowMore(false); }}
                 className={`flex-1 py-2 rounded-[8px] text-[12px] font-bold transition-colors ${
                   sortMode === 'press'
                     ? 'bg-white text-[#00B2C0] shadow-sm'
@@ -114,7 +116,7 @@ export default function Home() {
                 기사 수 순
               </button>
               <button
-                onClick={() => setSortMode('benefit')}
+                onClick={() => { setSortMode('benefit'); setShowMore(false); }}
                 className={`flex-1 py-2 rounded-[8px] text-[12px] font-bold transition-colors flex items-center justify-center gap-1 ${
                   sortMode === 'benefit'
                     ? 'bg-white text-[#00B2C0] shadow-sm'
@@ -166,13 +168,31 @@ export default function Home() {
                 ))}
               </div>
             )}
-            {/* 4위~: 기본 리스트 */}
-            {rest.length > 0 && (
+            {/* 4~5위: 항상 노출 */}
+            {visibleRest.length > 0 && (
               <div className="divide-y divide-[#F2F4F6]">
-                {rest.map((issue) => (
+                {visibleRest.map((issue) => (
                   <IssueCard key={issue.id} issue={issue} />
                 ))}
               </div>
+            )}
+            {/* 6위~: 더보기로 펼치기 */}
+            {hiddenRest.length > 0 && (
+              <>
+                {showMore && (
+                  <div className="divide-y divide-[#F2F4F6]">
+                    {hiddenRest.map((issue) => (
+                      <IssueCard key={issue.id} issue={issue} />
+                    ))}
+                  </div>
+                )}
+                <button
+                  onClick={() => setShowMore((v) => !v)}
+                  className="w-full mt-3 py-3 rounded-[10px] bg-[#F2F4F6] text-[13px] font-semibold text-[#4E5968] hover:bg-[#E5E8EB] transition-colors"
+                >
+                  {showMore ? '접기' : `더보기 (${hiddenRest.length}개)`}
+                </button>
+              </>
             )}
           </section>
         </>
