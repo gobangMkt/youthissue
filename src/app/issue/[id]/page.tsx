@@ -57,7 +57,7 @@ export default function IssuePage() {
   }
 
   return (
-    <main className="max-w-[480px] mx-auto min-h-screen pb-[110px]">
+    <main className="max-w-[480px] mx-auto min-h-screen pb-8">
       {/* Section 0: 상단 뒤로가기 */}
       <div className="sticky top-14 z-40 bg-white border-b border-[#F2F4F6] px-5 h-12 flex items-center">
         <button
@@ -249,18 +249,6 @@ export default function IssuePage() {
           </div>
         </section>
       )}
-
-      {/* Bottom CTA (고방 표준: 10px radius, 테일, 하단 고정) */}
-      <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[480px] bg-white border-t border-[#F2F4F6] px-5 pt-3 pb-4">
-        <a
-          href={issue.applyUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block w-full bg-[#00B2C0] hover:bg-[#009AAA] text-white text-center font-bold py-[15px] rounded-[10px] text-[16px] transition-colors"
-        >
-          {issue.applyLabel}
-        </a>
-      </div>
 
       {/* Source Bottom Sheet */}
       <SourceSheet
