@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { Issue } from '@/types';
-import { getCategoryColor, getCategoryFeaturedBg, getRankChangeDisplay, getRankColor } from '@/lib/utils';
+import { getCategoryColor, getCategoryFeaturedBg, getRankChangeDisplay } from '@/lib/utils';
 
 interface Props {
   issue: Issue;
@@ -25,7 +25,7 @@ export default function IssueCard({ issue, featured = false }: Props) {
         <div className={`flex items-center gap-3 py-4 px-3 -mx-3 rounded-[10px] transition-colors cursor-pointer ${getCategoryFeaturedBg(issue.category)}`}>
           {/* 랭크 숫자 — 금/은/동 메달 색상 */}
           <div className="w-7 text-center shrink-0">
-            <span className={`text-[22px] font-black leading-none ${getRankColor(issue.rank)}`}>
+            <span className="text-[22px] font-black text-[#00B2C0] leading-none">
               {issue.rank}
             </span>
           </div>
