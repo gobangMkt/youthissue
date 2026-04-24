@@ -19,13 +19,33 @@ export function getBenefitScore(issue: Issue): number {
   );
 }
 
-/**
- * 고방 디자인 원칙: "한 가지 primary"
- * 모든 카테고리 뱃지를 중립 회색으로 통일 (토스피드 스타일)
- * 알록달록함 제거 — 시각적 노이즈 최소화
- */
-export function getCategoryColor(_category: Category): string {
-  return 'bg-[#F2F4F6] text-[#4E5968]';
+export function getCategoryColor(category: Category): string {
+  const map: Record<Category, string> = {
+    '주거': 'bg-[#EBF5FF] text-[#2563EB]',
+    '금융': 'bg-[#ECFDF5] text-[#059669]',
+    '취업': 'bg-[#FFF7ED] text-[#D97706]',
+    '복지': 'bg-[#F5F3FF] text-[#7C3AED]',
+    '교육': 'bg-[#E0F8FA] text-[#00909D]',
+  };
+  return map[category] ?? 'bg-[#F2F4F6] text-[#4E5968]';
+}
+
+export function getCategoryFeaturedBg(category: Category): string {
+  const map: Record<Category, string> = {
+    '주거': 'bg-[#F0F7FF] hover:bg-[#E3F0FF]',
+    '금융': 'bg-[#F0FDF6] hover:bg-[#E3FAF0]',
+    '취업': 'bg-[#FFFBF0] hover:bg-[#FFF5DC]',
+    '복지': 'bg-[#FAF5FF] hover:bg-[#F3EAFF]',
+    '교육': 'bg-[#F5FCFD] hover:bg-[#EAF9FB]',
+  };
+  return map[category] ?? 'bg-[#F5FCFD] hover:bg-[#EAF9FB]';
+}
+
+export function getRankColor(rank: number): string {
+  if (rank === 1) return 'text-[#F5A623]';
+  if (rank === 2) return 'text-[#94A3B8]';
+  if (rank === 3) return 'text-[#CD7F32]';
+  return 'text-[#8B95A1]';
 }
 
 export function getImpactLabel(impact: ImpactLevel): string {
