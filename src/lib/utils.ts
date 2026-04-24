@@ -1,4 +1,23 @@
-import { Category, ImpactLevel } from '@/types';
+import { Category, ImpactLevel, Issue } from '@/types';
+
+/**
+ * 이슈의 "혜택 점수" 계산
+ * 페르소나별 영향도를 숫자로 환산한 합계 (높을수록 더 많은 청년에게 유리한 정책)
+ *   매우긍정 = +2, 긍정 = +1, 해당없음 = 0, 부정 = -1, 매우부정 = -2
+ */
+export function getBenefitScore(issue: Issue): number {
+  const scoreMap: Record<ImpactLevel, number> = {
+    very_positive: 2,
+    positive: 1,
+    neutral: 0,
+    negative: -1,
+    very_negative: -2,
+  };
+  return issue.personaImpacts.reduce(
+    (sum, pi) => sum + (scoreMap[pi.impact] ?? 0),
+    0
+  );
+}
 
 /**
  * 고방 디자인 원칙: "한 가지 primary"
