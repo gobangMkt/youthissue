@@ -122,7 +122,41 @@ export default function IssuePage() {
         )}
       </section>
 
-      {/* Section 3: 영향도 대시보드 */}
+      {/* Section 3: 체크포인트 (기사에 명시되지 않음 항목은 필터링) */}
+      {(() => {
+        const validCheckpoints = issue.checkpoints.filter(
+          (cp) =>
+            !/명시되지 않음|제공되지 않음|판단할 수 없음|알 수 없음/.test(cp.value)
+        );
+        if (validCheckpoints.length === 0) return null;
+        return (
+          <section className="bg-white mt-2 px-5 pt-5 pb-5">
+            <div className="flex items-center justify-between mb-3">
+              <p className="text-[13px] font-semibold text-[#8B95A1] tracking-[0.3px]">
+                체크할 포인트
+              </p>
+              <p className="text-[11px] text-[#B0B8C1]">기사에 나온 실제 수치·조건</p>
+            </div>
+            <div className="border-[1.5px] border-[#E5E8EB] rounded-[10px] overflow-hidden">
+              {validCheckpoints.map((cp, i) => (
+                <div
+                  key={i}
+                  className={`flex items-center justify-between px-4 py-3 ${
+                    i !== validCheckpoints.length - 1 ? 'border-b border-[#F2F4F6]' : ''
+                  }`}
+                >
+                  <span className="text-[13px] text-[#8B95A1] font-medium">{cp.label}</span>
+                  <span className="text-[13px] font-bold text-[#191F28] text-right ml-4 max-w-[55%]">
+                    {cp.value}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </section>
+        );
+      })()}
+
+      {/* Section 4: 영향도 대시보드 */}
       <section className="bg-white mt-2 px-5 pt-5 pb-5">
         <div className="flex items-center justify-between mb-3">
           <p className="text-[13px] font-semibold text-[#8B95A1] tracking-[0.3px]">
@@ -193,40 +227,6 @@ export default function IssuePage() {
           ))}
         </div>
       </section>
-
-      {/* Section 4: 체크포인트 (기사에 명시되지 않음 항목은 필터링) */}
-      {(() => {
-        const validCheckpoints = issue.checkpoints.filter(
-          (cp) =>
-            !/명시되지 않음|제공되지 않음|판단할 수 없음|알 수 없음/.test(cp.value)
-        );
-        if (validCheckpoints.length === 0) return null;
-        return (
-          <section className="bg-white mt-2 px-5 pt-5 pb-5">
-            <div className="flex items-center justify-between mb-3">
-              <p className="text-[13px] font-semibold text-[#8B95A1] tracking-[0.3px]">
-                체크할 포인트
-              </p>
-              <p className="text-[11px] text-[#B0B8C1]">기사에 나온 실제 수치·조건</p>
-            </div>
-            <div className="border-[1.5px] border-[#E5E8EB] rounded-[10px] overflow-hidden">
-              {validCheckpoints.map((cp, i) => (
-                <div
-                  key={i}
-                  className={`flex items-center justify-between px-4 py-3 ${
-                    i !== validCheckpoints.length - 1 ? 'border-b border-[#F2F4F6]' : ''
-                  }`}
-                >
-                  <span className="text-[13px] text-[#8B95A1] font-medium">{cp.label}</span>
-                  <span className="text-[13px] font-bold text-[#191F28] text-right ml-4 max-w-[55%]">
-                    {cp.value}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </section>
-        );
-      })()}
 
       {/* Section 5: 연관 혜택 */}
       {issue.relatedBenefits.length > 0 && (
