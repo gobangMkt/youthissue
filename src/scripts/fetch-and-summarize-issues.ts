@@ -30,7 +30,7 @@ async function main() {
 
     // 1. 수집 + 본문 스크래핑 + 클러스터링 (언론사 보도 수 기반 TOP)
     console.log('\n[Step 1/3] 기사 수집 & 클러스터링');
-    const clusters = await fetchAndClusterNews(7, 15);
+    const clusters = await fetchAndClusterNews(7, 25, 2);
 
     if (clusters.length === 0) {
       console.error('❌ 이슈를 찾을 수 없습니다.');

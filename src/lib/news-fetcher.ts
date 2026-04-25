@@ -244,7 +244,7 @@ export async function fetchYouthPolicyNews(days: number = 7): Promise<RawArticle
 /**
  * 진짜 파이프라인: 수집 → 본문 보강 → 클러스터링
  */
-export async function fetchAndClusterNews(days: number = 7, topN: number = 15): Promise<NewsCluster[]> {
+export async function fetchAndClusterNews(days: number = 7, topN: number = 25, minPress: number = 2): Promise<NewsCluster[]> {
   console.log(`[Fetcher] 지난 ${days}일 기사 수집...`);
   const raw = await fetchGoogleNewsRSS(days);
   console.log(`[Fetcher] → ${raw.length}개 수집`);
@@ -258,7 +258,17 @@ export async function fetchAndClusterNews(days: number = 7, topN: number = 15): 
   const clusters = clusterArticles(withContent.length > 0 ? withContent : enriched);
   console.log(`[Cluster] → ${clusters.length}개 이슈로 묶임`);
 
-  const top = clusters.slice(0, topN);
+  const qualified = clusters.filter((c) => c.pressCount >= minPress);
+  const fallback = clusters.filter((c) => c.pressCount < minPress);
+
+  // minPress 이상 클러스터가 minTopN(15)개 미만이면 단독 보도로 채워서 최소 보장
+  const minTopN = 15;
+  const combined = qualified.length >= minTopN
+    ? qualified
+    : [...qualified, ...fallback.slice(0, minTopN - qualified.length)];
+
+  const top = combined.slice(0, topN);
+  console.log(`[Cluster] → 선택: ${top.length}개 (2곳+ ${qualified.length}개, 보충 ${Math.max(0, top.length - qualified.length)}개)`);
   top.forEach((c, i) => {
     console.log(`  #${i + 1} [${c.pressCount}곳] ${c.representativeTitle.substring(0, 50)}...`);
   });
