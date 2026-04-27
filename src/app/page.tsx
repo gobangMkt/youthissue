@@ -61,10 +61,15 @@ export default function Home() {
         <h1 className="text-[20px] font-bold text-[#191F28] mb-1">
           이번 주 청년이슈 TOP {issues.length}
         </h1>
-        <div className="flex items-center gap-2">
-          <p className="text-[13px] text-[#8B95A1]">매주 월요일 09:00 갱신 · 지난 7일 기사 분석</p>
-          <span className="text-[12px] text-[#B0B8C1]">·</span>
-          <p className="text-[12px] text-[#B0B8C1]">업데이트 {lastUpdatedAt}</p>
+        <div className="flex items-center gap-1.5">
+          <p className="text-[12px] text-[#B0B8C1]">업데이트 {lastUpdatedAt.replace(/-/g, '.').substring(0, 10)}</p>
+          <div className="relative group">
+            <span className="inline-flex items-center justify-center w-[14px] h-[14px] rounded-full bg-[#F2F4F6] text-[#B0B8C1] text-[9px] font-bold cursor-default select-none">?</span>
+            <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-1.5 hidden group-hover:block z-10 w-[200px] bg-[#191F28] text-white text-[11px] leading-[1.5] rounded-[8px] px-3 py-2 shadow-lg pointer-events-none">
+              매주 월요일 09:00 갱신<br />지난 7일 기사 AI 분석
+              <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-[#191F28]" />
+            </div>
+          </div>
         </div>
       </section>
 

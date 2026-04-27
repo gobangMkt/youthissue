@@ -4,7 +4,7 @@ import { Issue } from '@/types';
 // 수동 편집 시 다음 배치 실행 때 덮어쓰기됩니다.
 // 배치 스크립트: src/scripts/fetch-and-summarize-issues.ts
 
-export const lastUpdatedAt = '2026-04-24 11:30';
+export const lastUpdatedAt = '2026-04-27 01:29';
 
 export const issues: Issue[] = [
   {
