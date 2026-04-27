@@ -10,6 +10,8 @@ export interface IssueGenerationInput {
   applyUrl?: string;
   tags?: string[];
   pressCount?: number;
+  rankChange?: number;
+  isNew?: boolean;
 }
 
 export function generateIssueObject(
@@ -23,7 +25,8 @@ export function generateIssueObject(
   return {
     id,
     rank,
-    rankChange: 0,
+    rankChange: input.rankChange ?? 0,
+    isNew: input.isNew ?? false,
     title: input.title,
     category: input.category,
     tags: input.tags || [],

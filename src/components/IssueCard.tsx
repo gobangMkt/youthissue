@@ -15,15 +15,26 @@ interface Props {
  * - 기본: 심플한 리스트 아이템
  * - 카테고리 뱃지는 중립 회색으로 통일
  */
+function RankChangeBadge({ issue }: { issue: Issue }) {
+  if (issue.isNew) {
+    return (
+      <span className="inline-flex items-center px-1.5 py-[2px] rounded-[5px] bg-[#E8F9FF] text-[#00B2C0] text-[10px] font-bold leading-none">
+        NEW
+      </span>
+    );
+  }
+  const { text, color } = getRankChangeDisplay(issue.rankChange);
+  return <span className={`text-[11px] font-semibold ${color}`}>{text}</span>;
+}
+
 export default function IssueCard({ issue, featured = false }: Props) {
-  const { text: changeText, color: changeColor } = getRankChangeDisplay(issue.rankChange);
   const pressCount = issue.sources.length;
 
   if (featured) {
     return (
       <Link href={`/issue/${issue.id}`} className="block">
         <div className={`flex items-center gap-3 py-4 px-3 -mx-3 rounded-[10px] transition-colors cursor-pointer ${getCategoryFeaturedBg(issue.category)}`}>
-          {/* 랭크 숫자 — 금/은/동 메달 색상 */}
+          {/* 랭크 숫자 */}
           <div className="w-7 text-center shrink-0">
             <span className="text-[22px] font-black text-[#191F28] leading-none">
               {issue.rank}
@@ -38,9 +49,7 @@ export default function IssueCard({ issue, featured = false }: Props) {
               >
                 {issue.category}
               </span>
-              <span className={`text-[11px] font-semibold ${changeColor}`}>
-                {changeText}
-              </span>
+              <RankChangeBadge issue={issue} />
             </div>
             <p className="text-[15px] font-bold text-[#191F28] leading-[1.35] line-clamp-2">
               {issue.title}
@@ -71,9 +80,7 @@ export default function IssueCard({ issue, featured = false }: Props) {
             >
               {issue.category}
             </span>
-            <span className={`text-[11px] font-semibold ${changeColor}`}>
-              {changeText}
-            </span>
+            <RankChangeBadge issue={issue} />
           </div>
           <p className="text-[14px] font-semibold text-[#191F28] leading-[1.4] line-clamp-2">
             {issue.title}

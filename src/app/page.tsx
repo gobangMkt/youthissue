@@ -3,7 +3,7 @@
 import { useMemo, useState } from 'react';
 import IssueCard from '@/components/IssueCard';
 import InsightBanner from '@/components/InsightBanner';
-import { issues } from '@/data/issues';
+import { issues, lastUpdatedAt } from '@/data/issues';
 import { Category, ImpactLevel } from '@/types';
 import { getBenefitScore } from '@/lib/utils';
 
@@ -59,9 +59,13 @@ export default function Home() {
       {/* Section 1: Hero */}
       <section className="bg-white px-5 pt-5 pb-5">
         <h1 className="text-[20px] font-bold text-[#191F28] mb-1">
-          오늘의 청년이슈 TOP {issues.length}
+          이번 주 청년이슈 TOP {issues.length}
         </h1>
-        <p className="text-[13px] text-[#8B95A1]">매주 월요일 09:00 갱신 · 지난 7일 기사 분석</p>
+        <div className="flex items-center gap-2">
+          <p className="text-[13px] text-[#8B95A1]">매주 월요일 09:00 갱신 · 지난 7일 기사 분석</p>
+          <span className="text-[12px] text-[#B0B8C1]">·</span>
+          <p className="text-[12px] text-[#B0B8C1]">업데이트 {lastUpdatedAt}</p>
+        </div>
       </section>
 
       {/* Section 2: 주간 인사이트 배너 */}

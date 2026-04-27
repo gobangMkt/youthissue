@@ -32,6 +32,7 @@ export interface Issue {
   id: string;
   rank: number;
   rankChange: number; // 양수=상승, 0=유지, 음수=하락
+  isNew?: boolean; // 이번 주 처음 등장한 이슈
   title: string;
   category: Category;
   tags: string[];
