@@ -64,7 +64,7 @@ export default function InsightBanner({ issues }: Props) {
 
       {/* 2. 페르소나 꿀팁 */}
       <div className="pt-3 border-t border-[#A8E6EC] space-y-2">
-        <p className="text-[13px] text-[#1A7A85] leading-[1.6]">
+        <p className="text-[15px] text-[#1A7A85] leading-[1.6]">
           특히{' '}
           <span className="font-bold text-[#00B2C0]">{topPersona}</span>
           <span className="font-semibold">({topPersonaCount}건)</span>,{' '}
@@ -73,7 +73,7 @@ export default function InsightBanner({ issues }: Props) {
         </p>
 
         {/* 3. 실행 팁 */}
-        <p className="text-[13px] text-[#1A7A85] leading-[1.6]">
+        <p className="text-[15px] text-[#1A7A85] leading-[1.6]">
           <span className="font-bold text-[#00B2C0]">{actionableCount}개 이슈</span>는 신청 조건·금액이
           구체적이니, 마감 놓치기 전에 꼭 확인해보세요.
         </p>

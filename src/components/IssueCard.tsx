@@ -13,13 +13,13 @@ interface Props {
 function RankChangeBadge({ issue }: { issue: Issue }) {
   if (issue.isNew) {
     return (
-      <span className="inline-flex items-center px-1.5 py-[2px] rounded-[5px] bg-[#E8F9FF] text-[#00B2C0] text-[10px] font-bold leading-none">
+      <span className="inline-flex items-center px-1.5 py-[2px] rounded-[5px] bg-[#E8F9FF] text-[#00B2C0] text-[12px] font-bold leading-none">
         NEW
       </span>
     );
   }
   const { text, color } = getRankChangeDisplay(issue.rankChange);
-  return <span className={`text-[11px] font-semibold ${color}`}>{text}</span>;
+  return <span className={`text-[13px] font-semibold ${color}`}>{text}</span>;
 }
 
 function Spinner() {
@@ -55,7 +55,7 @@ export default function IssueCard({ issue, featured = false }: Props) {
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-1.5 mb-1">
               <span
-                className={`text-[11px] font-bold px-1.5 py-[2px] rounded-[6px] ${getCategoryColor(
+                className={`text-[13px] font-bold px-1.5 py-[2px] rounded-[6px] ${getCategoryColor(
                   issue.category
                 )}`}
               >
@@ -66,7 +66,7 @@ export default function IssueCard({ issue, featured = false }: Props) {
             <p className="text-[15px] font-bold text-[#191F28] leading-[1.35] line-clamp-2">
               {issue.title}
             </p>
-            <p className="text-[11px] text-[#1A7A85] font-semibold mt-1">
+            <p className="text-[13px] text-[#1A7A85] font-semibold mt-1">
               언론사 {pressCount}곳 보도
             </p>
           </div>
@@ -93,7 +93,7 @@ export default function IssueCard({ issue, featured = false }: Props) {
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-1.5 mb-1">
             <span
-              className={`text-[11px] font-bold px-1.5 py-[2px] rounded-[6px] ${getCategoryColor(
+              className={`text-[13px] font-bold px-1.5 py-[2px] rounded-[6px] ${getCategoryColor(
                 issue.category
               )}`}
             >
@@ -104,7 +104,7 @@ export default function IssueCard({ issue, featured = false }: Props) {
           <p className="text-[14px] font-semibold text-[#191F28] leading-[1.4] line-clamp-2">
             {issue.title}
           </p>
-          <p className="text-[11px] text-[#8B95A1] mt-1">
+          <p className="text-[13px] text-[#8B95A1] mt-1">
             언론사 {pressCount}곳 보도
           </p>
         </div>

@@ -47,7 +47,7 @@ export default function SourceSheet({ open, onClose, sources }: Props) {
         <div className="flex items-center justify-between mb-4">
           <div>
             <h3 className="text-[20px] font-bold text-[#191F28]">출처 확인</h3>
-            <p className="text-[13px] text-[#8B95A1] mt-1 leading-[1.5]">
+            <p className="text-[15px] text-[#8B95A1] mt-1 leading-[1.5]">
               총 {sources.length}곳의 언론사 보도를 기반으로 작성되었습니다
             </p>
           </div>
@@ -71,11 +71,11 @@ export default function SourceSheet({ open, onClose, sources }: Props) {
                   rel="noopener noreferrer"
                   className="flex items-start gap-3 py-3 px-2 -mx-2 rounded-[10px] hover:bg-[#F2F4F6] transition-colors"
                 >
-                  <span className="flex items-center justify-center shrink-0 w-6 h-6 bg-[#E0F8FA] text-[#00B2C0] text-[11px] font-bold rounded-full">
+                  <span className="flex items-center justify-center shrink-0 w-6 h-6 bg-[#E0F8FA] text-[#00B2C0] text-[13px] font-bold rounded-full">
                     {i + 1}
                   </span>
                   <div className="flex-1 min-w-0">
-                    <p className="text-[13px] font-bold text-[#00B2C0] mb-0.5">{src.press}</p>
+                    <p className="text-[15px] font-bold text-[#00B2C0] mb-0.5">{src.press}</p>
                     <p className="text-[14px] text-[#191F28] font-semibold leading-[1.45] line-clamp-2">
                       {src.title}
                     </p>
@@ -88,7 +88,7 @@ export default function SourceSheet({ open, onClose, sources }: Props) {
         </div>
 
         {/* 안내 */}
-        <p className="text-[11px] text-[#B0B8C1] mt-4 leading-[1.6] text-center">
+        <p className="text-[13px] text-[#B0B8C1] mt-4 leading-[1.6] text-center">
           📌 출처 클릭 시 네이버 뉴스 검색으로 이동합니다
         </p>
       </div>

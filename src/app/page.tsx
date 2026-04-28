@@ -62,10 +62,10 @@ export default function Home() {
           이번 주 청년이슈 TOP {issues.length}
         </h1>
         <div className="flex items-center gap-1.5">
-          <p className="text-[12px] text-[#B0B8C1]">업데이트 {lastUpdatedAt.replace(/-/g, '.').substring(0, 10)}</p>
+          <p className="text-[14px] text-[#B0B8C1]">업데이트 {lastUpdatedAt.replace(/-/g, '.').substring(0, 10)}</p>
           <div className="relative group">
             <span className="inline-flex items-center justify-center w-[14px] h-[14px] rounded-full bg-[#F2F4F6] text-[#B0B8C1] text-[9px] font-bold cursor-default select-none">?</span>
-            <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-1.5 hidden group-hover:block z-10 w-[200px] bg-[#191F28] text-white text-[11px] leading-[1.5] rounded-[8px] px-3 py-2 shadow-lg pointer-events-none">
+            <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-1.5 hidden group-hover:block z-10 w-[200px] bg-[#191F28] text-white text-[13px] leading-[1.5] rounded-[8px] px-3 py-2 shadow-lg pointer-events-none">
               매주 월요일 09:00 갱신<br />지난 7일 기사 AI 분석
               <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-[#191F28]" />
             </div>
@@ -80,13 +80,13 @@ export default function Home() {
 
       {/* Section 3: 카테고리 필터 */}
       <section className="bg-white mt-2 px-5 py-4">
-        <p className="text-[13px] font-semibold text-[#8B95A1] tracking-[0.3px] mb-3">카테고리</p>
+        <p className="text-[15px] font-semibold text-[#8B95A1] tracking-[0.3px] mb-3">카테고리</p>
         <div className="flex gap-2 overflow-x-auto scrollbar-hide -mx-1 px-1">
           {CATEGORIES.map((cat) => (
             <button
               key={cat}
               onClick={() => { setActiveCategory(cat); setShowMore(false); }}
-              className={`shrink-0 px-4 py-2 rounded-[10px] text-[13px] font-semibold transition-colors ${
+              className={`shrink-0 px-4 py-2 rounded-[10px] text-[15px] font-semibold transition-colors ${
                 activeCategory === cat
                   ? 'bg-[#00B2C0] text-white'
                   : 'bg-[#F2F4F6] text-[#4E5968] hover:bg-[#E5E8EB]'
@@ -107,7 +107,7 @@ export default function Home() {
           {/* Section 4: 정렬 토글 + 랭킹 리스트 */}
           <section className="bg-white mt-2 px-5 pt-4 pb-2">
             <div className="flex items-center justify-between mb-3">
-              <p className="text-[13px] font-semibold text-[#8B95A1] tracking-[0.3px]">
+              <p className="text-[15px] font-semibold text-[#8B95A1] tracking-[0.3px]">
                 TOP {filtered.length} 랭킹
               </p>
             </div>
@@ -116,7 +116,7 @@ export default function Home() {
             <div className="flex gap-1 bg-[#F2F4F6] rounded-[10px] p-1 mb-3">
               <button
                 onClick={() => { setSortMode('press'); setShowMore(false); }}
-                className={`flex-1 py-2 rounded-[8px] text-[12px] font-bold transition-colors ${
+                className={`flex-1 py-2 rounded-[8px] text-[14px] font-bold transition-colors ${
                   sortMode === 'press'
                     ? 'bg-white text-[#00B2C0] shadow-sm'
                     : 'text-[#8B95A1] hover:text-[#4E5968]'
@@ -126,7 +126,7 @@ export default function Home() {
               </button>
               <button
                 onClick={() => { setSortMode('benefit'); setShowMore(false); }}
-                className={`flex-1 py-2 rounded-[8px] text-[12px] font-bold transition-colors flex items-center justify-center gap-1 ${
+                className={`flex-1 py-2 rounded-[8px] text-[14px] font-bold transition-colors flex items-center justify-center gap-1 ${
                   sortMode === 'benefit'
                     ? 'bg-white text-[#00B2C0] shadow-sm'
                     : 'text-[#8B95A1] hover:text-[#4E5968]'
@@ -141,7 +141,7 @@ export default function Home() {
                     }}
                     role="button"
                     aria-label="영향도 등급 설명"
-                    className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-[#E0F8FA] text-[#00B2C0] text-[10px] font-bold cursor-pointer hover:bg-[#A8E6EC]"
+                    className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-[#E0F8FA] text-[#00B2C0] text-[12px] font-bold cursor-pointer hover:bg-[#A8E6EC]"
                   >
                     ?
                   </span>
@@ -152,14 +152,14 @@ export default function Home() {
             {/* 영향도 등급 툴팁 (혜택순 선택 + ? 클릭 시) */}
             {sortMode === 'benefit' && showGradeInfo && (
               <div className="mb-3 bg-[#E0F8FA] border-[1.5px] border-[#A8E6EC] rounded-[10px] p-4">
-                <p className="text-[13px] font-bold text-[#1A7A85] mb-2">영향도 등급이 뭐예요?</p>
-                <p className="text-[12px] text-[#1A7A85] leading-[1.6] mb-3">
+                <p className="text-[15px] font-bold text-[#1A7A85] mb-2">영향도 등급이 뭐예요?</p>
+                <p className="text-[14px] text-[#1A7A85] leading-[1.6] mb-3">
                   5개 페르소나(1인 가구·신혼부부·취업준비생·대학생·직장인) 각각에 대해 기사를 분석해,
                   얼마나 유리한지 판단해요. 점수가 높을수록 더 많은 청년에게 좋은 정책이에요.
                 </p>
                 <div className="space-y-1">
                   {IMPACT_GRADES.map((g) => (
-                    <div key={g.impact} className="flex items-start gap-2 text-[12px]">
+                    <div key={g.impact} className="flex items-start gap-2 text-[14px]">
                       <span className="shrink-0 w-14 font-bold text-[#1A7A85]">{g.label}</span>
                       <span className="shrink-0 w-8 font-mono text-[#00B2C0]">{g.score}</span>
                       <span className="text-[#4A5568]">{g.desc}</span>
@@ -197,7 +197,7 @@ export default function Home() {
                 )}
                 <button
                   onClick={() => setShowMore((v) => !v)}
-                  className="w-full mt-3 py-3 rounded-[10px] bg-[#F2F4F6] text-[13px] font-semibold text-[#4E5968] hover:bg-[#E5E8EB] transition-colors"
+                  className="w-full mt-3 py-3 rounded-[10px] bg-[#F2F4F6] text-[15px] font-semibold text-[#4E5968] hover:bg-[#E5E8EB] transition-colors"
                 >
                   {showMore ? '접기' : `더보기 (${hiddenRest.length}개)`}
                 </button>

@@ -72,21 +72,21 @@ export default function IssuePage() {
       <section className="bg-white px-5 pt-5 pb-5">
         <div className="flex items-center gap-2 mb-2 flex-wrap">
           <span
-            className={`text-[11px] font-bold px-2 py-[2px] rounded-[6px] ${getCategoryColor(
+            className={`text-[13px] font-bold px-2 py-[2px] rounded-[6px] ${getCategoryColor(
               issue.category
             )}`}
           >
             {issue.category}
           </span>
-          <span className="text-[12px] text-[#8B95A1]">언론사 {issue.sources.length}곳 보도</span>
-          <span className="text-[12px] text-[#B0B8C1]">·</span>
-          <span className="text-[12px] text-[#8B95A1]">{issue.updatedAt} 기준</span>
+          <span className="text-[14px] text-[#8B95A1]">언론사 {issue.sources.length}곳 보도</span>
+          <span className="text-[14px] text-[#B0B8C1]">·</span>
+          <span className="text-[14px] text-[#8B95A1]">{issue.updatedAt} 기준</span>
         </div>
         <h1 className="text-[20px] font-bold text-[#191F28] leading-[1.35]">{issue.title}</h1>
         {issue.tags.length > 0 && (
           <div className="flex flex-wrap gap-1 mt-2">
             {issue.tags.map((tag) => (
-              <span key={tag} className="text-[12px] text-[#8B95A1]">
+              <span key={tag} className="text-[14px] text-[#8B95A1]">
                 {tag}
               </span>
             ))}
@@ -96,7 +96,7 @@ export default function IssuePage() {
 
       {/* Section 2: 3줄 요약 */}
       <section className="bg-white mt-2 px-5 pt-5 pb-5">
-        <p className="text-[13px] font-semibold text-[#8B95A1] tracking-[0.3px] mb-3">
+        <p className="text-[15px] font-semibold text-[#8B95A1] tracking-[0.3px] mb-3">
           어떤 일이 일어났나요?
         </p>
         <div className="bg-[#E0F8FA] border-[1.5px] border-[#A8E6EC] rounded-[10px] p-4 space-y-2.5">
@@ -113,7 +113,7 @@ export default function IssuePage() {
         {issue.sources.length > 0 && (
           <button
             onClick={() => setShowSources(true)}
-            className="mt-3 flex items-center gap-2 text-[12px] font-semibold text-[#4E5968] hover:text-[#00B2C0] bg-[#F2F4F6] hover:bg-[#E0F8FA] px-3 py-2 rounded-[8px] transition-colors"
+            className="mt-3 flex items-center gap-2 text-[14px] font-semibold text-[#4E5968] hover:text-[#00B2C0] bg-[#F2F4F6] hover:bg-[#E0F8FA] px-3 py-2 rounded-[8px] transition-colors"
           >
             <span>📰</span>
             <span>출처 {issue.sources.length}곳 보기</span>
@@ -132,10 +132,10 @@ export default function IssuePage() {
         return (
           <section className="bg-white mt-2 px-5 pt-5 pb-5">
             <div className="flex items-center justify-between mb-3">
-              <p className="text-[13px] font-semibold text-[#8B95A1] tracking-[0.3px]">
+              <p className="text-[15px] font-semibold text-[#8B95A1] tracking-[0.3px]">
                 체크할 포인트
               </p>
-              <p className="text-[11px] text-[#B0B8C1]">기사에 나온 실제 수치·조건</p>
+              <p className="text-[13px] text-[#B0B8C1]">기사에 나온 실제 수치·조건</p>
             </div>
             <div className="border-[1.5px] border-[#E5E8EB] rounded-[10px] overflow-hidden">
               {validCheckpoints.map((cp, i) => (
@@ -145,8 +145,8 @@ export default function IssuePage() {
                     i !== validCheckpoints.length - 1 ? 'border-b border-[#F2F4F6]' : ''
                   }`}
                 >
-                  <span className="text-[13px] text-[#8B95A1] font-medium">{cp.label}</span>
-                  <span className="text-[13px] font-bold text-[#191F28] text-right ml-4 max-w-[55%]">
+                  <span className="text-[15px] text-[#8B95A1] font-medium">{cp.label}</span>
+                  <span className="text-[15px] font-bold text-[#191F28] text-right ml-4 max-w-[55%]">
                     {cp.value}
                   </span>
                 </div>
@@ -159,12 +159,12 @@ export default function IssuePage() {
       {/* Section 4: 영향도 대시보드 */}
       <section className="bg-white mt-2 px-5 pt-5 pb-5">
         <div className="flex items-center justify-between mb-3">
-          <p className="text-[13px] font-semibold text-[#8B95A1] tracking-[0.3px]">
+          <p className="text-[15px] font-semibold text-[#8B95A1] tracking-[0.3px]">
             나에게도 좋을까요?
           </p>
           <button
             onClick={() => setShowCriteria((v) => !v)}
-            className="text-[12px] text-[#00B2C0] hover:text-[#009AAA] font-semibold"
+            className="text-[14px] text-[#00B2C0] hover:text-[#009AAA] font-semibold"
           >
             {showCriteria ? '기준 닫기 ▲' : '판단 기준 ▼'}
           </button>
@@ -173,31 +173,31 @@ export default function IssuePage() {
         {/* 기준 공개 패널 */}
         {showCriteria && (
           <div className="mb-3 bg-[#E0F8FA] border-[1.5px] border-[#A8E6EC] rounded-[10px] p-4">
-            <p className="text-[13px] font-bold text-[#1A7A85] mb-2">
+            <p className="text-[15px] font-bold text-[#1A7A85] mb-2">
               📐 영향도 판단 기준 (4대 축)
             </p>
             <div className="space-y-1.5 mb-3">
               {CRITERIA_INFO.map((c) => (
                 <div key={c.label} className="flex items-start gap-2">
-                  <span className="text-[12px] font-semibold text-[#1A7A85] shrink-0 w-[72px]">
+                  <span className="text-[14px] font-semibold text-[#1A7A85] shrink-0 w-[72px]">
                     {c.label}
                   </span>
-                  <span className="text-[12px] text-[#4A5568]">{c.value}</span>
+                  <span className="text-[14px] text-[#4A5568]">{c.value}</span>
                 </div>
               ))}
             </div>
-            <p className="text-[13px] font-bold text-[#1A7A85] mb-1.5">👥 분석 대상 페르소나</p>
+            <p className="text-[15px] font-bold text-[#1A7A85] mb-1.5">👥 분석 대상 페르소나</p>
             <div className="space-y-1">
               {Object.entries(PERSONAS_DESC).map(([persona, desc]) => (
                 <div key={persona} className="flex items-start gap-2">
-                  <span className="text-[12px] font-semibold text-[#1A7A85] shrink-0 w-[72px]">
+                  <span className="text-[14px] font-semibold text-[#1A7A85] shrink-0 w-[72px]">
                     {persona}
                   </span>
-                  <span className="text-[12px] text-[#4A5568]">{desc}</span>
+                  <span className="text-[14px] text-[#4A5568]">{desc}</span>
                 </div>
               ))}
             </div>
-            <p className="text-[11px] text-[#8B95A1] mt-2.5 leading-[1.6]">
+            <p className="text-[13px] text-[#8B95A1] mt-2.5 leading-[1.6]">
               기사 본문에서 소득·자산 수치를 추출하여 각 페르소나와 대조 후 유불리를 추론합니다.
             </p>
           </div>
@@ -212,16 +212,16 @@ export default function IssuePage() {
               <span className="text-[18px] shrink-0">{getImpactIcon(pi.impact)}</span>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1 flex-wrap">
-                  <span className="text-[13px] font-bold text-[#191F28]">{pi.persona}</span>
+                  <span className="text-[15px] font-bold text-[#191F28]">{pi.persona}</span>
                   <span
-                    className={`text-[11px] font-bold px-2 py-[2px] rounded-[6px] ${getImpactColor(
+                    className={`text-[13px] font-bold px-2 py-[2px] rounded-[6px] ${getImpactColor(
                       pi.impact
                     )}`}
                   >
                     {getImpactLabel(pi.impact)}
                   </span>
                 </div>
-                <p className="text-[12px] text-[#4A5568] leading-[1.6]">{pi.reason}</p>
+                <p className="text-[14px] text-[#4A5568] leading-[1.6]">{pi.reason}</p>
               </div>
             </div>
           ))}
@@ -231,7 +231,7 @@ export default function IssuePage() {
       {/* Section 5: 연관 혜택 */}
       {issue.relatedBenefits.length > 0 && (
         <section className="bg-white mt-2 px-5 pt-5 pb-5">
-          <p className="text-[13px] font-semibold text-[#8B95A1] tracking-[0.3px] mb-3">
+          <p className="text-[15px] font-semibold text-[#8B95A1] tracking-[0.3px] mb-3">
             연관된 혜택도 확인하세요
           </p>
           <div className="flex flex-col gap-2">
@@ -245,7 +245,7 @@ export default function IssuePage() {
               >
                 <div className="flex items-center gap-2">
                   <span
-                    className={`text-[11px] font-bold px-2 py-[2px] rounded-[6px] ${getCategoryColor(
+                    className={`text-[13px] font-bold px-2 py-[2px] rounded-[6px] ${getCategoryColor(
                       benefit.category
                     )}`}
                   >

@@ -10,7 +10,7 @@ export default function Header() {
           <span className="text-[20px] font-bold text-[#00B2C0] tracking-tight">
             청년이슈 픽
           </span>
-          <span className="text-[11px] font-bold bg-[#EDE9FF] text-[#7248F2] px-1.5 py-0.5 rounded-[6px]">
+          <span className="text-[13px] font-bold bg-[#EDE9FF] text-[#7248F2] px-1.5 py-0.5 rounded-[6px]">
             BETA
           </span>
         </Link>
