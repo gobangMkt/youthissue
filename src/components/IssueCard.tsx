@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import { Issue } from '@/types';
 import { getCategoryColor, getCategoryFeaturedBg, getRankChangeDisplay } from '@/lib/utils';
@@ -9,12 +10,6 @@ interface Props {
   featured?: boolean;
 }
 
-/**
- * 고방 디자인 시스템 적용
- * - featured: 컴팩트한 강조 카드 (세로 영역 최소화)
- * - 기본: 심플한 리스트 아이템
- * - 카테고리 뱃지는 중립 회색으로 통일
- */
 function RankChangeBadge({ issue }: { issue: Issue }) {
   if (issue.isNew) {
     return (
@@ -27,14 +22,31 @@ function RankChangeBadge({ issue }: { issue: Issue }) {
   return <span className={`text-[11px] font-semibold ${color}`}>{text}</span>;
 }
 
+function Spinner() {
+  return (
+    <div className="absolute inset-0 flex items-center justify-center rounded-[10px] bg-white/30">
+      <div className="w-4 h-4 border-2 border-[#00B2C0] border-t-transparent rounded-full animate-spin" />
+    </div>
+  );
+}
+
 export default function IssueCard({ issue, featured = false }: Props) {
+  const [isNavigating, setIsNavigating] = useState(false);
   const pressCount = issue.sources.length;
+
+  const handleClick = () => setIsNavigating(true);
 
   if (featured) {
     return (
-      <Link href={`/issue/${issue.id}`} className="block">
-        <div className={`flex items-center gap-3 py-4 px-3 -mx-3 rounded-[10px] transition-colors cursor-pointer ${getCategoryFeaturedBg(issue.category)}`}>
-          {/* 랭크 숫자 */}
+      <Link
+        href={`/issue/${issue.id}`}
+        className="block transition-transform duration-100 active:scale-[0.97]"
+        onClick={handleClick}
+      >
+        <div
+          className={`relative flex items-center gap-3 py-4 px-3 -mx-3 rounded-[10px] transition-all duration-100 cursor-pointer ${getCategoryFeaturedBg(issue.category)} ${isNavigating ? 'opacity-60' : ''}`}
+        >
+          {isNavigating && <Spinner />}
           <div className="w-7 text-center shrink-0">
             <span className="text-[22px] font-black text-[#191F28] leading-none">
               {issue.rank}
@@ -64,8 +76,15 @@ export default function IssueCard({ issue, featured = false }: Props) {
   }
 
   return (
-    <Link href={`/issue/${issue.id}`} className="block">
-      <div className="flex items-start gap-3 py-3 px-1 hover:bg-[#F2F4F6] rounded-[10px] transition-colors cursor-pointer">
+    <Link
+      href={`/issue/${issue.id}`}
+      className="block transition-transform duration-100 active:scale-[0.98]"
+      onClick={handleClick}
+    >
+      <div
+        className={`relative flex items-start gap-3 py-3 px-1 hover:bg-[#F2F4F6] rounded-[10px] transition-colors cursor-pointer ${isNavigating ? 'opacity-60 bg-[#F2F4F6]' : ''}`}
+      >
+        {isNavigating && <Spinner />}
         <div className="w-7 text-center shrink-0 pt-[2px]">
           <span className="text-[18px] font-bold text-[#8B95A1] leading-none">
             {issue.rank}
