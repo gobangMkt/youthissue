@@ -12,7 +12,6 @@ import {
   getImpactLabel,
 } from '@/lib/utils';
 
-// 영향도 판단 기준 (4대 축)
 const CRITERIA_INFO = [
   { label: '🎂 나이', value: '만 19세 ~ 39세 (정책별 상이)' },
   { label: '💰 소득', value: '기준 중위소득 대비 % (60·80·100·120·140%)' },
@@ -28,13 +27,6 @@ const PERSONAS_DESC: Record<string, string> = {
   '직장인': '중위소득 100~140% 재직 청년',
 };
 
-/**
- * 고방 디자인 시스템 적용:
- * - 회색 페이지 배경 + 흰색 섹션 카드 (8px 갭)
- * - 테일 primary (#00B2C0)
- * - 출처는 본문 내 작은 인라인 칩으로 축소 (토스피드 스타일)
- * - Bottom Fixed CTA: 10px radius 테일 버튼
- */
 export default function IssuePage() {
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
@@ -45,10 +37,10 @@ export default function IssuePage() {
   if (!issue) {
     return (
       <main className="max-w-[480px] mx-auto min-h-screen">
-        <section className="bg-white px-5 py-20 text-center text-[#8B95A1] text-[14px]">
+        <section className="bg-white px-4 py-20 text-center text-[#8D9399] text-[14px]">
           이슈를 찾을 수 없습니다.
           <br />
-          <Link href="/" className="text-[#00B2C0] font-semibold mt-4 inline-block">
+          <Link href="/" className="text-[#25B9B9] font-medium mt-4 inline-block">
             홈으로
           </Link>
         </section>
@@ -59,34 +51,34 @@ export default function IssuePage() {
   return (
     <main className="max-w-[480px] mx-auto min-h-screen pb-8">
       {/* Section 0: 상단 뒤로가기 */}
-      <div className="sticky top-14 z-40 bg-white border-b border-[#F2F4F6] px-5 h-12 flex items-center">
+      <div className="sticky top-14 z-40 bg-white border-b border-[#ECEFF2] px-4 h-12 flex items-center">
         <button
           onClick={() => router.back()}
-          className="text-[#4E5968] hover:text-[#191F28] text-[14px] font-semibold flex items-center gap-1"
+          className="text-[#555B61] hover:text-[#161B30] text-[14px] font-medium flex items-center gap-1"
         >
           ← 뒤로
         </button>
       </div>
 
-      {/* Section 1: 헤더 (제목/카테고리/태그) */}
-      <section className="bg-white px-5 pt-5 pb-5">
+      {/* Section 1: 헤더 */}
+      <section className="bg-white px-4 pt-5 pb-5">
         <div className="flex items-center gap-2 mb-2 flex-wrap">
           <span
-            className={`text-[13px] font-bold px-2 py-[2px] rounded-[6px] ${getCategoryColor(
+            className={`text-[12px] font-medium px-1.5 py-[2px] rounded-[4px] ${getCategoryColor(
               issue.category
             )}`}
           >
             {issue.category}
           </span>
-          <span className="text-[14px] text-[#8B95A1]">언론사 {issue.sources.length}곳 보도</span>
-          <span className="text-[14px] text-[#B0B8C1]">·</span>
-          <span className="text-[14px] text-[#8B95A1]">{issue.updatedAt} 기준</span>
+          <span className="text-[13px] text-[#8D9399]">언론사 {issue.sources.length}곳 보도</span>
+          <span className="text-[13px] text-[#B1B6BC]">·</span>
+          <span className="text-[13px] text-[#8D9399]">{issue.updatedAt} 기준</span>
         </div>
-        <h1 className="text-[20px] font-bold text-[#191F28] leading-[1.35]">{issue.title}</h1>
+        <h1 className="text-[20px] font-bold text-[#161B30] leading-[1.5]">{issue.title}</h1>
         {issue.tags.length > 0 && (
           <div className="flex flex-wrap gap-1 mt-2">
             {issue.tags.map((tag) => (
-              <span key={tag} className="text-[14px] text-[#8B95A1]">
+              <span key={tag} className="text-[13px] text-[#8D9399]">
                 {tag}
               </span>
             ))}
@@ -95,34 +87,33 @@ export default function IssuePage() {
       </section>
 
       {/* Section 2: 3줄 요약 */}
-      <section className="bg-white mt-2 px-5 pt-5 pb-5">
-        <p className="text-[15px] font-semibold text-[#8B95A1] tracking-[0.3px] mb-3">
+      <section className="bg-white mt-2 px-4 pt-5 pb-5">
+        <p className="text-[14px] font-medium text-[#8D9399] mb-3">
           어떤 일이 일어났나요?
         </p>
-        <div className="bg-[#E0F8FA] border-[1.5px] border-[#A8E6EC] rounded-[10px] p-4 space-y-2.5">
+        <div className="bg-[#E9F8F8] rounded-[12px] p-4 space-y-2.5">
           {issue.summary.map((line, i) => (
             <div key={i} className="flex gap-2.5">
-              <span className="text-[#00B2C0] font-bold text-[14px] shrink-0 mt-0.5">
+              <span className="text-[#25B9B9] font-bold text-[14px] shrink-0 mt-0.5">
                 {i + 1}
               </span>
-              <p className="text-[14px] text-[#4A5568] leading-[1.6]">{line}</p>
+              <p className="text-[14px] text-[#555B61] leading-[1.6]">{line}</p>
             </div>
           ))}
         </div>
-        {/* 출처 버튼 (토스 스타일 — 누르면 바텀시트) */}
         {issue.sources.length > 0 && (
           <button
             onClick={() => setShowSources(true)}
-            className="mt-3 flex items-center gap-2 text-[14px] font-semibold text-[#4E5968] hover:text-[#00B2C0] bg-[#F2F4F6] hover:bg-[#E0F8FA] px-3 py-2 rounded-[8px] transition-colors"
+            className="mt-3 inline-flex items-center gap-2 text-[14px] font-medium text-[#555B61] hover:text-[#25B9B9] bg-[#F5F6F7] hover:bg-[#E9F8F8] px-3 py-2 rounded-[8px] transition-colors"
           >
             <span>📰</span>
             <span>출처 {issue.sources.length}곳 보기</span>
-            <span className="text-[#B0B8C1]">→</span>
+            <span className="text-[#B1B6BC]">→</span>
           </button>
         )}
       </section>
 
-      {/* Section 3: 체크포인트 (기사에 명시되지 않음 항목은 필터링) */}
+      {/* Section 3: 체크포인트 */}
       {(() => {
         const validCheckpoints = issue.checkpoints.filter(
           (cp) =>
@@ -130,23 +121,23 @@ export default function IssuePage() {
         );
         if (validCheckpoints.length === 0) return null;
         return (
-          <section className="bg-white mt-2 px-5 pt-5 pb-5">
+          <section className="bg-white mt-2 px-4 pt-5 pb-5">
             <div className="flex items-center justify-between mb-3">
-              <p className="text-[15px] font-semibold text-[#8B95A1] tracking-[0.3px]">
+              <p className="text-[14px] font-medium text-[#8D9399]">
                 체크할 포인트
               </p>
-              <p className="text-[13px] text-[#B0B8C1]">기사에 나온 실제 수치·조건</p>
+              <p className="text-[12px] text-[#B1B6BC]">기사에 나온 실제 수치·조건</p>
             </div>
-            <div className="border-[1.5px] border-[#E5E8EB] rounded-[10px] overflow-hidden">
+            <div className="border border-[#E2E6EB] rounded-[12px] overflow-hidden">
               {validCheckpoints.map((cp, i) => (
                 <div
                   key={i}
                   className={`flex items-center justify-between px-4 py-3 ${
-                    i !== validCheckpoints.length - 1 ? 'border-b border-[#F2F4F6]' : ''
+                    i !== validCheckpoints.length - 1 ? 'border-b border-[#ECEFF2]' : ''
                   }`}
                 >
-                  <span className="text-[15px] text-[#8B95A1] font-medium">{cp.label}</span>
-                  <span className="text-[15px] font-bold text-[#191F28] text-right ml-4 max-w-[55%]">
+                  <span className="text-[15px] text-[#8D9399]">{cp.label}</span>
+                  <span className="text-[15px] font-bold text-[#161B30] text-right ml-4 max-w-[55%]">
                     {cp.value}
                   </span>
                 </div>
@@ -157,47 +148,46 @@ export default function IssuePage() {
       })()}
 
       {/* Section 4: 영향도 대시보드 */}
-      <section className="bg-white mt-2 px-5 pt-5 pb-5">
+      <section className="bg-white mt-2 px-4 pt-5 pb-5">
         <div className="flex items-center justify-between mb-3">
-          <p className="text-[15px] font-semibold text-[#8B95A1] tracking-[0.3px]">
+          <p className="text-[14px] font-medium text-[#8D9399]">
             나에게도 좋을까요?
           </p>
           <button
             onClick={() => setShowCriteria((v) => !v)}
-            className="text-[14px] text-[#00B2C0] hover:text-[#009AAA] font-semibold"
+            className="text-[14px] text-[#25B9B9] hover:text-[#20A6A6] font-medium"
           >
             {showCriteria ? '기준 닫기 ▲' : '판단 기준 ▼'}
           </button>
         </div>
 
-        {/* 기준 공개 패널 */}
         {showCriteria && (
-          <div className="mb-3 bg-[#E0F8FA] border-[1.5px] border-[#A8E6EC] rounded-[10px] p-4">
-            <p className="text-[15px] font-bold text-[#1A7A85] mb-2">
+          <div className="mb-3 bg-[#E9F8F8] rounded-[12px] p-4">
+            <p className="text-[15px] font-bold text-[#20A6A6] mb-2">
               📐 영향도 판단 기준 (4대 축)
             </p>
             <div className="space-y-1.5 mb-3">
               {CRITERIA_INFO.map((c) => (
                 <div key={c.label} className="flex items-start gap-2">
-                  <span className="text-[14px] font-semibold text-[#1A7A85] shrink-0 w-[72px]">
+                  <span className="text-[14px] font-medium text-[#20A6A6] shrink-0 w-[72px]">
                     {c.label}
                   </span>
-                  <span className="text-[14px] text-[#4A5568]">{c.value}</span>
+                  <span className="text-[14px] text-[#555B61]">{c.value}</span>
                 </div>
               ))}
             </div>
-            <p className="text-[15px] font-bold text-[#1A7A85] mb-1.5">👥 분석 대상 페르소나</p>
+            <p className="text-[15px] font-bold text-[#20A6A6] mb-1.5">👥 분석 대상 페르소나</p>
             <div className="space-y-1">
               {Object.entries(PERSONAS_DESC).map(([persona, desc]) => (
                 <div key={persona} className="flex items-start gap-2">
-                  <span className="text-[14px] font-semibold text-[#1A7A85] shrink-0 w-[72px]">
+                  <span className="text-[14px] font-medium text-[#20A6A6] shrink-0 w-[72px]">
                     {persona}
                   </span>
-                  <span className="text-[14px] text-[#4A5568]">{desc}</span>
+                  <span className="text-[14px] text-[#555B61]">{desc}</span>
                 </div>
               ))}
             </div>
-            <p className="text-[13px] text-[#8B95A1] mt-2.5 leading-[1.6]">
+            <p className="text-[13px] text-[#8D9399] mt-2.5 leading-[1.6]">
               기사 본문에서 소득·자산 수치를 추출하여 각 페르소나와 대조 후 유불리를 추론합니다.
             </p>
           </div>
@@ -207,21 +197,21 @@ export default function IssuePage() {
           {issue.personaImpacts.map((pi) => (
             <div
               key={pi.persona}
-              className="flex items-start gap-3 bg-[#F2F4F6] rounded-[10px] p-3"
+              className="flex items-start gap-3 bg-[#F5F6F7] rounded-[12px] p-3"
             >
               <span className="text-[18px] shrink-0">{getImpactIcon(pi.impact)}</span>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1 flex-wrap">
-                  <span className="text-[15px] font-bold text-[#191F28]">{pi.persona}</span>
+                  <span className="text-[15px] font-bold text-[#161B30]">{pi.persona}</span>
                   <span
-                    className={`text-[13px] font-bold px-2 py-[2px] rounded-[6px] ${getImpactColor(
+                    className={`text-[12px] font-medium px-1.5 py-[2px] rounded-[4px] ${getImpactColor(
                       pi.impact
                     )}`}
                   >
                     {getImpactLabel(pi.impact)}
                   </span>
                 </div>
-                <p className="text-[14px] text-[#4A5568] leading-[1.6]">{pi.reason}</p>
+                <p className="text-[14px] text-[#555B61] leading-[1.6]">{pi.reason}</p>
               </div>
             </div>
           ))}
@@ -230,8 +220,8 @@ export default function IssuePage() {
 
       {/* Section 5: 연관 혜택 */}
       {issue.relatedBenefits.length > 0 && (
-        <section className="bg-white mt-2 px-5 pt-5 pb-5">
-          <p className="text-[15px] font-semibold text-[#8B95A1] tracking-[0.3px] mb-3">
+        <section className="bg-white mt-2 px-4 pt-5 pb-5">
+          <p className="text-[14px] font-medium text-[#8D9399] mb-3">
             연관된 혜택도 확인하세요
           </p>
           <div className="flex flex-col gap-2">
@@ -241,26 +231,25 @@ export default function IssuePage() {
                 href={benefit.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between border-[1.5px] border-[#E5E8EB] hover:border-[#00B2C0] rounded-[10px] px-4 py-3 transition-colors"
+                className="flex items-center justify-between border border-[#E2E6EB] hover:border-[#25B9B9] rounded-[12px] px-4 py-3 transition-colors"
               >
                 <div className="flex items-center gap-2">
                   <span
-                    className={`text-[13px] font-bold px-2 py-[2px] rounded-[6px] ${getCategoryColor(
+                    className={`text-[12px] font-medium px-1.5 py-[2px] rounded-[4px] ${getCategoryColor(
                       benefit.category
                     )}`}
                   >
                     {benefit.category}
                   </span>
-                  <span className="text-[14px] font-semibold text-[#191F28]">{benefit.title}</span>
+                  <span className="text-[14px] font-medium text-[#161B30]">{benefit.title}</span>
                 </div>
-                <span className="text-[#8B95A1] text-[14px]">→</span>
+                <span className="text-[#8D9399] text-[14px]">→</span>
               </a>
             ))}
           </div>
         </section>
       )}
 
-      {/* Source Bottom Sheet */}
       <SourceSheet
         open={showSources}
         onClose={() => setShowSources(false)}

@@ -12,7 +12,6 @@ export default function PushBanner() {
   const [visible, setVisible] = useState(true);
   const [msg, setMsg] = useState(messages[0]);
 
-  // 클라이언트에서만 랜덤 선택 (hydration mismatch 방지)
   useEffect(() => {
     setMsg(messages[Math.floor(Math.random() * messages.length)]);
   }, []);
@@ -20,12 +19,12 @@ export default function PushBanner() {
   if (!visible) return null;
 
   return (
-    <div className="bg-[#E0F8FA] border-[1.5px] border-[#A8E6EC] rounded-[10px] px-4 py-[14px] flex items-start gap-3">
+    <div className="bg-[#E9F8F8] rounded-[12px] px-4 py-[14px] flex items-start gap-3">
       <span className="text-xl shrink-0">🔔</span>
-      <p className="text-[14px] text-[#4A5568] leading-[1.6] flex-1">{msg}</p>
+      <p className="text-[14px] text-[#555B61] leading-[1.6] flex-1">{msg}</p>
       <button
         onClick={() => setVisible(false)}
-        className="text-[#8B95A1] hover:text-[#191F28] shrink-0 text-lg leading-none"
+        className="text-[#8D9399] hover:text-[#161B30] shrink-0 text-lg leading-none"
         aria-label="알림 닫기"
       >
         ×

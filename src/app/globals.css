@@ -1,90 +1,102 @@
-@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css');
+@import url(https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
 @import "tailwindcss";
 
 /* ============================================
-   🎨 고방(Gobang) 디자인 토큰 (Tailwind v4 @theme)
-   - 테일(#00B2C0) = 유일한 primary
-   - 회색 페이지 BG + 흰 섹션 카드 (8px 갭)
-   - Pretendard 폰트
+   🎨 Mint Design System (Gobang_Design.md 기반)
+   - Mint80 (#25B9B9) = 단일 브랜드 voltage
+   - Gray10 페이지 floor + White card surface
+   - Spoqa Han Sans Neo
    ============================================ */
 
 @theme {
   /* Background & Surface */
-  --color-page-bg:        #F2F4F6;  /* 페이지 배경 (섹션 갭) */
-  --color-surface:        #FFFFFF;  /* 섹션 카드 */
-  --color-elevated:       #E0F8FA;  /* 공지/요약 카드 */
-  --color-selected:       #E8F9FB;  /* 선택된 카드 */
+  --color-page-bg:        #F5F6F7;  /* bg-base · Gray10 */
+  --color-surface:        #FFFFFF;  /* bg-group · 카드 표면 */
+  --color-elevated:       #E9F8F8;  /* mint-20 · 인사이트/요약 */
+  --color-selected:       #DBF3F3;  /* mint-30 · 선택된 행 */
 
-  /* Primary — Teal (유일한 액션 컬러) */
-  --color-teal:           #00B2C0;
-  --color-teal-hover:     #009AAA;
-  --color-teal-dark:      #1A7A85;
-  --color-teal-light:     #E0F8FA;
-  --color-teal-border:    #A8E6EC;
+  /* Primary — Mint */
+  --color-mint-100:       #068F8F;
+  --color-mint-90:        #20A6A6;  /* pressed · text-brand */
+  --color-mint-80:        #25B9B9;  /* primary CTA · 액티브 */
+  --color-mint-70:        #51C7C7;
+  --color-mint-50:        #A8E3E3;  /* 보조 보더 */
+  --color-mint-40:        #BDEAEA;  /* disabled CTA */
+  --color-mint-30:        #DBF3F3;
+  --color-mint-20:        #E9F8F8;  /* tinted bg */
+  --color-mint-10:        #F4FBFB;
 
-  /* Beta / AI (한정 사용) */
-  --color-beta:           #7248F2;
-  --color-beta-light:     #EDE9FF;
+  /* (호환) 기존 teal 변수 유지 → mint 매핑 */
+  --color-teal:           #25B9B9;
+  --color-teal-hover:     #20A6A6;
+  --color-teal-dark:      #20A6A6;
+  --color-teal-light:     #E9F8F8;
+  --color-teal-border:    #A8E3E3;
 
-  /* Text */
-  --color-text-primary:   #191F28;
-  --color-text-secondary: #8B95A1;
-  --color-text-body:      #4A5568;
-  --color-text-muted:     #B0B8C1;
+  /* Beta / 보조 (Purple) */
+  --color-beta:           #7233F8;
+  --color-beta-light:     #E5D9FE;
+
+  /* Text — Gray ramp */
+  --color-text-primary:   #161B30;  /* Gray100 */
+  --color-text-secondary: #8D9399;  /* Gray60 — meta */
+  --color-text-body:      #555B61;  /* Gray80 — 본문 */
+  --color-text-muted:     #B1B6BC;  /* Gray50 */
 
   /* Status */
-  --color-valid:          #00C73C;
-  --color-valid-bg:       #E8FBF0;
-  --color-error:          #F04452;
-  --color-error-bg:       #FFF0F2;
-  --color-urgent:         #D92B2B;
+  --color-valid:          #2DB44A;  /* green-90 */
+  --color-valid-bg:       #E8F7EB;  /* green-10 */
+  --color-error:          #FF513E;  /* red-90 */
+  --color-error-bg:       #FFF2F0;  /* red-10 */
+  --color-urgent:         #EC3B28;  /* red-100 */
 
   /* Border */
-  --color-border:         #E5E8EB;
-  --color-border-teal:    #A8E6EC;
-  --color-border-focus:   #00B2C0;
-  --color-border-header:  #F2F4F6;
+  --color-border:         #E2E6EB;  /* Gray30 */
+  --color-divider:        #ECEFF2;  /* Gray20 */
+  --color-border-teal:    #A8E3E3;
+  --color-border-focus:   #25B9B9;
+  --color-border-header:  #ECEFF2;
 
   /* Button States */
-  --color-disabled-bg:    #E5E8EB;
-  --color-disabled-text:  #B0B8C1;
-  --color-cancel-bg:      #F2F4F6;
-  --color-cancel-text:    #4E5968;
+  --color-disabled-bg:    #E2E6EB;
+  --color-disabled-text:  #B1B6BC;
+  --color-cancel-bg:      #F5F6F7;
+  --color-cancel-text:    #555B61;
 
-  /* Impact Colors (페르소나 영향도 — 테일/레드/그린 조합) */
-  --color-impact-vp:      #00C73C;
-  --color-impact-p:       #E8FBF0;
-  --color-impact-p-fg:    #00A030;
-  --color-impact-n:       #FFF0F2;
-  --color-impact-n-fg:    #D92B2B;
-  --color-impact-vn:      #F04452;
+  /* Impact Colors */
+  --color-impact-vp:      #2DB44A;   /* green-90 */
+  --color-impact-p:       #E8F7EB;   /* green-10 */
+  --color-impact-p-fg:    #1EA93C;   /* green-100 */
+  --color-impact-n:       #FFF2F0;   /* red-10 */
+  --color-impact-n-fg:    #EC3B28;   /* red-100 */
+  --color-impact-vn:      #FF513E;   /* red-90 */
 
-  /* Category Colors (톤 다운) */
-  --color-cat-housing-bg:  #E0F8FA;
-  --color-cat-housing-fg:  #1A7A85;
-  --color-cat-finance-bg:  #E8FBF0;
-  --color-cat-finance-fg:  #00A030;
-  --color-cat-job-bg:      #FFF4E0;
-  --color-cat-job-fg:      #B86300;
-  --color-cat-welfare-bg:  #EDE9FF;
-  --color-cat-welfare-fg:  #5B35C7;
-  --color-cat-edu-bg:      #FFF0F2;
-  --color-cat-edu-fg:      #D92B2B;
+  /* Category — Mint Design 팔레트 톤다운 */
+  --color-cat-housing-bg:  #E9F6FA;  /* skyblue-10 */
+  --color-cat-housing-fg:  #0098D4;  /* skyblue-100 */
+  --color-cat-finance-bg:  #E8F7EB;  /* green-10 */
+  --color-cat-finance-fg:  #1EA93C;  /* green-100 */
+  --color-cat-job-bg:      #FCF1E8;  /* orange-10 */
+  --color-cat-job-fg:      #EF6E0E;  /* orange-100 */
+  --color-cat-welfare-bg:  #F3EDFE;  /* purple-10 */
+  --color-cat-welfare-fg:  #5200CC;  /* purple-100 */
+  --color-cat-edu-bg:      #FFF2F0;  /* red-10 */
+  --color-cat-edu-fg:      #EC3B28;  /* red-100 */
 
-  /* Radius */
-  --radius-input:    0.625rem;  /* 10px */
-  --radius-button:   0.625rem;  /* 10px */
-  --radius-card:     0.75rem;   /* 12px */
-  --radius-modal:    1.25rem;   /* 20px */
-  --radius-badge:    0.375rem;  /* 6px */
-  --radius-chip:     9999px;    /* 원형 뱃지 */
+  /* Radius — Mint Design */
+  --radius-input:    0.5rem;    /* 8px · sm */
+  --radius-button:   0.5rem;    /* 8px · sm */
+  --radius-card:     0.75rem;   /* 12px · md */
+  --radius-modal:    1rem;      /* 16px · lg */
+  --radius-badge:    0.25rem;   /* 4px · xs */
+  --radius-chip:     9999px;    /* full pill */
 
   /* Spacing */
-  --spacing-section-gap: 0.5rem;   /* 8px — 섹션 간 회색 갭 */
-  --spacing-section-pad: 1.25rem;  /* 20px — 섹션 내부 패딩 */
+  --spacing-section-gap: 0.5rem;
+  --spacing-section-pad: 1rem;
 
-  /* Font */
-  --font-sans: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  /* Font — Spoqa Han Sans Neo */
+  --font-sans: 'Spoqa Han Sans Neo', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 /* ============================================
@@ -95,6 +107,7 @@ html, body {
   background: var(--color-page-bg);
   color: var(--color-text-primary);
   font-family: var(--font-sans);
+  letter-spacing: -0.15px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

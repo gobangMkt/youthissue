@@ -2,7 +2,6 @@ import { Category, ImpactLevel, Issue } from '@/types';
 
 /**
  * 이슈의 "혜택 점수" 계산
- * 페르소나별 영향도를 숫자로 환산한 합계 (높을수록 더 많은 청년에게 유리한 정책)
  *   매우긍정 = +2, 긍정 = +1, 해당없음 = 0, 부정 = -1, 매우부정 = -2
  */
 export function getBenefitScore(issue: Issue): number {
@@ -19,33 +18,40 @@ export function getBenefitScore(issue: Issue): number {
   );
 }
 
+/**
+ * Mint Design — 카테고리 칩
+ * Skyblue / Green / Orange / Purple / Red 팔레트의 -10 / -100 단계 사용
+ */
 export function getCategoryColor(category: Category): string {
   const map: Record<Category, string> = {
-    '주거': 'bg-[#EBF5FF] text-[#2563EB]',
-    '금융': 'bg-[#ECFDF5] text-[#059669]',
-    '취업': 'bg-[#FFF7ED] text-[#D97706]',
-    '복지': 'bg-[#F5F3FF] text-[#7C3AED]',
-    '교육': 'bg-[#E0F8FA] text-[#00909D]',
+    '주거': 'bg-[#E9F6FA] text-[#0098D4]',
+    '금융': 'bg-[#E8F7EB] text-[#1EA93C]',
+    '취업': 'bg-[#FCF1E8] text-[#EF6E0E]',
+    '복지': 'bg-[#F3EDFE] text-[#5200CC]',
+    '교육': 'bg-[#FFF2F0] text-[#EC3B28]',
   };
-  return map[category] ?? 'bg-[#F2F4F6] text-[#4E5968]';
+  return map[category] ?? 'bg-[#F5F6F7] text-[#555B61]';
 }
 
+/**
+ * featured 카드 배경(은은한 wash) — 동일 팔레트 -10 / -20 단계
+ */
 export function getCategoryFeaturedBg(category: Category): string {
   const map: Record<Category, string> = {
-    '주거': 'bg-[#F0F7FF] hover:bg-[#E3F0FF]',
-    '금융': 'bg-[#F0FDF6] hover:bg-[#E3FAF0]',
-    '취업': 'bg-[#FFFBF0] hover:bg-[#FFF5DC]',
-    '복지': 'bg-[#FAF5FF] hover:bg-[#F3EAFF]',
-    '교육': 'bg-[#F5FCFD] hover:bg-[#EAF9FB]',
+    '주거': 'bg-[#E9F6FA] hover:bg-[#CAEEFA]',
+    '금융': 'bg-[#E8F7EB] hover:bg-[#D3EFDA]',
+    '취업': 'bg-[#FCF1E8] hover:bg-[#FCEADC]',
+    '복지': 'bg-[#F3EDFE] hover:bg-[#E5D9FE]',
+    '교육': 'bg-[#FFF2F0] hover:bg-[#FFEEEC]',
   };
-  return map[category] ?? 'bg-[#F5FCFD] hover:bg-[#EAF9FB]';
+  return map[category] ?? 'bg-[#F4FBFB] hover:bg-[#E9F8F8]';
 }
 
 export function getRankColor(rank: number): string {
-  if (rank === 1) return 'text-[#F5A623]';
-  if (rank === 2) return 'text-[#94A3B8]';
-  if (rank === 3) return 'text-[#CD7F32]';
-  return 'text-[#8B95A1]';
+  if (rank === 1) return 'text-[#F7AC00]';
+  if (rank === 2) return 'text-[#B1B6BC]';
+  if (rank === 3) return 'text-[#EF6E0E]';
+  return 'text-[#8D9399]';
 }
 
 export function getImpactLabel(impact: ImpactLevel): string {
@@ -60,15 +66,15 @@ export function getImpactLabel(impact: ImpactLevel): string {
 }
 
 /**
- * 영향도 뱃지 컬러 (고방 스타일: 그린/레드 + 톤 다운)
+ * 영향도 뱃지 컬러 (Mint Design Green / Red 톤)
  */
 export function getImpactColor(impact: ImpactLevel): string {
   const map: Record<ImpactLevel, string> = {
-    very_positive: 'bg-[#00C73C] text-white',
-    positive: 'bg-[#E8FBF0] text-[#00A030]',
-    neutral: 'bg-[#F2F4F6] text-[#8B95A1]',
-    negative: 'bg-[#FFF0F2] text-[#D92B2B]',
-    very_negative: 'bg-[#F04452] text-white',
+    very_positive: 'bg-[#2DB44A] text-white',
+    positive: 'bg-[#E8F7EB] text-[#1EA93C]',
+    neutral: 'bg-[#F5F6F7] text-[#8D9399]',
+    negative: 'bg-[#FFF2F0] text-[#EC3B28]',
+    very_negative: 'bg-[#FF513E] text-white',
   };
   return map[impact];
 }
@@ -85,7 +91,7 @@ export function getImpactIcon(impact: ImpactLevel): string {
 }
 
 export function getRankChangeDisplay(change: number): { text: string; color: string } {
-  if (change > 0) return { text: `▲${change}`, color: 'text-[#D92B2B]' };
-  if (change < 0) return { text: `▼${Math.abs(change)}`, color: 'text-[#00B2C0]' };
-  return { text: '―', color: 'text-[#B0B8C1]' };
+  if (change > 0) return { text: `▲${change}`, color: 'text-[#EC3B28]' };
+  if (change < 0) return { text: `▼${Math.abs(change)}`, color: 'text-[#25B9B9]' };
+  return { text: '―', color: 'text-[#B1B6BC]' };
 }
