@@ -6,22 +6,26 @@ interface Props {
   issues: Issue[];
 }
 
-function getSummary(
-  sorted: [string, number][],
-  totalIssues: number
-): string {
+function SummaryText({ sorted, totalIssues }: { sorted: [string, number][]; totalIssues: number }) {
   const [topPersona, topCount] = sorted[0];
-  const [secondPersona, secondCount] = sorted[1];
-  const gap = topCount - secondCount;
+  const [secondPersona] = sorted[1];
+  const gap = topCount - sorted[1][1];
   const ratio = topCount / totalIssues;
 
+  const hl = (text: string) => (
+    <span className="text-[#25B9B9] font-bold">{text}</span>
+  );
+  const em = (text: string) => (
+    <span className="font-bold text-[#161B30]">{text}</span>
+  );
+
   if (ratio >= 0.7)
-    return `이번 주는 ${topPersona} 관련 이슈가 압도적으로 많아요. 해당된다면 놓치지 마세요.`;
+    return <p>이번 주는 {hl(topPersona)} 관련 이슈가 {em('압도적으로 많아요')}.</p>;
   if (gap <= 2)
-    return `이번 주는 ${topPersona}과 ${secondPersona}에게 혜택이 고르게 분산된 주예요.`;
+    return <p>{hl(topPersona)}과 {hl(secondPersona)}에게 혜택이 {em('고르게 분산된')} 주예요.</p>;
   if (gap >= 6)
-    return `이번 주는 특히 ${topPersona}에게 좋은 소식이 집중됐어요.`;
-  return `${topPersona}을 중심으로 다양한 혜택 이슈가 나온 한 주예요.`;
+    return <p>이번 주는 특히 {hl(topPersona)}에게 {em('좋은 소식이 집중')}됐어요.</p>;
+  return <p>{hl(topPersona)}을 중심으로 {em('다양한 혜택 이슈')}가 나온 한 주예요.</p>;
 }
 
 export default function InsightBanner({ issues }: Props) {
@@ -44,7 +48,6 @@ export default function InsightBanner({ issues }: Props) {
 
   const sorted = Object.entries(personaWins).sort((a, b) => b[1] - a[1]);
   const max = sorted[0][1];
-  const summary = getSummary(sorted, issues.length);
 
   return (
     <div className="bg-[#E9F8F8] rounded-[12px] px-4 py-4 space-y-3">
@@ -71,7 +74,9 @@ export default function InsightBanner({ issues }: Props) {
 
       {/* 분위기 요약 + 행동 유도 */}
       <div className="border-t border-[#C8EEEE] pt-3 space-y-1">
-        <p className="text-[13px] text-[#161B30] leading-[1.6]">{summary}</p>
+        <div className="text-[14px] leading-[1.6]">
+          <SummaryText sorted={sorted} totalIssues={issues.length} />
+        </div>
         <p className="text-[13px] text-[#8D9399]">해당 페르소나라면 아래 이슈 마감 전에 꼭 확인하세요.</p>
       </div>
     </div>
