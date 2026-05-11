@@ -35,19 +35,35 @@ export default function InsightBanner({ issues }: Props) {
   ).length;
 
   return (
-    <div className="bg-[#E9F8F8] rounded-[12px] p-5">
-      <div className="space-y-2">
-        <p className="text-[15px] text-[#20A6A6] leading-[1.6]">
-          특히{' '}
-          <span className="font-bold text-[#25B9B9]">{topPersona}</span>
-          <span className="font-medium">({topPersonaCount}건)</span>,{' '}
-          <span className="font-bold text-[#25B9B9]">{secondPersona}</span>
-          <span className="font-medium">({secondPersonaCount}건)</span>에게 유리한 이슈가 많아요.
-        </p>
-        <p className="text-[15px] text-[#20A6A6] leading-[1.6]">
-          <span className="font-bold text-[#25B9B9]">{actionableCount}개 이슈</span>는 신청 조건·금액이
-          구체적이니, 마감 놓치기 전에 꼭 확인해보세요.
-        </p>
+    <div className="bg-[#E9F8F8] rounded-[12px] p-5 space-y-4">
+      {/* 페르소나 stat */}
+      <div className="flex items-center gap-4">
+        <div className="shrink-0 w-16 text-right">
+          <span className="text-[32px] font-bold text-[#25B9B9] leading-none">{topPersonaCount}</span>
+          <span className="text-[14px] text-[#20A6A6] font-medium">건</span>
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="text-[15px] font-bold text-[#161B30] leading-snug">
+            <span className="text-[#25B9B9]">{topPersona}</span>에게 가장 유리해요
+          </p>
+          <p className="text-[13px] text-[#8D9399] mt-0.5">
+            2위 {secondPersona} {secondPersonaCount}건
+          </p>
+        </div>
+      </div>
+
+      <div className="border-t border-[#C8EEEE]" />
+
+      {/* 실행 가능 stat */}
+      <div className="flex items-center gap-4">
+        <div className="shrink-0 w-16 text-right">
+          <span className="text-[32px] font-bold text-[#25B9B9] leading-none">{actionableCount}</span>
+          <span className="text-[14px] text-[#20A6A6] font-medium">개</span>
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="text-[15px] font-bold text-[#161B30] leading-snug">신청 조건이 구체적이에요</p>
+          <p className="text-[13px] text-[#8D9399] mt-0.5">마감 놓치기 전에 꼭 확인해보세요</p>
+        </div>
       </div>
     </div>
   );
