@@ -35,35 +35,25 @@ export default function InsightBanner({ issues }: Props) {
   ).length;
 
   return (
-    <div className="bg-[#E9F8F8] rounded-[12px] p-5 space-y-4">
-      {/* 페르소나 stat */}
-      <div className="flex items-center gap-4">
-        <div className="shrink-0 w-16 text-right">
-          <span className="text-[32px] font-bold text-[#25B9B9] leading-none">{topPersonaCount}</span>
-          <span className="text-[14px] text-[#20A6A6] font-medium">건</span>
-        </div>
-        <div className="flex-1 min-w-0">
-          <p className="text-[15px] font-bold text-[#161B30] leading-snug">
-            <span className="text-[#25B9B9]">{topPersona}</span>에게 가장 유리해요
-          </p>
-          <p className="text-[13px] text-[#8D9399] mt-0.5">
-            2위 {secondPersona} {secondPersonaCount}건
-          </p>
-        </div>
+    <div className="bg-[#E9F8F8] rounded-[12px] p-4 space-y-3">
+      {/* 페르소나 2열 카드 */}
+      <div className="grid grid-cols-2 gap-2">
+        {([
+          [topPersona, topPersonaCount],
+          [secondPersona, secondPersonaCount],
+        ] as [string, number][]).map(([persona, count]) => (
+          <div key={persona} className="bg-white rounded-[10px] p-3 text-center">
+            <p className="text-[30px] font-bold text-[#25B9B9] leading-none">{count}</p>
+            <p className="text-[11px] text-[#8D9399] mt-0.5">유리한 이슈</p>
+            <p className="text-[13px] font-bold text-[#161B30] mt-1">{persona}</p>
+          </div>
+        ))}
       </div>
 
-      <div className="border-t border-[#C8EEEE]" />
-
-      {/* 실행 가능 stat */}
-      <div className="flex items-center gap-4">
-        <div className="shrink-0 w-16 text-right">
-          <span className="text-[32px] font-bold text-[#25B9B9] leading-none">{actionableCount}</span>
-          <span className="text-[14px] text-[#20A6A6] font-medium">개</span>
-        </div>
-        <div className="flex-1 min-w-0">
-          <p className="text-[15px] font-bold text-[#161B30] leading-snug">신청 조건이 구체적이에요</p>
-          <p className="text-[13px] text-[#8D9399] mt-0.5">마감 놓치기 전에 꼭 확인해보세요</p>
-        </div>
+      {/* 신청 가능 이슈 — 강조 바 */}
+      <div className="bg-[#25B9B9] rounded-[10px] px-4 py-3 flex items-center justify-between">
+        <p className="text-[14px] font-bold text-white">지금 신청 조건 있는 이슈</p>
+        <p className="text-[26px] font-bold text-white leading-none">{actionableCount}<span className="text-[14px] font-medium ml-0.5">개</span></p>
       </div>
     </div>
   );
